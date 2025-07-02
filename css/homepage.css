@@ -2,7 +2,7 @@ main.dashboard {
     margin-top: 80px;
     padding: 2rem;
     font-family: 'Poppins', sans-serif;
-    background-color: #ffff;
+    background-color: #f8f9fa;
 }
 
 .welcome {
@@ -10,18 +10,129 @@ main.dashboard {
     margin-bottom: 2rem;
 }
 
-.panel {
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    gap: 1.5rem;
+.panel.panel-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .card {
-    background-color: rgb(218, 212, 212);
-    padding: 1rem 1.5rem;
-    border-radius: 10px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    width: 3000px;
+    background-color: #e3dfdf;
+    padding: 3rem;
+    border-radius: 18px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.10);
+    min-width: 400px;
+    max-width: 100%;
+    min-height: 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
 }
-	
+
+.card h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1.2rem;
+    color: #444;
+    border-bottom: 2px solid #4a90e2;
+    padding-bottom: 0.6rem;
+    font-weight: 700;
+}
+
+.progress-bar-bg {
+    width: 100%;
+    height: 20px;
+    background: #f0f0f0;
+    border-radius: 10px;
+    margin-top: 10px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    overflow: hidden;
+}
+.progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #4a90e2 60%, #7ed957 100%);
+    border-radius: 10px 0 0 10px;
+    transition: width 0.5s;
+}
+
+.card-tasks ul, .card-classes ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.card-tasks li, .card-classes li {
+    padding: 6px 0;
+    color: #333;
+    border-bottom: 1px solid #e0e0e0;
+    font-size: 1.1rem;
+}
+.card-tasks li:last-child, .card-classes li:last-child {
+    border-bottom: none;
+}
+
+.card-messages .message {
+    background: #fff;
+    border-left: 4px solid #4a90e2;
+    margin-bottom: 10px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-size: 1rem;
+    color: #222;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+}
+
+/* Eliminar comportamiento de una sola columna en pantallas pequeñas */
+@media (max-width: 900px) {
+    .panel.panel-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .card {
+        padding: 2.5rem;
+        min-width: unset;
+        min-height: 220px;
+    }
+
+    .card h2 {
+        font-size: 1.6rem;
+        margin-bottom: 1rem;
+    }
+
+    .progress-bar-bg {
+        height: 18px;
+    }
+
+    .card p, .card ul {
+        font-size: 1.1rem;
+        line-height: 1.5;
+    }
+}
+
+@media (max-width: 600px) {
+    .panel.panel-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .card {
+        padding: 2rem;
+        min-width: unset;
+        min-height: 200px;
+    }
+
+    .card h2 {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .progress-bar-bg {
+        height: 15px;
+    }
+
+    .card p, .card ul {
+        font-size: 1rem;
+        line-height: 1.4;
+    }
+}
