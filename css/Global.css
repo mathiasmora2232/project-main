@@ -139,7 +139,7 @@ nav {
 }
 
 .notification {
-	width: calc(50% - 10px);
+	width: calc(100% - 10px);
 	box-sizing: border-box;
 	background: #e7e1e1;
 	border-radius: 15px;
