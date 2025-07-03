@@ -108,6 +108,11 @@ main.dashboard {
         font-size: 1.1rem;
         line-height: 1.5;
     }
+
+    .card-messages .message {
+        width: 100%;
+        margin-bottom: 1rem;
+    }
 }
 
 @media (max-width: 600px) {
