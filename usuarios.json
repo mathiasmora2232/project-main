@@ -1,10 +1,17 @@
 [
   {
     "email": "usuario1@ejemplo.com",
-    "password": "1234"
+    "password": "1234",
+    "rol": "user"
   },
   {
     "email": "usuario2@ejemplo.com",
-    "password": "abcd"
+    "password": "abcd",
+    "rol": "user"
+  },
+  {
+    "email": "admin@ejemplo.com",
+    "password": "adminpass",
+    "rol": "admin"
   }
 ]

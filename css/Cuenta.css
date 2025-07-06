@@ -1,0 +1,39 @@
+.container {
+    display: block;
+    padding: 120px;
+    margin-top: 56px;
+    background-color: #eaeadd;
+}
+
+.icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 32px auto 0 auto;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    position: relative;
+    top: 0;
+    bottom: auto;
+}
+
+.profile img {
+    width: 10PX auto;
+    height: 60px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    display: block;
+    margin: 0;
+    object-fit: cover;
+}
+
+.text p {
+    font-size: 1.2em;
+    background-color: #448ed3;
+    margin-top: 20px;
+    color: #914343;
+    background-color: #2233;
+    padding: 10px 20px;
+    border-radius: 8px;
+}
