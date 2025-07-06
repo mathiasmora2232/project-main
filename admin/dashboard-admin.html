@@ -1,8 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="es">
 <head>
-  <meta charset="UTF-8" />
+<meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Education</title>
@@ -10,29 +9,22 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@300&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/Global.css">
-    <link rel="stylesheet" href="css/materias.css">
-  
-  <title>bluemarket</title>
+    
+    <link rel="stylesheet" href="../css/Global.css">
+    <link rel="stylesheet" href="../css/admindasbord.css">
+    
 </head>
-
 <body>
-
-  </head>
-
-  <body>
-    <div id="main-container">
-      <header>
- <nav>
+    <header>
+   <nav>
   <div class="logo">Education</div>
 
   <ul class="nav-links">
-    <li><a href="Homepage.html">Pagina de Inicio</a></li>
-    <li><a href="Materias.html">Materias</a></li>
-    <li><a href="Malla.html">Malla</a></li>
-    <li><a href="Calendario.html">Calendario</a></li>
-    <li><a href="cuenta.html">Mi cuenta</a></li>
-    <li id="admin-link" style="display:none;"><a href="admin/dashboard-admin.html">Panel Admin</a></li>
+    <li><a href="../Homepage.html">Pagina de Inicio</a></li>
+    <li><a href="../Materias.html">Materias</a></li>
+    <li><a href="../Malla.html">Malla</a></li>
+    <li><a href="../Calendario.html">Calendario</a></li>
+    <li><a href="../cuenta.html">Mi cuenta</a></li>
   </ul>
 
   <!-- Botón de notificaciones separado -->
@@ -97,32 +89,46 @@
     <div class="line3"></div>
   </div>
 </nav>
-</header>
-<main class="materias">
-  <section class="materiascurso">
-    <div>
-      <h2>Materias cursando</h2>
-      <ul id="materias-list">
-        <!-- Las materias se cargarán dinámicamente aquí -->
-      </ul>
-    </div>
-  </section>
 
-</main>
+    </header>
 
+    <main class="dashboard">
+        <section class="welcome">
+            <h1>Bienvenido a tu plataforma educativa</h1>
+            <p>Consulta tus materias, tareas, notas y mensajes de tus profesores desde aquí.</p>
+        </section>
 
-<script src="app.js"></script>
-<script>
-// Mostrar el enlace de admin si el usuario es admin (usando localStorage)
-document.addEventListener('DOMContentLoaded', function() {
-  if (localStorage.getItem('rol') === 'admin') {
-    var adminLink = document.getElementById('admin-link');
-    if(adminLink) adminLink.style.display = 'inline-block';
-  } else {
-    var adminLink = document.getElementById('admin-link');
-    if(adminLink) adminLink.style.display = 'none';
-  }
-});
-</script>
-  </body>
-  </html>
+        <section class="admin-panel">
+          <h2>Panel de Administración General</h2>
+          <div class="admin-links-container">
+            <a class="admin-link" href="gestion-cursos.html">
+              <span>📚</span>
+              <div>Gestión de Cursos</div>
+            </a>
+            <a class="admin-link" href="gestion-estudiantes.html">
+              <span>👨‍🎓</span>
+              <div>Gestión de Estudiantes</div>
+            </a>
+            <a class="admin-link" href="gestion-horarios.html">
+              <span>🗓️</span>
+              <div>Gestión de Horarios</div>
+            </a>
+            <a class="admin-link" href="gestion-periodos.html">
+              <span>📅</span>
+              <div>Gestión de Periodos</div>
+            </a>
+            <a class="admin-link" href="gestion-profesores.html">
+              <span>👩‍🏫</span>
+              <div>Gestión de Profesores</div>
+            </a>
+            <a class="admin-link" href="gestion-usuarios.html">
+              <span>👥</span>
+              <div>Gestión de Usuarios</div>
+            </a>
+          </div>
+        </section>
+    </main>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
