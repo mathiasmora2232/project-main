@@ -1,22 +1,31 @@
-document.querySelector('.form-for-login').addEventListener('submit', function(e) {
-    e.preventDefault();
+// Validación de login y redirección según rol para Login.html
+function handleLogin(event) {
+  event.preventDefault();
+  const email = document.querySelector('input[name="login[username]"]').value;
+  const password = document.querySelector('input[name="login[password]"]').value;
+  fetch('http://127.0.0.1:5000/login', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email, password })
+  })
+  .then(res => res.json())
+  .then(data => {
+    if (data.success) {
+      localStorage.setItem('rol', data.rol);
+      localStorage.setItem('usuario', data.username); // username único
+      localStorage.setItem('email', data.email);
+      if (data.rol === 'admin') {
+        window.location.href = 'admin/dashboard-admin.html';
+      } else {
+        window.location.href = 'cuenta.html';
+      }
+    } else {
+      alert('Credenciales incorrectas');
+    }
+  });
+}
 
-    const email = document.querySelector('input[name="login[username]"]').value;
-    const password = document.querySelector('input[name="login[password]"]').value;
-
-    fetch('usuarios.json')
-        .then(response => response.json())
-        .then(usuarios => {
-            const usuarioValido = usuarios.find(user => user.email === email && user.password === password);
-            if (usuarioValido) {
-                alert('¡Inicio de sesión exitoso!');
-                window.location.href = 'cuenta.html';
-            } else {
-                alert('Correo o contraseña incorrectos');
-            }
-        })
-        .catch(error => {
-            alert('Error al cargar usuarios');
-            console.error(error);
-        });
+document.addEventListener('DOMContentLoaded', function() {
+  var form = document.querySelector('.form-for-login');
+  if(form) form.addEventListener('submit', handleLogin);
 });

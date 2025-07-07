@@ -111,18 +111,7 @@
 </main>
 
 
-<script src="app.js"></script>
-<script>
-// Mostrar el enlace de admin si el usuario es admin (usando localStorage)
-document.addEventListener('DOMContentLoaded', function() {
-  if (localStorage.getItem('rol') === 'admin') {
-    var adminLink = document.getElementById('admin-link');
-    if(adminLink) adminLink.style.display = 'inline-block';
-  } else {
-    var adminLink = document.getElementById('admin-link');
-    if(adminLink) adminLink.style.display = 'none';
-  }
-});
-</script>
+<script src="js/app.js"></script>
+<script src="js/adminlink.js"></script>
   </body>
   </html>
