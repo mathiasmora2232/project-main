@@ -222,10 +222,13 @@ nav {
 	font-size: 20px;
 }
 
+
 .nav-links {
 	display: flex;
-	justify-content: space-around;
-	width: 50%;
+	justify-content: flex-end;
+	gap: 1.5rem;
+	width: auto;
+	flex-wrap: wrap;
 }
 
 .nav-links li {
@@ -235,9 +238,13 @@ nav {
 .nav-links a {
 	color: rgb(226, 226, 226);
 	text-decoration: none;
-	letter-spacing: 3px;
+	letter-spacing: 2px;
 	font-weight: bold;
-	font-size: 17px;
+	font-size: 20px;
+	transition: color 0.2s;
+}
+.nav-links a:hover {
+	opacity: 0.7;
 }
 
 .burger {
@@ -254,41 +261,91 @@ nav {
 
 @media screen and (max-width: 1074px) {
 	.nav-links {
-		width: 60%;
+		gap: 1rem;
 	}
 }
 
 @media screen and (max-width: 920px) {
-	body {
-		overflow-x: hidden;
-	}
+  body {
+	overflow-x: hidden;
+  }
+  .nav-links {
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 33vw;
+	min-width: 300px;
+	max-width: 550px;
+	height: 100vh;
+	background-color: #4a90e2;
+	display: flex;
+	flex-direction: column;
+	align-items: stretch;
+	justify-content: flex-start;
+	padding-top: 80px;
+	gap: 0.5rem;
+	transform: translateX(-100%);
+	transition: transform 0.5s ease-in;
+	z-index: 200;
+  }
+  .nav-links li {
+	opacity: 0;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	transform: translateX(50px);
+	transition: opacity 0.4s, transform 0.4s;
+  }
+  .nav-links a {
+	width: 100%;
+	display: block;
+	text-align: left;
+	font-size: 22px;
+	padding: 18px 0 18px 28px;
+	border-bottom: 1px solid rgba(255,255,255,0.08);
+	letter-spacing: 2px;
+	transition: opacity 0.2s;
+  }
+  .burger {
+	display: block;
+	cursor: pointer;
+	position: fixed;
+	top: 10px;
+	left: 25px;
+	z-index: 300;
+	width: 32px;
+	height: 32px;
+	background: none;
+	border: none;
+	outline: none;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding: 0;
+  }
+  .burger div, .burger span {
+	width: 25px;
+	height: 3px;
+	background-color: rgb(226, 226, 226);
+	margin: 5px 0;
+	border-radius: 2px;
+	transition: all 0.3s ease;
+	display: block;
+  }
 
-	.nav-links {
-		position: fixed;
-		left: 0px;
-		height: 92vh;
-		top: 8vh;
-		background-color: #4a90e2;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		width: 50%;
-		transform: translateX(-100%);
-		transition: transform 0.5s ease-in;
-	}
-
-	.nav-links li {
-		opacity: 0;
-	}
-
-	.burger {
-		display: block;
-		cursor: pointer;
-		position: fixed;
-		top: 10px;
-		left: 25px;
-		z-index: 100;
-	}
+  /* Animación de aparición de los links */
+  .nav-active li {
+	opacity: 1 !important;
+	transform: translateX(0) !important;
+  }
+  .nav-active li:nth-child(1) { transition-delay: 0.15s; }
+  .nav-active li:nth-child(2) { transition-delay: 0.25s; }
+  .nav-active li:nth-child(3) { transition-delay: 0.35s; }
+  .nav-active li:nth-child(4) { transition-delay: 0.45s; }
+  .nav-active li:nth-child(5) { transition-delay: 0.55s; }
+  .nav-active li:nth-child(6) { transition-delay: 0.65s; }
+  /* Cuando el menú está cerrado, sin delay */
+  .nav-links li { transition-delay: 0s !important; }
 }
 
 .nav-active {

@@ -1,17 +1,28 @@
+body{
+	background-image: url('../img/img3.png');
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center center;
+	min-height: 100vh;
+	height: 100vh;
+	overflow-y: hidden;
+	margin: 0;
+	padding: 0;
+}
 .page-title, .form-for-login {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
 }
 
 .page-title {
 	padding: 10px;
-    margin-top: 120px;
+	margin-top: 120px;
 }
 
 .form-for-login {
-    margin-top: 10px;
+	margin-top: 10px;
 }
 
 .page-title .main-title{
@@ -23,7 +34,7 @@
 	.form-for-login .field-note{
 		margin-left: 0;
 	}
-    .form-for-login .filed-note span{
+	.form-for-login .filed-note span{
 		font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 		text-decoration: lightcyan;
 	}
@@ -42,8 +53,8 @@
 	}
 	.form-for-login .email input:hover,
 	.form-for-login .email input:focus {
-    border: 2px solid #007bff;
-    background: #f0f8ff;
+	border: 2px solid #007bff;
+	background: #f0f8ff;
 }
 	.form-for-login .password-remainder{
 		margin-left: 0;

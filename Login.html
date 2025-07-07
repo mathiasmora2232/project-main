@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	  <meta charset="UTF-8" />
+    <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Education</title>
@@ -19,75 +19,6 @@
            <nav>
   <div class="logo">Education</div>
   
-  <ul class="nav-links">
-    <li><a href="Homepage.html">Pagina de Inicio</a></li>
-    <li><a href="Materias.html">Materias</a></li>
-    <li><a href="Malla.html">Malla</a></li>
-    <li><a href="Calendario.html">Calendario</a></li>
-    <li><a href="cuenta.html">Mi Cuenta</a></li>
-  </ul>
-
-  <!-- Botón de notificaciones separado -->
-  <div class="notifications" id="notificationsBtn">
-    <span class="bell">🔔</span>
-  </div>
-  <div class="notifications-panel" id="notificationsPanel">
-    <div class="panel-header">
-      <span class="panel-title">Notificaciones</span>
-      <button class="close-btn" id="closeNotifications">✖</button>
-    </div>
-    <div class="panel-tabs">
-      <button class="tab-btn active" id="tabUnread">No leídas</button>
-      <button class="tab-btn" id="tabAll">Todas</button>
-    </div>
-    <div class="panel-content">
-      <div class="notifications-list" id="unreadList">
-        <div class="notification unread">
-          <div class="notif-date">01/07/2025<br><span class="notif-hour">08:30</span></div>
-          <div class="notif-info">
-            <div class="notif-title">Tarea nueva de Matemáticas</div>
-            <div class="notif-desc">Se ha asignado una nueva tarea sobre ecuaciones cuadráticas.</div>
-          </div>
-        </div>
-        <div class="notification unread">
-          <div class="notif-date">30/06/2025<br><span class="notif-hour">19:10</span></div>
-          <div class="notif-info">
-            <div class="notif-title">Mensaje de tu profesor</div>
-            <div class="notif-desc">El profesor Carlos ha enviado un mensaje sobre el examen.</div>
-          </div>
-        </div>
-      </div>
-      <div class="notifications-list" id="allList" style="display:none;">
-        <div class="notification unread">
-          <div class="notif-date">01/07/2025<br><span class="notif-hour">08:30</span></div>
-          <div class="notif-info">
-            <div class="notif-title">Tarea nueva de Matemáticas</div>
-            <div class="notif-desc">Se ha asignado una nueva tarea sobre ecuaciones cuadráticas.</div>
-          </div>
-        </div>
-        <div class="notification unread">
-          <div class="notif-date">30/06/2025<br><span class="notif-hour">19:10</span></div>
-          <div class="notif-info">
-            <div class="notif-title">Mensaje de tu profesor</div>
-            <div class="notif-desc">El profesor Carlos ha enviado un mensaje sobre el examen.</div>
-          </div>
-        </div>
-        <div class="notification">
-          <div class="notif-date">29/06/2025<br><span class="notif-hour">15:00</span></div>
-          <div class="notif-info">
-            <div class="notif-title">Calificación subida</div>
-            <div class="notif-desc">Tu calificación de Historia ya está disponible.</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="burger">
-    <div class="line1"></div>
-    <div class="line2"></div>
-    <div class="line3"></div>
-  </div>
-</nav>
                 </header>
                 <div class="page-title">
                   <h1 class="main-title">
@@ -129,37 +60,9 @@
                   </form>
                 </div>
                 <!-- Elimina la etiqueta <img> y usa CSS para el fondo -->
-            
+   
     <script src="js/app.js"></script>
     <script src="js/login.js"></script>
-    <script>
-// Validación de login y redirección según rol
-function handleLogin(event) {
-  event.preventDefault();
-  const email = document.querySelector('input[name="login[username]"]').value;
-  const password = document.querySelector('input[name="login[password]"]').value;
-  fetch('http://127.0.0.1:5000/login', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ email, password })
-  })
-  .then(res => res.json())
-  .then(data => {
-    if (data.success) {
-      localStorage.setItem('rol', data.rol);
-      if (data.rol === 'admin') {
-        window.location.href = 'admin/dashboard-admin.html';
-      } else {
-        window.location.href = 'cuenta.html';
-      }
-    } else {
-      alert('Credenciales incorrectas');
-    }
-  });
-}
-
-document.querySelector('.form-for-login').addEventListener('submit', handleLogin);
-</script>
 <body>
 
 </body>
