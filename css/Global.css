@@ -4,18 +4,20 @@
 }
 
 nav {
-	position: fixed;
-	top: 0;
-	width: 100%;
-	display: flex;
-	justify-content: space-around;
-	align-items: center;
-	min-height: 9vh;
-	background-color: #4a90e2;
-	font-family: "Poppins", sans-serif;
-	box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-	padding: 0 1rem;
-	z-index: 99;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  min-height: 9vh;
+  background-color: #4a90e2;
+  font-family: "Castoro", serif;
+  font-weight: 400;
+  font-style: normal;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  padding: 0 1rem;
+  z-index: 99;
 }
 
 /* Nueva sección dropdown para notificaciones */
@@ -216,10 +218,13 @@ nav {
 }
 
 .logo {
-	color: rgb(226, 226, 226);
-	text-transform: uppercase;
-	letter-spacing: 5px;
-	font-size: 20px;
+  color: rgb(226, 226, 226);
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  font-size: 20px;
+  font-family: "Castoro", serif;
+  font-weight: 400;
+  font-style: normal;
 }
 
 
@@ -236,12 +241,14 @@ nav {
 }
 
 .nav-links a {
-	color: rgb(226, 226, 226);
-	text-decoration: none;
-	letter-spacing: 2px;
-	font-weight: bold;
-	font-size: 20px;
-	transition: color 0.2s;
+  color: rgb(226, 226, 226);
+  text-decoration: none;
+  letter-spacing: 2px;
+  font-weight: 400;
+  font-size: 20px;
+  font-family: "Castoro", serif;
+  font-style: normal;
+  transition: color 0.2s;
 }
 .nav-links a:hover {
 	opacity: 0.7;
@@ -293,18 +300,17 @@ nav {
 	width: 100%;
 	margin: 0;
 	padding: 0;
-	transform: translateX(50px);
-	transition: opacity 0.4s, transform 0.4s;
   }
   .nav-links a {
-	width: 100%;
-	display: block;
-	text-align: left;
-	font-size: 22px;
-	padding: 18px 0 18px 28px;
-	border-bottom: 1px solid rgba(255,255,255,0.08);
-	letter-spacing: 2px;
-	transition: opacity 0.2s;
+  width: 100%;
+  display: block;
+  text-align: left;
+  font-size: 22px;
+  padding: 18px 0 18px 28px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  font-family: "Castoro", serif;
+  font-weight: 400;
+  font-style: normal;
   }
   .burger {
 	display: block;
@@ -313,39 +319,7 @@ nav {
 	top: 10px;
 	left: 25px;
 	z-index: 300;
-	width: 32px;
-	height: 32px;
-	background: none;
-	border: none;
-	outline: none;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	padding: 0;
   }
-  .burger div, .burger span {
-	width: 25px;
-	height: 3px;
-	background-color: rgb(226, 226, 226);
-	margin: 5px 0;
-	border-radius: 2px;
-	transition: all 0.3s ease;
-	display: block;
-  }
-
-  /* Animación de aparición de los links */
-  .nav-active li {
-	opacity: 1 !important;
-	transform: translateX(0) !important;
-  }
-  .nav-active li:nth-child(1) { transition-delay: 0.15s; }
-  .nav-active li:nth-child(2) { transition-delay: 0.25s; }
-  .nav-active li:nth-child(3) { transition-delay: 0.35s; }
-  .nav-active li:nth-child(4) { transition-delay: 0.45s; }
-  .nav-active li:nth-child(5) { transition-delay: 0.55s; }
-  .nav-active li:nth-child(6) { transition-delay: 0.65s; }
-  /* Cuando el menú está cerrado, sin delay */
-  .nav-links li { transition-delay: 0s !important; }
 }
 
 .nav-active {
