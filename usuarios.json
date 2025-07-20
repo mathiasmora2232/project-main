@@ -1,38 +1,191 @@
 [
-  {
-    "email": "estudiante1@ejemplo.com",
-    "username": "estudiante1",
-    "password": "1234",
-    "rol": "estudiante"
-  },
-  {
-   "email":"estudiante3@ejemplo.com",
-   "username": "mora",
-   "password": "mora1",
-   "rol": "estudiante"
-  },
-  {
-    "email": "estudiante2@ejemplo.com",
-    "username": "estudiante2",
-    "password": "abcd",
-    "rol": "estudiante"
-  },
-  {
-    "email": "profe1@ejemplo.com",
-    "username": "profejuan",
-    "password": "profe123",
-    "rol": "profe"
-  },
-  {
-    "email": "profe2@ejemplo.com",
-    "username": "profemaria",
-    "password": "profe456",
-    "rol": "profe"
-  },
-  {
-    "email": "admin@ejemplo.com",
-    "username": "admin",
-    "password": "adminpass",
-    "rol": "admin"
-  }
+    {
+        "id": 1,
+        "email": "admin1@ejemplo.com",
+        "username": "admin1",
+        "password": "admin123",
+        "rol": "Admin"
+    },
+    {
+        "id": 2,
+        "email": "profesor1@ejemplo.com",
+        "username": "Prof1",
+        "password": "Profesor123!",
+        "rol": "Profesor"
+    },
+    {
+        "id": 3,
+        "email": "estudiante1@ejemplo.com",
+        "username": "Est1",
+        "password": "Estudiante123!",
+        "rol": "Estudiante"
+    },
+    {
+        "id": 4,
+        "email": "estudiante4@ejemplo.com",
+        "username": "Juan",
+        "password": "Juan23",
+        "rol": "Estudiante"
+    },
+    {
+        "id": 5,
+        "email": "admin2@ejemplo.com",
+        "username": "Admin2",
+        "password": "Admin456!",
+        "rol": "Admin"
+    },
+    {
+        "id": 6,
+        "email": "DADADA@gmail.com",
+        "username": "mathiasprueba",
+        "password": "Lu246988@",
+        "rol": "Estudiante"
+    },
+    {
+        "id": 7,
+        "email": "mathias30@gmail.com",
+        "username": "Mathias30",
+        "password": "Lu246988@",
+        "rol": "Estudiante"
+    },
+    {
+        "id": 8,
+        "email": "mathias230@ejemplo.com",
+        "username": "Mathias230",
+        "password": "L982338@",
+        "rol": "Estudiante"
+    },
+    {
+        "id": 9,
+        "email": "profe1@ejemplo.com",
+        "username": "profe1",
+        "password": "123456",
+        "rol": "Profesor"
+    },
+    {
+        "id": 10,
+        "email": "profe2@ejemplo.com",
+        "username": "profe2",
+        "password": "123456",
+        "rol": "Profesor"
+    },
+    {
+        "id": 11,
+        "email": "estudiante2@ejemplo.com",
+        "username": "estu1",
+        "password": "123456",
+        "rol": "Estudiante"
+    },
+    {
+        "id": 12,
+        "email": "estudiante3@ejemplo.com",
+        "username": "estu2",
+        "password": "123456",
+        "rol": "Estudiante"
+    },
+    {
+        "id": 13,
+        "email": "estudiante5@ejemplo.com",
+        "username": "estu3",
+        "password": "123456",
+        "rol": "Estudiante"
+    },
+    {
+        "id": 14,
+        "email": "estudiante6@ejemplo.com",
+        "username": "estu4",
+        "password": "123456",
+        "rol": "Estudiante"
+    },
+    {
+        "id": 15,
+        "email": "admin3@ejemplo.com",
+        "username": "admin2",
+        "password": "admin456",
+        "rol": "Administrativo"
+    },
+    {
+        "id": 16,
+        "email": "estudiante7@ejemplo.com",
+        "username": "estu5",
+        "password": "123456",
+        "rol": "Estudiante"
+    },
+    {
+        "id": 17,
+        "email": "estudiante8@ejemplo.com",
+        "username": "estu6",
+        "password": "123456",
+        "rol": "Estudiante"
+    },
+    {
+        "id": 18,
+        "email": "profe3@ejemplo.com",
+        "username": "profe3",
+        "password": "123456",
+        "rol": "Profesor"
+    },
+    {
+        "id": 19,
+        "email": "profe4@ejemplo.com",
+        "username": "profe4",
+        "password": "123456",
+        "rol": "Profesor"
+    },
+    {
+        "id": 20,
+        "email": "profe5@ejemplo.com",
+        "username": "profe5",
+        "password": "123456",
+        "rol": "Profesor"
+    },
+    {
+        "id": 21,
+        "email": "estudiante9@ejemplo.com",
+        "username": "estu7",
+        "password": "123456",
+        "rol": "Estudiante"
+    },
+    {
+        "id": 22,
+        "email": "estudiante10@ejemplo.com",
+        "username": "estu8",
+        "password": "123456",
+        "rol": "Estudiante"
+    },
+    {
+        "id": 23,
+        "email": "profe6@ejemplo.com",
+        "username": "profe6",
+        "password": "123456",
+        "rol": "Profesor"
+    },
+    {
+        "id": 24,
+        "email": "profe7@ejemplo.com",
+        "username": "profe7",
+        "password": "123456",
+        "rol": "Profesor"
+    },
+    {
+        "id": 25,
+        "email": "profe8@ejemplo.com",
+        "username": "profe8",
+        "password": "123456",
+        "rol": "Profesor"
+    },
+    {
+        "id": 26,
+        "email": "profe9@ejemplo.com",
+        "username": "profe9",
+        "password": "123456",
+        "rol": "Profesor"
+    },
+    {
+        "id": 27,
+        "email": "profe10@ejemplo.com",
+        "username": "profe10",
+        "password": "123456",
+        "rol": "Profesor"
+    }
 ]

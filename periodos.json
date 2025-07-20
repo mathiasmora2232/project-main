@@ -1,0 +1,57 @@
+[
+    {
+        "id": 1,
+        "nombre": "2023-A",
+        "activo": false
+    },
+    {
+        "id": 2,
+        "nombre": "2023-B",
+        "activo": false
+    },
+    {
+        "id": 3,
+        "nombre": "2024-A",
+        "activo": false
+    },
+    {
+        "id": 4,
+        "nombre": "2024-B",
+        "activo": false
+    },
+    {
+        "id": 5,
+        "nombre": "2025-A",
+        "activo": false
+    },
+    {
+        "id": 6,
+        "nombre": "2025-B",
+        "activo": true
+    },
+    {
+        "id": 7,
+        "nombre": "2026-A",
+        "activo": false
+    },
+    {
+        "id": 8,
+        "nombre": "2026-B",
+        "activo": false
+    },
+    {
+        "id": 9,
+        "nombre": "2027-A",
+        "activo": false
+    },
+    {
+        "id": 10,
+        "nombre": "2027-B",
+        "activo": false
+    },
+    {
+        "id": 11,
+        "nombre": "2025-III",
+        "activo": false
+    }
+]

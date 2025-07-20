@@ -1,0 +1,86 @@
+{
+    "estudiantes": [
+        {
+            "nombre": "Ana García",
+            "id": "A101",
+            "materias_inscritas": {
+                "matematicas": {
+                    "asistencia": 2,
+                    "calificaciones": {},
+                    "entregas": {
+                        "funciones": {
+                            "fecha_entrega": "2025-07-19",
+                            "estado": "Entregada"
+                        },
+                        "ejercicios de algebra": {
+                            "fecha_entrega": "2025-07-20",
+                            "estado": "Entregada"
+                        },
+                        "0": {
+                            "fecha_entrega": "2025-07-20 01:45",
+                            "estado": "Entregada"
+                        }
+                    }
+                },
+                "historia": {
+                    "asistencia": 0,
+                    "calificaciones": {}
+                }
+            }
+        },
+        {
+            "nombre": "Luis Pérez",
+            "id": "L202",
+            "materias_inscritas": {
+                "matematicas": {
+                    "asistencia": 1,
+                    "calificaciones": {}
+                }
+            }
+        },
+        {
+            "nombre": "Sofía Vargas",
+            "id": "S303",
+            "materias_inscritas": {
+                "historia": {
+                    "asistencia": 0,
+                    "calificaciones": {}
+                }
+            }
+        },
+        {
+            "id": "fkgk",
+            "nombre": "fkgkf",
+            "correo": "fgkkfg",
+            "materias_inscritas": {}
+        },
+        {
+            "nombre": "mathias",
+            "id": "A023",
+            "materias_inscritas": {}
+        },
+        {
+            "nombre": "2",
+            "id": "",
+            "materias_inscritas": {}
+        }
+    ],
+    "materias": {
+        "matematicas": {
+            "cupos_disponibles": 30,
+            "estudiantes_inscritos": [
+                "A101",
+                "L202"
+            ],
+            "total_sesiones": 2
+        },
+        "historia": {
+            "cupos_disponibles": 25,
+            "estudiantes_inscritos": [
+                "A101",
+                "S303"
+            ],
+            "total_sesiones": 0
+        }
+    }
+}

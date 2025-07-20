@@ -1,15 +1,15 @@
 {
   "estudiante1_estudiante1@ejemplo.com": {
-    "nombre": "adadsqda",
-    "pasaporte": "eooooooooooooooooooo",
-    "fecha_nacimiento": "",
+    "nombre": "ama",
+    "pasaporte": "011332",
+    "fecha_nacimiento": "2000-11-30",
     "sexo": "",
     "estado_civil": "",
-    "tipo_sangre": "",
-    "provincia_nacimiento": "",
-    "canton": "",
-    "ciudad": "",
-    "correo": "",
+    "tipo_sangre": "O+",
+    "provincia_nacimiento": "guayas",
+    "canton": "gye",
+    "ciudad": "guayaquil",
+    "correo": "asa@gmail.com",
     "correo_institucional": ""
   },
   "estudiante2_estudiante2@ejemplo.com": {
@@ -31,11 +31,24 @@
     "fecha_nacimiento": "2006-11-30",
     "sexo": "Masculino",
     "estado_civil": "Soltero/a",
-    "tipo_sangre": "O-",
+    "tipo_sangre": "A+",
     "provincia_nacimiento": "Guayaquil",
     "canton": "Guayas",
     "ciudad": "Guayaquil",
     "correo": "mora30@gmail.com",
     "correo_institucional": "estudiante3@ejemplo.com"
+  },
+  "Mathias230_estudiante1@ejemplo.com": {
+    "nombre": "dsdsds",
+    "pasaporte": "ddsadsadasd",
+    "fecha_nacimiento": "",
+    "sexo": "",
+    "estado_civil": "",
+    "tipo_sangre": "",
+    "provincia_nacimiento": "",
+    "canton": "asdas",
+    "ciudad": "dasda",
+    "correo": "dsadasd@gmail.com",
+    "correo_institucional": "dsadasd@gmail.com"
   }
 }

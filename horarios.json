@@ -1,0 +1,86 @@
+[
+    {
+        "id": 1,
+        "curso_id": 1,
+        "dia": "Lunes",
+        "hora": "08:00"
+    },
+    {
+        "id": 2,
+        "curso_id": 2,
+        "dia": "Martes",
+        "hora": "10:00"
+    },
+    {
+        "id": 3,
+        "curso_id": 3,
+        "dia": "Miércoles",
+        "hora": "14:00"
+    },
+    {
+        "id": 4,
+        "curso_id": 4,
+        "dia": "Jueves",
+        "hora": "08:00"
+    },
+    {
+        "id": 5,
+        "curso_id": 5,
+        "dia": "Viernes",
+        "hora": "09:00"
+    },
+    {
+        "id": 6,
+        "curso_id": 6,
+        "dia": "Lunes",
+        "hora": "11:00"
+    },
+    {
+        "id": 7,
+        "curso_id": 7,
+        "dia": "Martes",
+        "hora": "12:00"
+    },
+    {
+        "id": 8,
+        "curso_id": 8,
+        "dia": "Miércoles",
+        "hora": "15:00"
+    },
+    {
+        "id": 9,
+        "curso_id": 9,
+        "dia": "Jueves",
+        "hora": "10:00"
+    },
+    {
+        "id": 10,
+        "curso_id": 10,
+        "dia": "Viernes",
+        "hora": "14:00"
+    },
+    {
+        "id": 11,
+        "curso_id": 11,
+        "dia": "Lunes",
+        "hora": "09:00"
+    },
+    {
+        "id": 12,
+        "curso_id": 12,
+        "dia": "Martes",
+        "hora": "13:00"
+    },
+    {
+        "id": 13,
+        "curso_id": 13,
+        "dia": "Miércoles",
+        "hora": "16:00"
+    },
+    {
+        "id": 14,
+        "curso_id": 14,
+        "dia": "Jueves",
+        "hora": "11:00"
+    }
+]
