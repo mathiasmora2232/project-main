@@ -1,5 +1,3 @@
-/* Homepage CSS Renovado - EduConnect */
-/* Diseño simplificado: eliminados iconos flotantes, estadísticas, acciones rápidas, clima y logros */
 main.dashboard {
     margin-top: 80px;
     padding: 0;
@@ -9,7 +7,6 @@ main.dashboard {
     overflow-x: hidden;
 }
 
-/* Hero Section */
 .hero-section {
     padding: 60px 20px;
     text-align: center;
@@ -43,7 +40,6 @@ main.dashboard {
     line-height: 1.6;
 }
 
-/* Dashboard Cards */
 .dashboard-cards {
     background: #f8f9fa;
     padding: 60px 20px;
@@ -94,7 +90,6 @@ main.dashboard {
     font-weight: bold;
 }
 
-/* Progress Card */
 .trend-indicator {
     background: #e8f5e8;
     color: #4caf50;
@@ -176,7 +171,6 @@ main.dashboard {
     transition: width 1s ease-out;
 }
 
-/* Tasks Card */
 .badge {
     background: #ff4757;
     color: white;
@@ -263,7 +257,6 @@ main.dashboard {
     color: white;
 }
 
-/* Messages Card */
 .notification-dot {
     background: #ff4757;
     color: white;
@@ -344,7 +337,6 @@ main.dashboard {
     background: #ccc;
 }
 
-/* Schedule Card */
 .current-time {
     background: #4a90e2;
     color: white;
@@ -428,7 +420,6 @@ main.dashboard {
     font-size: 1.2rem;
 }
 
-/* Animations */
 @keyframes shimmer {
     0% {
         transform: translateX(-100%);
@@ -438,7 +429,6 @@ main.dashboard {
     }
 }
 
-/* Responsive Design */
 @media (max-width: 1024px) {
     .dashboard-cards {
         grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));

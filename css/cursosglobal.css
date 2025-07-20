@@ -1,4 +1,3 @@
-/* Estilos globales para todas las páginas de cursos */
 .curso {
     padding-top: 120px;
     min-height: 100vh;
@@ -104,7 +103,7 @@
     box-shadow: 0 5px 15px rgba(74, 144, 226, 0.4);
 }
 
-/* Colores específicos para cada materia */
+
 .matematicas .curso-title,
 .matematicas .content-card h3 {
     color: #4a90e2;
@@ -159,7 +158,6 @@
     border-left-color: #1E90FF;
 }
 
-/* Responsividad */
 @media (max-width: 768px) {
     .curso-container {
         padding: 20px 15px;
