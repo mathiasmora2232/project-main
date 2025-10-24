@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gestionar Curso - EduConnect</title>
+  <link rel="stylesheet" href="/css/Global.css">
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    .task { border: 1px solid #ddd; padding: 8px; margin-bottom: 6px; border-radius: 6px; }
+  </style>
+</head>
+<body>
+  <h1 id="courseTitle">Curso</h1>
+  <div>
+    <a href="dashboard-profesor.html">Volver al panel</a>
+  </div>
+
+  <h2>Tareas</h2>
+  <div id="tasks"></div>
+
+  <h3>Crear tarea</h3>
+  <form id="createTaskForm">
+    <label for="title">Título</label><br>
+    <input id="title" name="title" required placeholder="Ej: Tarea 1"><br>
+    <label for="description">Descripción</label><br>
+    <textarea id="description" name="description" rows="4"></textarea><br>
+    <label for="due">Fecha de entrega</label><br>
+    <input id="due" name="due" type="date"><br>
+    <label for="file">Adjuntar archivo (opcional)</label><br>
+    <input id="file" name="file" type="file"><br>
+    <button type="submit">Crear tarea</button>
+  </form>
+
+  <script src="/js/localBackend.js" defer></script>
+  <script src="/js/profesor.js" defer></script>
+</body>
+</html>

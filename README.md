@@ -14,14 +14,21 @@ Cómo probar localmente (solo front-end):
 
 Si quieres usar el servidor Python (hay un `py/app.py` con utilidades):
 1. Instala dependencias mínimas si usas Flask: `pip install flask flask-cors rich`
-2. Ejecuta `py\\app.py` con Python 3 (desde `py` carpeta):
+También añade PyJWT para tokens JWT:
+
+```powershell
+pip install PyJWT
+```
+2. Ejecuta el servidor Flask (archivo `server.py`) desde la carpeta `py`:
 
    - En PowerShell, desde la carpeta del proyecto:
 
 ```powershell
 cd c:\Users\USER\Desktop\programs\webeduca\project-main\py
-python app.py
+python server.py
 ```
+
+Nota: `app.py` ahora contiene las utilidades de línea de comandos (CLI) y la lógica; el servidor Flask separado está en `server.py`.
 
 (Nota: `app.py` tiene utilidades CLI y algunas rutas; revisa el archivo para ver endpoints disponibles.)
 
@@ -30,6 +37,19 @@ Endpoints útiles añadidos:
 - `POST /register` -> JSON { username, email, password, rol } crea usuario (contraseña se almacena hasheada)
 
 Nota sobre migración: las contraseñas existentes en `usuarios.json` en texto plano serán migradas al primer inicio de sesión exitoso (se reemplaza por un hash seguro). Esto permite mejorar seguridad sin forzar cambios masivos.
+
+Páginas y APIs nuevas para profesores
+- `profesor/dashboard-profesor.html`: panel para que el profesor liste y cree cursos.
+- `profesor/course-profesor.html`: página para administrar tareas de un curso (crear tareas, adjuntar archivos).
+
+APIs añadidas en `server.py` (en la carpeta `py`):
+- `GET /courses` — listar cursos (lee `cursos.json`).
+- `POST /courses` — crear curso (body: { nombre, profesor_id }).
+- `PUT/DELETE /courses/<id>` — actualizar/eliminar curso.
+- `GET/POST /courses/<id>/tasks` — listar/crear tareas (lee/escribe `tareas.json`).
+- `POST /upload` — subir archivo (devuelve url para descargar `/uploads/<file>`).
+
+Para probar las páginas del profesor, sirve los archivos estáticos desde la raíz del proyecto (recomendado) y ejecuta el servidor Flask en `py/server.py` simultáneamente.
 
 Siguientes pasos recomendados (priorizados):
 1. Añadir validación de enlaces y un script que detecte links rotos.
