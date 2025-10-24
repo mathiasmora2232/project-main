@@ -14,10 +14,12 @@ function handleLogin(event) {
       localStorage.setItem('rol', data.rol);
       localStorage.setItem('usuario', data.username); // username único
       localStorage.setItem('email', data.email);
-      if (data.rol === 'admin') {
+      // Aceptar varias normalizaciones de rol que pueda devolver el servidor
+      const role = (data.rol || '').toString().toLowerCase();
+      if (role === 'admin' || role === 'administrador' || role === 'administrativo') {
         window.location.href = 'admin/dashboard-admin.html';
       } else {
-        window.location.href = 'cuenta.html';
+        window.location.href = 'Cuenta.html';
       }
     } else {
       alert('Credenciales incorrectas');
