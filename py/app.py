@@ -4,8 +4,8 @@ import threading
 from datetime import datetime, timedelta
 import re
 import string
-from flask import Flask, request, jsonify
-from flask_cors import CORS
+# Flask server functionality has been moved to `server.py`.
+# This module contains backend logic (file operations, user management, CLI helpers).
 from rich.console import Console
 from rich.table import Table
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -14,22 +14,18 @@ def cargar_usuarios():
     with open(USERS_FILE, 'r', encoding='utf-8') as f:
         return json.load(f)
 
-
-app = Flask(__name__)
-CORS(app)
-
 # Ajusta la ruta del archivo para que funcione desde cualquier ubicación
 USERS_FILE = os.path.join(os.path.dirname(__file__), '..', 'usuarios.json')
 
-# Guardar datos de usuario en el servidor
-@app.route('/guardar_datos_usuario', methods=['POST'])
-def guardar_datos_usuario():
-    data = request.json
+def guardar_datos_usuario_logic(data):
+    """Lógica para guardar datos de perfil (usada por el servidor y CLI).
+    data: dict con keys 'username', 'email', 'datos'
+    Retorna un dict con 'success' y opcional 'message'."""
     username = data.get('username')
     email = data.get('email')
     datos = data.get('datos')
     if not username or not email or not datos:
-        return jsonify({'success': False, 'message': 'Datos incompletos'}), 400
+        return {'success': False, 'message': 'Datos incompletos'}
     datos_file = os.path.join(os.path.dirname(__file__), '..', 'datosusers.json')
     # Leer datos existentes
     if os.path.exists(datos_file):
@@ -45,26 +41,25 @@ def guardar_datos_usuario():
     all_data[key] = datos
     with open(datos_file, 'w', encoding='utf-8') as f:
         json.dump(all_data, f, ensure_ascii=False, indent=2)
-    return jsonify({'success': True})
+    return {'success': True}
 
 
-@app.route('/register', methods=['POST'])
-def register():
-    data = request.json or {}
+def register_logic(data):
+    """Lógica para registrar usuario. data: dict con username, email, password, rol."""
     username = data.get('username', '').strip()
     email = data.get('email', '').strip()
     password = data.get('password', '')
     rol = data.get('rol', 'Estudiante')
 
     if not username or not email or not password:
-        return jsonify({'success': False, 'message': 'Datos incompletos'}), 400
+        return {'success': False, 'message': 'Datos incompletos'}
 
     usuarios = cargar_usuarios()
     # Verificar duplicados
     if any(u.get('email', '').lower() == email.lower() for u in usuarios):
-        return jsonify({'success': False, 'message': 'Email ya registrado'}), 400
+        return {'success': False, 'message': 'Email ya registrado'}
     if any(u.get('username', '').lower() == username.lower() for u in usuarios):
-        return jsonify({'success': False, 'message': 'Nombre de usuario ya existe'}), 400
+        return {'success': False, 'message': 'Nombre de usuario ya existe'}
 
     nuevoId = max([u.get('id', 0) for u in usuarios], default=0) + 1
     hashed = generate_password_hash(password)
@@ -81,13 +76,12 @@ def register():
         with open(USERS_FILE, 'w', encoding='utf-8') as f:
             json.dump(usuarios, f, ensure_ascii=False, indent=2)
     except Exception:
-        return jsonify({'success': False, 'message': 'Error al guardar usuario'}), 500
+        return {'success': False, 'message': 'Error al guardar usuario'}
 
-    return jsonify({'success': True, 'username': username, 'email': email})
+    return {'success': True, 'username': username, 'email': email}
 
-@app.route('/login', methods=['POST'])
-def login():
-    data = request.json
+def login_logic(data):
+    """Lógica de login: data {email, password} -> dict respuesta."""
     email = data.get('email')
     password = data.get('password')
     usuarios = cargar_usuarios()
@@ -120,14 +114,15 @@ def login():
                     except Exception:
                         pass
 
-                return jsonify({
+                return {
                     'success': True,
+                    'id': usuario.get('id'),
                     'rol': normalizarRol(usuario.get('rol', 'user')),
                     'username': usuario.get('username', ''),
                     'email': usuario.get('email', '')
-                })
+                }
 
-    return jsonify({'success': False, 'message': 'Credenciales incorrectas'})
+    return {'success': False, 'message': 'Credenciales incorrectas'}
 
 def limpiarConsola():
     os.system('cls' if os.name == 'nt' else 'clear')
@@ -2122,17 +2117,14 @@ def verHorarioEstudiante():
     """Función de compatibilidad - redirige a la versión avanzada"""
     ver_mi_horario()
 
-def run_server():
-    app.run(debug=True, use_reloader=False)
-
 def main():
     print('================= SISTEMA ACADEMICO EDUCONNECT =================')
     print('📚 Bienvenido al Sistema de Gestión Académica EduConnect')
     print('🔐 Puedes iniciar sesión con tu email o nombre de usuario')
     print('================================================================')
 
-    server_thread = threading.Thread(target=run_server, daemon=True)
-    server_thread.start()
+    # El servidor Flask ahora se ejecuta por separado en `server.py`.
+    # Aquí solo se inicia la interfaz CLI.
 
     while True:
         usuario = iniciarSesion()
