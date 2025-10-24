@@ -1,33 +1,33 @@
 ﻿<!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8" />
+    <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="EduConnect — plataforma educativa para gestionar tareas, horarios y calificaciones.">
     <title>EduConnect</title>
     <link rel="icon" href="img/logojpg-removebg-preview.ico">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@300&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
+    <!-- Fonts: preconnect once and load required families -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Castoro:ital@0;1&display=swap" rel="stylesheet">    
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&family=Castoro:ital@0;1&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="css/Global.css">
     <link rel="stylesheet" href="css/homepage.css">
-    
+
 </head>
 <body>
     
     <header>
-   <nav>
+     <nav aria-label="Navegación principal">
   <div class="logo">EduConnect</div>
 
   <ul class="nav-links">
     <li><a href="Homepage.html">Página de Inicio</a></li>
     <li><a href="Materias.html">Materias</a></li>
     <li><a href="Malla.html">Malla</a></li>
-    <li><a href="Calendario.html">Calendario</a></li>
-    <li><a href="cuenta.html">Mi cuenta</a></li>
+        <li><a href="Calendario.html">Calendario</a></li>
+        <li><a href="Cuenta.html">Mi cuenta</a></li>
     <li id="admin-link" style="display:none;"><a href="admin/dashboard-admin.html">Panel Admin</a></li>
   </ul>
   <div class="notifications" id="notificationsBtn">
@@ -84,12 +84,12 @@
       </div>
     </div>
   </div>
-  <!-- Botón Burger para móviles -->
-  <div class="burger">
-    <div class="line1"></div>
-    <div class="line2"></div>
-    <div class="line3"></div>
-  </div>
+    <!-- Botón Burger para móviles (mejor accesibilidad: botón con aria) -->
+    <button class="burger" aria-label="Abrir menú" aria-expanded="false">
+        <span class="line1" aria-hidden="true"></span>
+        <span class="line2" aria-hidden="true"></span>
+        <span class="line3" aria-hidden="true"></span>
+    </button>
 </nav>
 
     </header>
@@ -244,40 +244,8 @@
         </section>
     </main>
 
-    <script src="js/app.js"></script>
-    <script src="js/adminlink.js"></script>
-    <script>
-        // Animación del progreso
-        document.addEventListener('DOMContentLoaded', function() {
-            // Animar barras de progreso
-            const progressBars = document.querySelectorAll('.progress-bar-fill.animated');
-            progressBars.forEach(bar => {
-                const width = bar.getAttribute('data-width');
-                setTimeout(() => {
-                    bar.style.width = width + '%';
-                }, 500);
-            });
-            // Marcar mensajes como leídos
-            const messageItems = document.querySelectorAll('.message-item');
-            messageItems.forEach(item => {
-                item.addEventListener('click', function() {
-                    this.classList.remove('unread');
-                    const status = this.querySelector('.message-status');
-                    status.classList.remove('unread');
-                    status.classList.add('read');
-                    
-                    // Actualizar contador de notificaciones
-                    const notificationDot = document.querySelector('.notification-dot');
-                    const currentCount = parseInt(notificationDot.textContent);
-                    if (currentCount > 0) {
-                        notificationDot.textContent = currentCount - 1;
-                        if (currentCount - 1 === 0) {
-                            notificationDot.style.display = 'none';
-                        }
-                    }
-                });
-            });
-        });
-    </script>
+    <!-- Cargar scripts de forma diferida; el JS controla inicialización con DOMContentLoaded -->
+    <script src="js/app.js" defer></script>
+    <script src="js/adminlink.js" defer></script>
 </body>
 </html>
