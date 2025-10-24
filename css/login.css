@@ -148,3 +148,7 @@ body{
 .form-for-login .button-login-2:hover {
   cursor: pointer;
 }
+
+.register-link {
+  margin-top: 10px;
+}

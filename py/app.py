@@ -8,10 +8,12 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from rich.console import Console
 from rich.table import Table
+from werkzeug.security import generate_password_hash, check_password_hash
 
 def cargar_usuarios():
     with open(USERS_FILE, 'r', encoding='utf-8') as f:
         return json.load(f)
+
 
 app = Flask(__name__)
 CORS(app)
@@ -45,20 +47,86 @@ def guardar_datos_usuario():
         json.dump(all_data, f, ensure_ascii=False, indent=2)
     return jsonify({'success': True})
 
+
+@app.route('/register', methods=['POST'])
+def register():
+    data = request.json or {}
+    username = data.get('username', '').strip()
+    email = data.get('email', '').strip()
+    password = data.get('password', '')
+    rol = data.get('rol', 'Estudiante')
+
+    if not username or not email or not password:
+        return jsonify({'success': False, 'message': 'Datos incompletos'}), 400
+
+    usuarios = cargar_usuarios()
+    # Verificar duplicados
+    if any(u.get('email', '').lower() == email.lower() for u in usuarios):
+        return jsonify({'success': False, 'message': 'Email ya registrado'}), 400
+    if any(u.get('username', '').lower() == username.lower() for u in usuarios):
+        return jsonify({'success': False, 'message': 'Nombre de usuario ya existe'}), 400
+
+    nuevoId = max([u.get('id', 0) for u in usuarios], default=0) + 1
+    hashed = generate_password_hash(password)
+
+    nuevo = {
+        'id': nuevoId,
+        'email': email,
+        'username': username,
+        'password': hashed,
+        'rol': rol
+    }
+    usuarios.append(nuevo)
+    try:
+        with open(USERS_FILE, 'w', encoding='utf-8') as f:
+            json.dump(usuarios, f, ensure_ascii=False, indent=2)
+    except Exception:
+        return jsonify({'success': False, 'message': 'Error al guardar usuario'}), 500
+
+    return jsonify({'success': True, 'username': username, 'email': email})
+
 @app.route('/login', methods=['POST'])
 def login():
     data = request.json
     email = data.get('email')
     password = data.get('password')
     usuarios = cargar_usuarios()
+    # Buscar usuario por email
     for usuario in usuarios:
-        if usuario['email'] == email and usuario['password'] == password:
-            return jsonify({
-                'success': True,
-                'rol': usuario.get('rol', 'user'),
-                'username': usuario.get('username', ''),
-                'email': usuario['email']
-            })
+        if usuario.get('email', '').lower() == (email or '').lower():
+            stored = usuario.get('password', '')
+            # Si la contraseña almacenada parece estar hasheada, verifica con check_password_hash
+            try:
+                is_hashed = stored.startswith('pbkdf2:') or stored.startswith('sha256$')
+            except Exception:
+                is_hashed = False
+
+            valid = False
+            if is_hashed:
+                valid = check_password_hash(stored, password)
+            else:
+                # contraseña en texto plano (legacy)
+                if stored == password:
+                    valid = True
+
+            if valid:
+                # Si era legacy, migramos al hash
+                if not is_hashed:
+                    usuario['password'] = generate_password_hash(password)
+                    # Guardar cambios en el archivo de usuarios
+                    try:
+                        with open(USERS_FILE, 'w', encoding='utf-8') as f:
+                            json.dump(usuarios, f, ensure_ascii=False, indent=2)
+                    except Exception:
+                        pass
+
+                return jsonify({
+                    'success': True,
+                    'rol': normalizarRol(usuario.get('rol', 'user')),
+                    'username': usuario.get('username', ''),
+                    'email': usuario.get('email', '')
+                })
+
     return jsonify({'success': False, 'message': 'Credenciales incorrectas'})
 
 def limpiarConsola():
@@ -169,10 +237,27 @@ def iniciarSesion():
         for usuario in usuarios:
             email_match = usuario.get('email', '').lower() == usuarioIngresado.lower()
             username_match = usuario.get('username', '').lower() == usuarioIngresado.lower()
-            
-            if (email_match or username_match) and usuario['password'] == contraseñaIngresada:
-                usuario_encontrado = usuario
-                break
+
+            if email_match or username_match:
+                stored = usuario.get('password', '')
+                try:
+                    is_hashed = stored.startswith('pbkdf2:') or stored.startswith('sha256$')
+                except Exception:
+                    is_hashed = False
+
+                if is_hashed and check_password_hash(stored, contraseñaIngresada):
+                    usuario_encontrado = usuario
+                    break
+                elif not is_hashed and stored == contraseñaIngresada:
+                    # Migrar a hash
+                    usuario['password'] = generate_password_hash(contraseñaIngresada)
+                    try:
+                        with open('usuarios.json', 'w', encoding='utf-8') as f:
+                            json.dump(usuarios, f, indent=4, ensure_ascii=False)
+                    except Exception:
+                        pass
+                    usuario_encontrado = usuario
+                    break
 
         if usuario_encontrado:
             print(f'Bienvenido {usuario_encontrado["username"]} ({usuario_encontrado["email"]}) - Rol: {usuario_encontrado["rol"]}')
@@ -205,7 +290,8 @@ def listarUsuarios():
     for u in usuarios:
         email = u.get('email', 'No especificado')
         username = u.get('username', u.get('usuario', 'No especificado'))
-        print(f'ID: {u["id"]}, Usuario: {username}, Email: {email}, Rol: {u["rol"]}')
+        rol_norm = normalizarRol(u.get('rol', ''))
+        print(f'ID: {u["id"]}, Usuario: {username}, Email: {email}, Rol: {rol_norm}')
 
 def crearUsuario():
     if not os.path.exists('usuarios.json'):
@@ -264,11 +350,14 @@ def crearUsuario():
             continue
         break
 
+    # Hashear la contraseña antes de guardar
+    hashed = generate_password_hash(password)
+
     nuevoUsuario = {
         "id": nuevoId,
         "email": email,
         "username": username,
-        "password": password,
+        "password": hashed,
         "rol": rol
     }
 

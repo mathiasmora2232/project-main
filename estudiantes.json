@@ -63,6 +63,11 @@
             "nombre": "2",
             "id": "",
             "materias_inscritas": {}
+        },
+        {
+            "nombre": "mathias",
+            "id": "dsa",
+            "materias_inscritas": {}
         }
     ],
     "materias": {

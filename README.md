@@ -25,6 +25,12 @@ python app.py
 
 (Nota: `app.py` tiene utilidades CLI y algunas rutas; revisa el archivo para ver endpoints disponibles.)
 
+Endpoints útiles añadidos:
+- `POST /login` -> JSON { email, password } devuelve { success, rol, username, email }
+- `POST /register` -> JSON { username, email, password, rol } crea usuario (contraseña se almacena hasheada)
+
+Nota sobre migración: las contraseñas existentes en `usuarios.json` en texto plano serán migradas al primer inicio de sesión exitoso (se reemplaza por un hash seguro). Esto permite mejorar seguridad sin forzar cambios masivos.
+
 Siguientes pasos recomendados (priorizados):
 1. Añadir validación de enlaces y un script que detecte links rotos.
 2. Extraer CSS repetido a `css/` y eliminar estilos inline.
