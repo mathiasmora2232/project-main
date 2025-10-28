@@ -1,5 +1,5 @@
 /* Usar las mismas fuentes del sitio: Open Sans para el cuerpo y Castoro para títulos */
-body, .content-padding { padding: 20px; font-family: 'Open Sans', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; }
+body, .content-padding { padding: 0px; font-family: 'Open Sans', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; }
 
 .calendar-card{max-width:900px;margin:0 auto;background:#fff;border-radius:8px;padding:12px;box-shadow:0 6px 18px rgba(18,32,47,0.06)}
 .calendar-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
