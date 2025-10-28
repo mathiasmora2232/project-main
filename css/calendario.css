@@ -1,1 +1,43 @@
-.content-padding { padding: 20px; }
+/* Usar las mismas fuentes del sitio: Open Sans para el cuerpo y Castoro para títulos */
+body, .content-padding { padding: 20px; font-family: 'Open Sans', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; }
+
+.calendar-card{max-width:900px;margin:0 auto;background:#fff;border-radius:8px;padding:12px;box-shadow:0 6px 18px rgba(18,32,47,0.06)}
+.calendar-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.calendar-controls button{background:#0d6efd;color:#fff;border:none;padding:8px 10px;border-radius:6px;margin-right:6px}
+.calendar-title{font-size:1.1rem;font-weight:600}
+.calendar-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+.calendar-weekday{font-weight:700;text-align:center;padding:6px}
+.calendar-day{min-height:90px;border-radius:6px;padding:8px;background:#f8fafc;border:1px solid #e6eef6}
+.calendar-day.outside{opacity:0.45;background:#fafbfd}
+.calendar-day .date{font-weight:700;margin-bottom:6px}
+.event{background:#ffefc2;padding:4px 6px;border-radius:4px;margin-bottom:4px;font-size:0.85rem}
+.today{outline:2px solid #0d6efd}
+.event-list{max-width:900px;margin:16px auto 40px;padding:12px}
+
+/* Títulos usan Castoro para mantener estilo del sitio */
+.calendar-card .calendar-title, .event-list h3 { font-family: 'Castoro', serif; }
+
+@media (max-width:600px){
+	.calendar-grid{gap:4px}
+	.calendar-day{min-height:80px;padding:6px}
+	.calendar-controls button{padding:6px 8px}
+}
+
+.calendar-card{max-width:900px;margin:0 auto;background:#fff;border-radius:8px;padding:12px;box-shadow:0 6px 18px rgba(18,32,47,0.06)}
+.calendar-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.calendar-controls button{background:#0d6efd;color:#fff;border:none;padding:8px 10px;border-radius:6px;margin-right:6px}
+.calendar-title{font-size:1.1rem;font-weight:600}
+.calendar-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+.calendar-weekday{font-weight:700;text-align:center;padding:6px}
+.calendar-day{min-height:90px;border-radius:6px;padding:8px;background:#f8fafc;border:1px solid #e6eef6}
+.calendar-day.outside{opacity:0.45;background:#fafbfd}
+.calendar-day .date{font-weight:700;margin-bottom:6px}
+.event{background:#ffefc2;padding:4px 6px;border-radius:4px;margin-bottom:4px;font-size:0.85rem}
+.today{outline:2px solid #0d6efd}
+.event-list{max-width:900px;margin:16px auto 40px;padding:12px}
+
+@media (max-width:600px){
+	.calendar-grid{gap:4px}
+	.calendar-day{min-height:80px;padding:6px}
+	.calendar-controls button{padding:6px 8px}
+}
