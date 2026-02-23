@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Materias - EduConnect</title>
+    <link rel="icon" href="img/logojpg-removebg-preview.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/Global.css?v=2">
+    <link rel="stylesheet" href="css/materias.css?v=2">
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="Homepage.html" class="logo">EduConnect</a>
+            <ul class="nav-links">
+                <li><a href="Homepage.html">Inicio</a></li>
+                <li><a href="Materias.html" class="active">Materias</a></li>
+                <li><a href="Malla.html">Malla Curricular</a></li>
+                <li><a href="Calendario.html">Calendario</a></li>
+                <li><a href="Cuenta.html">Mi Cuenta</a></li>
+                <li id="adminLink" style="display:none;"><a href="admin/dashboard-admin.html">Panel Admin</a></li>
+            </ul>
+            <div class="nav-right">
+                <button id="userMenuBtn" class="user-btn"><span id="userName">Usuario</span></button>
+                <div class="dropdown-menu" id="userDropdown">
+                    <a href="Cuenta.html">Mi Perfil</a>
+                    <button data-action="logout">Cerrar Sesion</button>
+                </div>
+            </div>
+            <button class="burger-menu" id="burgerMenu" aria-label="Menu">&#9776;</button>
+        </nav>
+    </header>
+
+    <main>
+        <div class="main-container">
+            <!-- LIST MODE -->
+            <div id="listMode">
+                <div class="page-header">
+                    <h1>Mis Materias</h1>
+                    <p>Gestiona tus materias inscritas y explora nuevas opciones</p>
+                </div>
+
+                <div class="filter-section">
+                    <div class="search-box">
+                        <input type="text" id="searchInput" placeholder="Buscar materias...">
+                    </div>
+                </div>
+
+                <h2 class="section-heading">Materias Inscritas</h2>
+                <div class="materias-grid" id="materiasInscritas">
+                    <div class="loading-spinner">Cargando materias...</div>
+                </div>
+
+                <div id="disponiblesSection" style="display:none;">
+                    <h2 class="section-heading" style="margin-top: 40px;">Materias Disponibles</h2>
+                    <div class="materias-grid" id="materiasDisponibles"></div>
+                </div>
+            </div>
+
+            <!-- DETAIL MODE -->
+            <div id="detailMode" style="display:none;">
+                <div class="detail-header" id="detailHeader">
+                    <a href="Materias.html" class="back-link">&larr; Volver a Materias</a>
+                    <div class="detail-info">
+                        <h1 id="detailNombre">-</h1>
+                        <div class="detail-meta">
+                            <span id="detailCodigo" class="detail-badge">-</span>
+                            <span id="detailProfesor">-</span>
+                            <span id="detailCreditos">-</span>
+                            <span id="detailSemestre">-</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TABS -->
+                <div class="detail-tabs">
+                    <button class="detail-tab active" data-tab="lecciones">Lecciones</button>
+                    <button class="detail-tab" data-tab="tareas">Tareas</button>
+                    <button class="detail-tab" data-tab="progreso">Progreso</button>
+                    <button class="detail-tab" data-tab="recursos">Recursos</button>
+                </div>
+
+                <!-- TAB: Lecciones -->
+                <div class="detail-content" id="tab-lecciones">
+                    <div id="leccionesList" class="lecciones-list">
+                        <div class="loading-spinner">Cargando lecciones...</div>
+                    </div>
+                </div>
+
+                <!-- TAB: Tareas -->
+                <div class="detail-content" id="tab-tareas" style="display:none;">
+                    <div id="tareasList" class="tareas-detail-list">
+                        <div class="loading-spinner">Cargando tareas...</div>
+                    </div>
+                </div>
+
+                <!-- TAB: Progreso -->
+                <div class="detail-content" id="tab-progreso" style="display:none;">
+                    <div id="progresoContent" class="progreso-container">
+                        <div class="loading-spinner">Cargando progreso...</div>
+                    </div>
+                </div>
+
+                <!-- TAB: Recursos -->
+                <div class="detail-content" id="tab-recursos" style="display:none;">
+                    <div id="recursosList" class="recursos-list">
+                        <div class="loading-spinner">Cargando recursos...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="js/api.js?v=2"></script>
+    <script src="js/app.js?v=2"></script>
+    <script src="js/adminlink.js?v=2"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Auth check desactivado para desarrollo
+
+            const params = new URLSearchParams(window.location.search);
+            const materiaId = params.get('id');
+
+            if (materiaId) {
+                loadDetailMode(materiaId);
+            } else {
+                loadListMode();
+            }
+        });
+
+        // ==================== LIST MODE ====================
+        async function loadListMode() {
+            document.getElementById('listMode').style.display = 'block';
+            document.getElementById('detailMode').style.display = 'none';
+
+            const user = getUser();
+
+            // Load enrolled materias
+            try {
+                const materias = await getMaterias();
+                const grid = document.getElementById('materiasInscritas');
+                if (!materias.length) {
+                    grid.innerHTML = '<p class="empty-state">No tienes materias inscritas.</p>';
+                } else {
+                    renderMateriasGrid(grid, materias, false);
+                }
+            } catch {
+                document.getElementById('materiasInscritas').innerHTML = '<p class="error-state">Error al cargar materias.</p>';
+            }
+
+            // Load available materias (students only)
+            if (user && user.rol === 'estudiante') {
+                try {
+                    const disponibles = await getMateriasDisponibles();
+                    if (disponibles.length) {
+                        document.getElementById('disponiblesSection').style.display = 'block';
+                        const grid = document.getElementById('materiasDisponibles');
+                        renderMateriasGrid(grid, disponibles, true);
+                    }
+                } catch {}
+            }
+
+            // Search filter
+            document.getElementById('searchInput').addEventListener('input', (e) => {
+                const q = e.target.value.toLowerCase();
+                document.querySelectorAll('.materia-card').forEach(card => {
+                    const text = card.textContent.toLowerCase();
+                    card.style.display = text.includes(q) ? '' : 'none';
+                });
+            });
+        }
+
+        function renderMateriasGrid(container, materias, showInscribir) {
+            container.innerHTML = materias.map(m => {
+                const progress = m.total_lecciones > 0 ?
+                    Math.round((m.lecciones_completadas || 0) / m.total_lecciones * 100) : 0;
+                return `
+                <div class="materia-card">
+                    <div class="materia-header">
+                        <div class="materia-code">${m.codigo || ''}</div>
+                        <h3 class="materia-title">${m.nombre}</h3>
+                    </div>
+                    <div class="materia-body">
+                        <div class="materia-info">
+                            <div class="materia-info-item">
+                                <span class="materia-info-icon">&#128104;&#8205;&#127891;</span>
+                                <span>${m.profesor_nombre || 'Sin profesor'}</span>
+                            </div>
+                            <div class="materia-info-item">
+                                <span class="materia-info-icon">&#128218;</span>
+                                <span>Semestre ${m.semestre || '-'} | ${m.creditos || 0} creditos</span>
+                            </div>
+                        </div>
+                        ${!showInscribir ? `
+                        <div class="materia-progress">
+                            <div class="progress-label"><span>Progreso</span><span>${progress}%</span></div>
+                            <div class="progress-bar"><div class="progress-fill" style="width:${progress}%"></div></div>
+                        </div>` : ''}
+                    </div>
+                    <div class="materia-footer">
+                        ${showInscribir ? `
+                            <button class="materia-btn materia-btn-primary" onclick="inscribirse(${m.id})">Inscribirse</button>
+                        ` : `
+                            <a href="Materias.html?id=${m.id}" class="materia-btn materia-btn-primary">Ver Detalle</a>
+                        `}
+                    </div>
+                </div>`;
+            }).join('');
+        }
+
+        async function inscribirse(materiaId) {
+            try {
+                await inscribirseMateria(materiaId);
+                showNotification('Inscripcion exitosa', 'success');
+                loadListMode();
+            } catch (error) {
+                showNotification('Error: ' + error.message, 'error');
+            }
+        }
+
+        // ==================== DETAIL MODE ====================
+        async function loadDetailMode(id) {
+            document.getElementById('listMode').style.display = 'none';
+            document.getElementById('detailMode').style.display = 'block';
+
+            // Init tabs
+            document.querySelectorAll('.detail-tab').forEach(tab => {
+                tab.addEventListener('click', () => {
+                    document.querySelectorAll('.detail-tab').forEach(t => t.classList.remove('active'));
+                    document.querySelectorAll('.detail-content').forEach(c => c.style.display = 'none');
+                    tab.classList.add('active');
+                    document.getElementById(`tab-${tab.dataset.tab}`).style.display = 'block';
+                });
+            });
+
+            // Load materia info
+            try {
+                const materia = await getMateriaById(id);
+                if (!materia) { window.location.href = 'Materias.html'; return; }
+                document.getElementById('detailNombre').textContent = materia.nombre;
+                document.getElementById('detailCodigo').textContent = materia.codigo || '';
+                document.getElementById('detailProfesor').textContent = 'Prof: ' + (materia.profesor_nombre || '-');
+                document.getElementById('detailCreditos').textContent = (materia.creditos || 0) + ' creditos';
+                document.getElementById('detailSemestre').textContent = 'Semestre ' + (materia.semestre || '-');
+            } catch {}
+
+            // Load lecciones
+            loadLecciones(id);
+            loadTareas(id);
+            loadProgreso(id);
+            loadRecursos(id);
+        }
+
+        async function loadLecciones(materiaId) {
+            try {
+                const lecciones = await getLeccionesPorMateria(materiaId);
+                const container = document.getElementById('leccionesList');
+                if (!lecciones.length) {
+                    container.innerHTML = '<p class="empty-state">No hay lecciones disponibles.</p>';
+                    return;
+                }
+                container.innerHTML = lecciones.map(l => `
+                    <div class="leccion-item">
+                        <div class="leccion-number">${l.numero_leccion || '-'}</div>
+                        <div class="leccion-info">
+                            <div class="leccion-title">${l.titulo}</div>
+                            <div class="leccion-meta">${l.duracion_estimada || 30} min | ${l.total_recursos || 0} recursos</div>
+                        </div>
+                        <button class="btn-completar" onclick="marcarCompletada(${l.id})">Completar</button>
+                    </div>
+                `).join('');
+            } catch {
+                document.getElementById('leccionesList').innerHTML = '<p class="error-state">Error al cargar lecciones.</p>';
+            }
+        }
+
+        async function marcarCompletada(leccionId) {
+            try {
+                await completarLeccion(leccionId);
+                showNotification('Leccion completada', 'success');
+                const params = new URLSearchParams(window.location.search);
+                loadLecciones(params.get('id'));
+                loadProgreso(params.get('id'));
+            } catch (error) {
+                showNotification('Error: ' + error.message, 'error');
+            }
+        }
+
+        async function loadTareas(materiaId) {
+            try {
+                const tareas = await getTareasPorMateria(materiaId);
+                const container = document.getElementById('tareasList');
+                if (!tareas.length) {
+                    container.innerHTML = '<p class="empty-state">No hay tareas disponibles.</p>';
+                    return;
+                }
+                container.innerHTML = tareas.map(t => {
+                    const days = getDaysUntil(t.fecha_entrega);
+                    const urgency = getUrgencyClass(t.fecha_entrega);
+                    const entregada = t.entrega_id ? true : false;
+                    return `
+                    <div class="tarea-card ${urgency}">
+                        <div class="tarea-header-info">
+                            <h4>${t.titulo}</h4>
+                            <span class="badge ${entregada ? 'badge-success' : 'badge-warning'}">${entregada ? 'Entregada' : 'Pendiente'}</span>
+                        </div>
+                        <p class="tarea-desc">${t.descripcion || ''}</p>
+                        <div class="tarea-footer-info">
+                            <span>Entrega: ${formatDate(t.fecha_entrega)}</span>
+                            <span>${t.puntos_totales || 100} puntos</span>
+                        </div>
+                        ${!entregada ? `
+                        <form class="entrega-form" onsubmit="entregarTareaForm(event, ${t.id})">
+                            <input type="text" placeholder="URL del archivo o comentario" class="entrega-input" id="entrega-${t.id}" required>
+                            <button type="submit" class="btn-entregar">Entregar</button>
+                        </form>` : `
+                        <div class="entrega-info">Entregada el ${t.entregada_en ? formatDate(t.entregada_en) : '-'}
+                        ${t.entrega_calificacion ? ' | Calificacion: ' + t.entrega_calificacion : ''}</div>
+                        `}
+                    </div>`;
+                }).join('');
+            } catch {
+                document.getElementById('tareasList').innerHTML = '<p class="error-state">Error al cargar tareas.</p>';
+            }
+        }
+
+        async function entregarTareaForm(e, tareaId) {
+            e.preventDefault();
+            const input = document.getElementById(`entrega-${tareaId}`);
+            try {
+                await entregarTarea(tareaId, input.value, input.value);
+                showNotification('Tarea entregada', 'success');
+                const params = new URLSearchParams(window.location.search);
+                loadTareas(params.get('id'));
+            } catch (error) {
+                showNotification('Error: ' + error.message, 'error');
+            }
+        }
+
+        async function loadProgreso(materiaId) {
+            try {
+                const progreso = await getProgresoMateria(materiaId);
+                const container = document.getElementById('progresoContent');
+                if (!progreso) {
+                    container.innerHTML = '<p class="empty-state">No hay datos de progreso.</p>';
+                    return;
+                }
+                const lecPct = progreso.total_lecciones > 0 ?
+                    Math.round(progreso.lecciones_completadas / progreso.total_lecciones * 100) : 0;
+                const tarPct = progreso.total_tareas > 0 ?
+                    Math.round(progreso.tareas_entregadas / progreso.total_tareas * 100) : 0;
+
+                container.innerHTML = `
+                    <div class="progreso-grid">
+                        <div class="progreso-card">
+                            <h4>Lecciones</h4>
+                            <div class="progreso-value">${progreso.lecciones_completadas}/${progreso.total_lecciones}</div>
+                            <div class="progress-bar"><div class="progress-fill" style="width:${lecPct}%"></div></div>
+                            <div class="progreso-pct">${lecPct}% completado</div>
+                        </div>
+                        <div class="progreso-card">
+                            <h4>Tareas</h4>
+                            <div class="progreso-value">${progreso.tareas_entregadas}/${progreso.total_tareas}</div>
+                            <div class="progress-bar"><div class="progress-fill" style="width:${tarPct}%"></div></div>
+                            <div class="progreso-pct">${tarPct}% entregadas</div>
+                        </div>
+                    </div>
+                    ${progreso.calificaciones && progreso.calificaciones.length ? `
+                    <h4 style="margin-top:24px;">Calificaciones</h4>
+                    <div class="calificaciones-list">
+                        ${progreso.calificaciones.map(c => `
+                            <div class="calificacion-item">
+                                <span>${c.tarea_titulo || 'Calificacion'}</span>
+                                <span class="calificacion-valor">${c.calificacion}</span>
+                            </div>
+                        `).join('')}
+                    </div>` : ''}
+                `;
+            } catch {
+                document.getElementById('progresoContent').innerHTML = '<p class="error-state">Error al cargar progreso.</p>';
+            }
+        }
+
+        async function loadRecursos(materiaId) {
+            try {
+                const lecciones = await getLeccionesPorMateria(materiaId);
+                const container = document.getElementById('recursosList');
+                let allRecursos = [];
+
+                for (const l of lecciones) {
+                    try {
+                        const leccion = await getLeccionById(l.id);
+                        if (leccion && leccion.recursos) {
+                            leccion.recursos.forEach(r => {
+                                allRecursos.push({ ...r, leccion_titulo: l.titulo });
+                            });
+                        }
+                    } catch {}
+                }
+
+                if (!allRecursos.length) {
+                    container.innerHTML = '<p class="empty-state">No hay recursos disponibles.</p>';
+                    return;
+                }
+
+                container.innerHTML = allRecursos.map(r => `
+                    <div class="recurso-item">
+                        <span class="recurso-tipo">${r.tipo === 'video' ? '&#127909;' : r.tipo === 'documento' ? '&#128196;' : '&#128279;'}</span>
+                        <div class="recurso-info">
+                            <div class="recurso-title">${r.titulo}</div>
+                            <div class="recurso-meta">${r.leccion_titulo} | ${r.tipo}</div>
+                        </div>
+                        <a href="${r.url}" target="_blank" class="recurso-link">Abrir</a>
+                    </div>
+                `).join('');
+            } catch {
+                document.getElementById('recursosList').innerHTML = '<p class="error-state">Error al cargar recursos.</p>';
+            }
+        }
+    </script>
+</body>
+</html>
