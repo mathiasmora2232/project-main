@@ -1,126 +1,64 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8" />
+    <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="EduConnect — plataforma educativa para gestionar tareas, horarios y calificaciones.">
-    <title>EduConnect</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendario - EduConnect</title>
     <link rel="icon" href="img/logojpg-removebg-preview.ico">
-    <!-- Fonts: preconnect once and load required families -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&family=Castoro:ital@0;1&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/Global.css">
-    <link rel="stylesheet" href="css/homepage.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/Global.css?v=2">
+    <link rel="stylesheet" href="css/calendario.css?v=2">
 </head>
 <body>
     <header>
-<nav aria-label="Navegación principal">
-  <div class="logo">EduConnect</div>
-
-  <ul class="nav-links">
-    <li><a href="Homepage.html">Página de Inicio</a></li>
-    <li><a href="Materias.html">Materias</a></li>
-    <li><a href="Malla.html">Malla</a></li>
-        <li><a href="Calendario.html">Calendario</a></li>
-        <li><a href="Cuenta.html">Mi cuenta</a></li>
-    <li id="admin-link" style="display:none;"><a href="admin/dashboard-admin.html">Panel Admin</a></li>
-  </ul>
-  <div class="notifications" id="notificationsBtn">
-    <span class="bell">🔔</span>
-  </div>
-  <div class="notifications-panel" id="notificationsPanel">
-    <div class="panel-header">
-      <span class="panel-title">Notificaciones</span>
-      <button class="close-btn" id="closeNotifications">✖</button>
-    </div>
-    <div class="panel-tabs">
-      <button class="tab-btn active" id="tabUnread">No leídas</button>
-      <button class="tab-btn" id="tabAll">Todas</button>
-    </div>
-    <div class="panel-content">
-      <div class="notifications-list" id="unreadList">
-        <div class="notification unread">
-          <div class="notif-date">01/07/2025<br><span class="notif-hour">08:30</span></div>
-          <div class="notif-info">
-            <div class="notif-title">Tarea nueva de Matemáticas</div>
-            <div class="notif-desc">Se ha asignado una nueva tarea sobre ecuaciones cuadráticas.</div>
-          </div>
-        </div>
-        <div class="notification unread">
-          <div class="notif-date">30/06/2025<br><span class="notif-hour">19:10</span></div>
-          <div class="notif-info">
-            <div class="notif-title">Mensaje de tu profesor</div>
-            <div class="notif-desc">El profesor Carlos ha enviado un mensaje sobre el examen.</div>
-          </div>
-        </div>
-      </div>
-      <div class="notifications-list" id="allList" style="display:none;">
-        <div class="notification unread">
-          <div class="notif-date">01/07/2025<br><span class="notif-hour">08:30</span></div>
-          <div class="notif-info">
-            <div class="notif-title">Tarea nueva de Matemáticas</div>
-            <div class="notif-desc">Se ha asignado una nueva tarea sobre ecuaciones cuadráticas.</div>
-          </div>
-        </div>
-        <div class="notification unread">
-          <div class="notif-date">30/06/2025<br><span class="notif-hour">19:10</span></div>
-          <div class="notif-info">
-            <div class="notif-title">Mensaje de tu profesor</div>
-            <div class="notif-desc">El profesor Carlos ha enviado un mensaje sobre el examen.</div>
-          </div>
-        </div>
-        <div class="notification">
-          <div class="notif-date">29/06/2025<br><span class="notif-hour">15:00</span></div>
-          <div class="notif-info">
-            <div class="notif-title">Calificación subida</div>
-            <div class="notif-desc">Tu calificación de Historia ya está disponible.</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-    <!-- Botón Burger para móviles (mejor accesibilidad: botón con aria) -->
-    <button class="burger" aria-label="Abrir menú" aria-expanded="false">
-        <span class="line1" aria-hidden="true"></span>
-        <span class="line2" aria-hidden="true"></span>
-        <span class="line3" aria-hidden="true"></span>
-    </button>
-</nav>
-
+        <nav>
+            <a href="Homepage.html" class="logo">EduConnect</a>
+            <ul class="nav-links">
+                <li><a href="Homepage.html">Inicio</a></li>
+                <li><a href="Materias.html">Materias</a></li>
+                <li><a href="Malla.html">Malla Curricular</a></li>
+                <li><a href="Calendario.html" class="active">Calendario</a></li>
+                <li><a href="Cuenta.html">Mi Cuenta</a></li>
+                <li id="adminLink" style="display:none;"><a href="admin/dashboard-admin.html">Panel Admin</a></li>
+            </ul>
+            <div class="nav-right">
+                <button id="userMenuBtn" class="user-btn"><span id="userName">Usuario</span></button>
+                <div class="dropdown-menu" id="userDropdown">
+                    <a href="Cuenta.html">Mi Perfil</a>
+                    <button data-action="logout">Cerrar Sesion</button>
+                </div>
+            </div>
+            <button class="burger-menu" id="burgerMenu" aria-label="Menu">&#9776;</button>
+        </nav>
     </header>
 
-    <main>
-        <section class="hero-section">
-            <div class="hero-content">
-                <div class="hero-text">
-                    <h1>Calendario</h1>
-                    <p>Aquí podrás ver los eventos y fechas importantes del período activo. (Página de ejemplo)</p>
-                </div>
-            </div>
-        </section>
+    <main class="calendario-main">
+        <div class="page-header">
+            <h1>Calendario</h1>
+            <p>Visualiza tus tareas y eventos del periodo academico</p>
+        </div>
 
-        <section class="content-padding">
-            <div class="calendar-card">
-                <div class="calendar-header">
-                    <div class="calendar-controls">
-                        <button id="prevBtn" aria-label="Mes anterior">◀</button>
-                        <button id="todayBtn">Hoy</button>
-                        <button id="nextBtn" aria-label="Mes siguiente">▶</button>
-                    </div>
-                    <div class="calendar-title" id="calendarTitle" aria-live="polite">Mes Año</div>
+        <div class="calendar-card">
+            <div class="calendar-header">
+                <div class="calendar-controls">
+                    <button id="prevBtn" aria-label="Mes anterior">&laquo;</button>
+                    <button id="todayBtn">Hoy</button>
+                    <button id="nextBtn" aria-label="Mes siguiente">&raquo;</button>
                 </div>
-                <div class="calendar-grid" id="calendarGrid" role="grid" aria-label="Calendario mensual"></div>
+                <div class="calendar-title" id="calendarTitle">Mes</div>
             </div>
-            <div id="eventList" class="event-list" aria-live="polite"></div>
-        </section>
+            <div class="calendar-grid" id="calendarGrid"></div>
+        </div>
+
+        <div id="eventList" class="event-list"></div>
     </main>
 
-    <link rel="stylesheet" href="css/calendario.css">
-    <script src="js/localBackend.js" defer></script>
-    <script src="js/calendario.js" defer></script>
-    <script src="js/app.js" defer></script>
-    <script src="js/adminlink.js" defer></script>
+    <script src="js/api.js?v=2"></script>
+    <script src="js/app.js?v=2"></script>
+    <script src="js/adminlink.js?v=2"></script>
+    <script src="js/calendario.js?v=2"></script>
 </body>
 </html>

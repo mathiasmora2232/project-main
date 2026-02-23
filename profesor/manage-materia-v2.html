@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestionar Curso - EduConnect</title>
+    
+    <link rel="stylesheet" href="../css/sistema-visual.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        .navbar {
+            background-color: var(--color-primary);
+            color: var(--color-white);
+            padding: var(--spacing-md) var(--spacing-lg);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--shadow-md);
+        }
+
+        .navbar-brand {
+            font-size: var(--font-size-2xl);
+            font-weight: var(--font-weight-bold);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+            color: var(--color-white);
+        }
+
+        .breadcrumb {
+            display: flex;
+            gap: var(--spacing-md);
+            align-items: center;
+            font-size: var(--font-size-sm);
+            color: var(--color-gray-600);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .breadcrumb a {
+            color: var(--color-accent);
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        .main-container {
+            padding: var(--spacing-2xl) var(--spacing-lg);
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .tabs {
+            display: flex;
+            gap: var(--spacing-md);
+            border-bottom: 2px solid var(--border-color);
+            margin-bottom: var(--spacing-2xl);
+            overflow-x: auto;
+        }
+
+        .tab-button {
+            padding: var(--spacing-md) var(--spacing-lg);
+            border: none;
+            background: none;
+            cursor: pointer;
+            font-size: var(--font-size-base);
+            font-weight: var(--font-weight-medium);
+            color: var(--color-gray-600);
+            border-bottom: 3px solid transparent;
+            transition: all var(--transition-fast);
+            white-space: nowrap;
+        }
+
+        .tab-button:hover {
+            color: var(--color-primary);
+        }
+
+        .tab-button.active {
+            color: var(--color-accent);
+            border-bottom-color: var(--color-accent);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: slideUp var(--transition-base);
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section-title {
+            font-size: var(--font-size-2xl);
+            font-weight: var(--font-weight-bold);
+            margin-bottom: var(--spacing-lg);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+            color: var(--color-primary);
+        }
+
+        .action-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--color-white);
+            box-shadow: var(--shadow-sm);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+        }
+
+        .table thead {
+            background-color: var(--color-primary);
+            color: var(--color-white);
+        }
+
+        .table th {
+            padding: var(--spacing-md);
+            text-align: left;
+            font-weight: var(--font-weight-semibold);
+        }
+
+        .table td {
+            padding: var(--spacing-md);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .table tbody tr:hover {
+            background-color: var(--bg-tertiary);
+        }
+
+        .table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: var(--spacing-sm);
+        }
+
+        .btn-small {
+            padding: var(--spacing-xs) var(--spacing-md);
+            font-size: var(--font-size-sm);
+            border: none;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            display: inline-flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+        }
+
+        .btn-edit {
+            background-color: var(--color-info);
+            color: var(--color-white);
+        }
+
+        .btn-edit:hover {
+            background-color: #0284c7;
+        }
+
+        .btn-delete {
+            background-color: var(--color-danger);
+            color: var(--color-white);
+        }
+
+        .btn-delete:hover {
+            background-color: #dc2626;
+        }
+
+        .btn-grade {
+            background-color: var(--color-success);
+            color: var(--color-white);
+        }
+
+        .btn-grade:hover {
+            background-color: #059669;
+        }
+
+        .empty-message {
+            text-align: center;
+            padding: var(--spacing-3xl) var(--spacing-lg);
+            color: var(--color-gray-600);
+        }
+
+        .upload-area {
+            border: 2px dashed var(--color-accent);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-2xl);
+            text-align: center;
+            transition: all var(--transition-fast);
+            cursor: pointer;
+            background-color: rgba(59, 130, 246, 0.05);
+        }
+
+        .upload-area:hover {
+            background-color: rgba(59, 130, 246, 0.1);
+            border-color: var(--color-accent-dark);
+        }
+
+        .upload-area.dragover {
+            background-color: rgba(59, 130, 246, 0.2);
+            border-color: var(--color-accent-dark);
+        }
+
+        .upload-icon {
+            font-size: 3rem;
+            color: var(--color-accent);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .file-input-wrapper {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+        }
+
+        .file-input-wrapper input[type=file] {
+            position: absolute;
+            left: -9999px;
+        }
+
+        .file-list {
+            margin-top: var(--spacing-lg);
+            display: grid;
+            gap: var(--spacing-md);
+        }
+
+        .file-item {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+            padding: var(--spacing-md);
+            background-color: var(--bg-tertiary);
+            border-radius: var(--radius-md);
+            border-left: 4px solid var(--color-info);
+        }
+
+        .file-icon {
+            font-size: var(--font-size-2xl);
+            color: var(--color-info);
+        }
+
+        .file-info {
+            flex: 1;
+        }
+
+        .file-name {
+            font-weight: var(--font-weight-medium);
+            color: var(--color-primary);
+        }
+
+        .file-size {
+            font-size: var(--font-size-sm);
+            color: var(--color-gray-600);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: var(--spacing-xs) var(--spacing-sm);
+            border-radius: var(--radius-md);
+            font-size: var(--font-size-xs);
+            font-weight: var(--font-weight-medium);
+            text-transform: uppercase;
+        }
+
+        .badge-success {
+            background-color: rgba(16, 185, 129, 0.2);
+            color: #065f46;
+        }
+
+        .badge-warning {
+            background-color: rgba(245, 158, 11, 0.2);
+            color: #78350f;
+        }
+
+        .badge-danger {
+            background-color: rgba(239, 68, 68, 0.2);
+            color: #7f1d1d;
+        }
+
+        @media (max-width: 768px) {
+            .tabs {
+                overflow-x: scroll;
+            }
+
+            .table {
+                font-size: var(--font-size-sm);
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navegación -->
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <i class="fas fa-book"></i>
+            EduConnect
+        </div>
+    </nav>
+
+    <div class="main-container">
+        <!-- Breadcrumb -->
+        <div class="breadcrumb">
+            <a href="dashboard-profesor-v2.html">
+                <i class="fas fa-home"></i>
+                Dashboard
+            </a>
+            <i class="fas fa-chevron-right"></i>
+            <span id="courseName">Curso</span>
+        </div>
+
+        <!-- Tabs -->
+        <div class="tabs">
+            <button class="tab-button active" onclick="switchTab('lecciones')">
+                <i class="fas fa-book-open"></i>
+                Lecciones
+            </button>
+            <button class="tab-button" onclick="switchTab('tareas')">
+                <i class="fas fa-tasks"></i>
+                Tareas
+            </button>
+            <button class="tab-button" onclick="switchTab('estudiantes')">
+                <i class="fas fa-users"></i>
+                Estudiantes
+            </button>
+            <button class="tab-button" onclick="switchTab('entregas')">
+                <i class="fas fa-file-upload"></i>
+                Entregas
+            </button>
+            <button class="tab-button" onclick="switchTab('recursos')">
+                <i class="fas fa-folder-open"></i>
+                Recursos
+            </button>
+        </div>
+
+        <!-- TAB: LECCIONES -->
+        <div id="lecciones" class="tab-content active">
+            <div class="action-header">
+                <h2 class="section-title">
+                    <i class="fas fa-book-open"></i>
+                    Lecciones
+                </h2>
+                <button class="btn btn-primary" onclick="openCreateLeccionModal()">
+                    <i class="fas fa-plus"></i>
+                    Nueva Lección
+                </button>
+            </div>
+
+            <table class="table" id="leccionesTable">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Título</th>
+                        <th>Contenido</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="leccionesList">
+                    <tr>
+                        <td colspan="4" class="empty-message">
+                            <i class="fas fa-inbox"></i>
+                            Sin lecciones aún
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- TAB: TAREAS -->
+        <div id="tareas" class="tab-content">
+            <div class="action-header">
+                <h2 class="section-title">
+                    <i class="fas fa-tasks"></i>
+                    Tareas
+                </h2>
+                <button class="btn btn-primary" onclick="openCreateTareaModal()">
+                    <i class="fas fa-plus"></i>
+                    Nueva Tarea
+                </button>
+            </div>
+
+            <table class="table" id="tareasTable">
+                <thead>
+                    <tr>
+                        <th>Título</th>
+                        <th>Fecha Entrega</th>
+                        <th>Puntos</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="tareasList">
+                    <tr>
+                        <td colspan="5" class="empty-message">
+                            <i class="fas fa-inbox"></i>
+                            Sin tareas aún
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- TAB: ESTUDIANTES -->
+        <div id="estudiantes" class="tab-content">
+            <h2 class="section-title">
+                <i class="fas fa-users"></i>
+                Estudiantes Inscritos
+            </h2>
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Email</th>
+                        <th>Fecha Inscripción</th>
+                        <th>Promedio</th>
+                    </tr>
+                </thead>
+                <tbody id="estudiantesList">
+                    <tr>
+                        <td colspan="4" class="empty-message">
+                            <i class="fas fa-inbox"></i>
+                            Sin estudiantes inscritos
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- TAB: ENTREGAS -->
+        <div id="entregas" class="tab-content">
+            <h2 class="section-title">
+                <i class="fas fa-file-upload"></i>
+                Entregas de Estudiantes
+            </h2>
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Tarea</th>
+                        <th>Estudiante</th>
+                        <th>Fecha Entrega</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="entregasList">
+                    <tr>
+                        <td colspan="5" class="empty-message">
+                            <i class="fas fa-inbox"></i>
+                            Sin entregas
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- TAB: RECURSOS -->
+        <div id="recursos" class="tab-content">
+            <h2 class="section-title">
+                <i class="fas fa-folder-open"></i>
+                Recursos del Curso
+            </h2>
+
+            <div class="upload-area" id="uploadArea">
+                <div class="upload-icon">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                </div>
+                <p><strong>Arrastra archivos aquí</strong> o haz clic para seleccionar</p>
+                <p style="font-size: var(--font-size-sm); color: var(--color-gray-600);">
+                    Soporta: PDF, Word, PowerPoint, Videos, Imágenes
+                </p>
+                <input type="file" id="fileInput" multiple onchange="handleFileUpload(event)">
+            </div>
+
+            <div class="file-list" id="fileList"></div>
+        </div>
+    </div>
+
+    <!-- MODAL: CREAR LECCIÓN -->
+    <div class="modal-overlay" id="createLeccionModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">
+                    <i class="fas fa-plus-circle"></i>
+                    Nueva Lección
+                </h2>
+                <button class="modal-close" onclick="closeCreateLeccionModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <form id="createLeccionForm">
+                <div class="form-group">
+                    <label class="form-label required">Título</label>
+                    <input type="text" class="form-input" id="leccionTitulo" required placeholder="Ej: Introducción a HTML">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label required">Contenido</label>
+                    <textarea class="form-textarea" id="leccionContenido" required placeholder="Escribe el contenido de la lección"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label required">Orden</label>
+                    <input type="number" class="form-input" id="leccionOrden" required min="1" placeholder="1">
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="closeCreateLeccionModal()">
+                        Cancelar
+                    </button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-check"></i>
+                        Guardar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL: CREAR TAREA -->
+    <div class="modal-overlay" id="createTareaModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">
+                    <i class="fas fa-plus-circle"></i>
+                    Nueva Tarea
+                </h2>
+                <button class="modal-close" onclick="closeCreateTareaModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <form id="createTareaForm">
+                <div class="form-group">
+                    <label class="form-label required">Título</label>
+                    <input type="text" class="form-input" id="tareaTitulo" required placeholder="Ej: Ejercicio práctico">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label required">Descripción</label>
+                    <textarea class="form-textarea" id="tareaDescripcion" required placeholder="Describe qué deben hacer los estudiantes"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label required">Fecha de Entrega</label>
+                    <input type="datetime-local" class="form-input" id="tareaFecha" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label required">Puntos Totales</label>
+                    <input type="number" class="form-input" id="tareaPuntos" required min="1" placeholder="100">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Archivo (Opcional)</label>
+                    <input type="file" class="form-input" id="tareaArchivo">
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="closeCreateTareaModal()">
+                        Cancelar
+                    </button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-check"></i>
+                        Guardar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="../js/api.js"></script>
+    <script>
+        const courseId = new URLSearchParams(window.location.search).get('id');
+
+        function switchTab(tabName) {
+            // Ocultar todos los tabs
+            document.querySelectorAll('.tab-content').forEach(el => {
+                el.classList.remove('active');
+            });
+            document.querySelectorAll('.tab-button').forEach(el => {
+                el.classList.remove('active');
+            });
+
+            // Mostrar el tab activo
+            document.getElementById(tabName).classList.add('active');
+            event.target.closest('.tab-button').classList.add('active');
+
+            // Cargar datos si es necesario
+            if (tabName === 'lecciones') loadLecciones();
+            else if (tabName === 'tareas') loadTareas();
+            else if (tabName === 'estudiantes') loadEstudiantes();
+            else if (tabName === 'entregas') loadEntregas();
+        }
+
+        function openCreateLeccionModal() {
+            document.getElementById('createLeccionModal').classList.add('active');
+        }
+
+        function closeCreateLeccionModal() {
+            document.getElementById('createLeccionModal').classList.remove('active');
+            document.getElementById('createLeccionForm').reset();
+        }
+
+        function openCreateTareaModal() {
+            document.getElementById('createTareaModal').classList.add('active');
+        }
+
+        function closeCreateTareaModal() {
+            document.getElementById('createTareaModal').classList.remove('active');
+            document.getElementById('createTareaForm').reset();
+        }
+
+        async function loadLecciones() {
+            try {
+                const response = await api.get(`/lecciones?materiaId=${courseId}`);
+                const lecciones = response.data || [];
+                const tbody = document.getElementById('leccionesList');
+
+                if (lecciones.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="4" class="empty-message"><i class="fas fa-inbox"></i> Sin lecciones aún</td></tr>';
+                    return;
+                }
+
+                tbody.innerHTML = lecciones.map((l, i) => `
+                    <tr>
+                        <td>${l.numero_leccion || i + 1}</td>
+                        <td><strong>${l.titulo}</strong></td>
+                        <td>${l.contenido ? l.contenido.substring(0, 50) + '...' : 'N/A'}</td>
+                        <td>
+                            <div class="action-buttons">
+                                <button class="btn-small btn-edit" onclick="editarLeccion(${l.id})">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="btn-small btn-delete" onclick="eliminarLeccion(${l.id})">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                `).join('');
+            } catch (error) {
+                console.error('Error cargando lecciones:', error);
+            }
+        }
+
+        async function loadTareas() {
+            try {
+                const response = await api.get(`/tareas?materiaId=${courseId}`);
+                const tareas = response.data || [];
+                const tbody = document.getElementById('tareasList');
+
+                if (tareas.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="5" class="empty-message"><i class="fas fa-inbox"></i> Sin tareas aún</td></tr>';
+                    return;
+                }
+
+                tbody.innerHTML = tareas.map(t => {
+                    const fecha = new Date(t.fecha_entrega);
+                    const hoy = new Date();
+                    const estado = fecha < hoy ? 'Vencida' : 'Activa';
+                    const badgeClass = estado === 'Vencida' ? 'badge-danger' : 'badge-success';
+
+                    return `
+                        <tr>
+                            <td><strong>${t.titulo}</strong></td>
+                            <td>${fecha.toLocaleDateString()}</td>
+                            <td>${t.puntos_totales}</td>
+                            <td><span class="badge ${badgeClass}">${estado}</span></td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="btn-small btn-edit" onclick="editarTarea(${t.id})">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="btn-small btn-delete" onclick="eliminarTarea(${t.id})">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    `;
+                }).join('');
+            } catch (error) {
+                console.error('Error cargando tareas:', error);
+            }
+        }
+
+        async function loadEstudiantes() {
+            try {
+                const response = await api.get(`/materias/${courseId}/estudiantes`);
+                const estudiantes = response.data || [];
+                const tbody = document.getElementById('estudiantesList');
+
+                if (estudiantes.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="4" class="empty-message"><i class="fas fa-inbox"></i> Sin estudiantes inscritos</td></tr>';
+                    return;
+                }
+
+                tbody.innerHTML = estudiantes.map(e => `
+                    <tr>
+                        <td>${e.nombre_completo}</td>
+                        <td>${e.email}</td>
+                        <td>${new Date(e.fecha_inscripcion).toLocaleDateString()}</td>
+                        <td>${(e.promedio || 0).toFixed(1)}</td>
+                    </tr>
+                `).join('');
+            } catch (error) {
+                console.error('Error cargando estudiantes:', error);
+            }
+        }
+
+        async function loadEntregas() {
+            try {
+                const tbody = document.getElementById('entregasList');
+                // Implementar cuando el endpoint esté listo
+                tbody.innerHTML = '<tr><td colspan="5" class="empty-message"><i class="fas fa-inbox"></i> Sin entregas</td></tr>';
+            } catch (error) {
+                console.error('Error cargando entregas:', error);
+            }
+        }
+
+        function handleFileUpload(event) {
+            const files = event.target.files;
+            const fileList = document.getElementById('fileList');
+
+            if (files.length === 0) {
+                fileList.innerHTML = '';
+                return;
+            }
+
+            fileList.innerHTML = Array.from(files).map((file, index) => {
+                const sizeInKB = (file.size / 1024).toFixed(2);
+                const icon = getFileIcon(file.type);
+
+                return `
+                    <div class="file-item">
+                        <div class="file-icon">
+                            <i class="${icon}"></i>
+                        </div>
+                        <div class="file-info">
+                            <div class="file-name">${file.name}</div>
+                            <div class="file-size">${sizeInKB} KB</div>
+                        </div>
+                        <button type="button" class="btn-small btn-delete" onclick="removeFile(${index})">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function getFileIcon(mimeType) {
+            if (mimeType.includes('pdf')) return 'fas fa-file-pdf';
+            if (mimeType.includes('word')) return 'fas fa-file-word';
+            if (mimeType.includes('sheet')) return 'fas fa-file-excel';
+            if (mimeType.includes('presentation')) return 'fas fa-file-powerpoint';
+            if (mimeType.includes('video')) return 'fas fa-file-video';
+            if (mimeType.includes('image')) return 'fas fa-file-image';
+            return 'fas fa-file';
+        }
+
+        function removeFile(index) {
+            // Implementar
+        }
+
+        document.getElementById('uploadArea').addEventListener('dragover', (e) => {
+            e.preventDefault();
+            document.getElementById('uploadArea').classList.add('dragover');
+        });
+
+        document.getElementById('uploadArea').addEventListener('dragleave', () => {
+            document.getElementById('uploadArea').classList.remove('dragover');
+        });
+
+        document.getElementById('uploadArea').addEventListener('drop', (e) => {
+            e.preventDefault();
+            document.getElementById('uploadArea').classList.remove('dragover');
+            const files = e.dataTransfer.files;
+            document.getElementById('fileInput').files = files;
+            handleFileUpload({ target: { files } });
+        });
+
+        document.getElementById('uploadArea').addEventListener('click', () => {
+            document.getElementById('fileInput').click();
+        });
+
+        // Formularios
+        document.getElementById('createLeccionForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const data = {
+                titulo: document.getElementById('leccionTitulo').value,
+                contenido: document.getElementById('leccionContenido').value,
+                numero_leccion: parseInt(document.getElementById('leccionOrden').value),
+                materia_id: courseId
+            };
+
+            try {
+                await api.post('/lecciones', data);
+                alert('Lección creada');
+                closeCreateLeccionModal();
+                loadLecciones();
+            } catch (error) {
+                alert('Error: ' + error.message);
+            }
+        });
+
+        document.getElementById('createTareaForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const data = {
+                titulo: document.getElementById('tareaTitulo').value,
+                descripcion: document.getElementById('tareaDescripcion').value,
+                fecha_entrega: document.getElementById('tareaFecha').value,
+                puntos_totales: parseInt(document.getElementById('tareaPuntos').value),
+                materia_id: courseId
+            };
+
+            try {
+                await api.post('/tareas', data);
+                alert('Tarea creada');
+                closeCreateTareaModal();
+                loadTareas();
+            } catch (error) {
+                alert('Error: ' + error.message);
+            }
+        });
+
+        function editarLeccion(id) {
+            alert('Editar lección ' + id);
+        }
+
+        function eliminarLeccion(id) {
+            if (confirm('¿Eliminar esta lección?')) {
+                api.delete(`/lecciones/${id}`).then(() => {
+                    alert('Lección eliminada');
+                    loadLecciones();
+                });
+            }
+        }
+
+        function editarTarea(id) {
+            alert('Editar tarea ' + id);
+        }
+
+        function eliminarTarea(id) {
+            if (confirm('¿Eliminar esta tarea?')) {
+                api.delete(`/tareas/${id}`).then(() => {
+                    alert('Tarea eliminada');
+                    loadTareas();
+                });
+            }
+        }
+
+        window.addEventListener('load', () => {
+            loadLecciones();
+        });
+    </script>
+</body>
+</html>

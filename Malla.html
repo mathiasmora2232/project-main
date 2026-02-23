@@ -1,237 +1,134 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-<meta charset="UTF-8" />
+    <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>EduConnect</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Malla Curricular - EduConnect</title>
     <link rel="icon" href="img/logojpg-removebg-preview.ico">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@300&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Castoro:ital@0;1&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/Global.css">
-    <link rel="stylesheet" type="text/css" href="css/malla.css">
-
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/Global.css?v=2">
+    <link rel="stylesheet" href="css/malla.css?v=2">
 </head>
 <body>
-    <header>  
+    <header>
         <nav>
-  <div class="logo">EduConnect</div>
-  
-  <ul class="nav-links">
-    <li><a href="Homepage.html">Página de Inicio</a></li>
-    <li><a href="Materias.html">Materias</a></li>
-    <li><a href="Malla.html">Malla</a></li>
-    <li><a href="Calendario.html">Calendario</a></li>
-    <li><a href="cuenta.html">Mi cuenta</a></li>
-    <li id="admin-link" style="display:none;"><a href="admin/dashboard-admin.html">Panel Admin</a></li>
-  </ul>
-  <div class="notifications" id="notificationsBtn">
-    <span class="bell">🔔</span>
-  </div>
-  <div class="notifications-panel" id="notificationsPanel">
-    <div class="panel-header">
-      <span class="panel-title">Notificaciones</span>
-      <button class="close-btn" id="closeNotifications">✖</button>
-    </div>
-    <div class="panel-tabs">
-      <button class="tab-btn active" id="tabUnread">No leídas</button>
-      <button class="tab-btn" id="tabAll">Todas</button>
-    </div>
-    <div class="panel-content">
-      <div class="notifications-list" id="unreadList">
-        <div class="notification unread">
-          <div class="notif-date">01/07/2025<br><span class="notif-hour">08:30</span></div>
-          <div class="notif-info">
-            <div class="notif-title">Tarea nueva de Matemáticas</div>
-            <div class="notif-desc">Se ha asignado una nueva tarea sobre ecuaciones cuadráticas.</div>
-          </div>
-        </div>
-        <div class="notification unread">
-          <div class="notif-date">30/06/2025<br><span class="notif-hour">19:10</span></div>
-          <div class="notif-info">
-            <div class="notif-title">Mensaje de tu profesor</div>
-            <div class="notif-desc">El profesor Carlos ha enviado un mensaje sobre el examen.</div>
-          </div>
-        </div>
-      </div>
-      <div class="notifications-list" id="allList" style="display:none;">
-        <div class="notification unread">
-          <div class="notif-date">01/07/2025<br><span class="notif-hour">08:30</span></div>
-          <div class="notif-info">
-            <div class="notif-title">Tarea nueva de Matemáticas</div>
-            <div class="notif-desc">Se ha asignado una nueva tarea sobre ecuaciones cuadráticas.</div>
-          </div>
-        </div>
-        <div class="notification unread">
-          <div class="notif-date">30/06/2025<br><span class="notif-hour">19:10</span></div>
-          <div class="notif-info">
-            <div class="notif-title">Mensaje de tu profesor</div>
-            <div class="notif-desc">El profesor Carlos ha enviado un mensaje sobre el examen.</div>
-          </div>
-        </div>
-        <div class="notification">
-          <div class="notif-date">29/06/2025<br><span class="notif-hour">15:00</span></div>
-          <div class="notif-info">
-            <div class="notif-title">Calificación subida</div>
-            <div class="notif-desc">Tu calificación de Historia ya está disponible.</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="burger">
-    <div class="line1"></div>
-    <div class="line2"></div>
-    <div class="line3"></div>
-  </div>
-</nav>
-      </header>
-      
-      <main class="malla-container">
+            <a href="Homepage.html" class="logo">EduConnect</a>
+            <ul class="nav-links">
+                <li><a href="Homepage.html">Inicio</a></li>
+                <li><a href="Materias.html">Materias</a></li>
+                <li><a href="Malla.html" class="active">Malla Curricular</a></li>
+                <li><a href="Calendario.html">Calendario</a></li>
+                <li><a href="Cuenta.html">Mi Cuenta</a></li>
+                <li id="adminLink" style="display:none;"><a href="admin/dashboard-admin.html">Panel Admin</a></li>
+            </ul>
+            <div class="nav-right">
+                <button id="userMenuBtn" class="user-btn"><span id="userName">Usuario</span></button>
+                <div class="dropdown-menu" id="userDropdown">
+                    <a href="Cuenta.html">Mi Perfil</a>
+                    <button data-action="logout">Cerrar Sesion</button>
+                </div>
+            </div>
+            <button class="burger-menu" id="burgerMenu" aria-label="Menu">&#9776;</button>
+        </nav>
+    </header>
+
+    <main class="malla-container">
         <div class="page-header">
-          <h1>Malla Curricular</h1>
-          <p class="page-subtitle">Propuesta de Malla por Semestres - Carrera de Ingeniería en Sistemas</p>
+            <h1>Malla Curricular</h1>
+            <p class="page-subtitle">Todas las materias disponibles agrupadas por semestre</p>
         </div>
 
-        <div class="malla-grid">
-          <!-- 1er Semestre -->
-          <div class="semestre-card">
-            <div class="semestre-header">
-              <h2>1er Semestre</h2>
-              <div class="semestre-badge">5 Materias</div>
-            </div>
-            <div class="materias-list">
-              <div class="materia-item">
-                <div class="materia-name">Programación I</div>
-                <div class="profesor-name">Ing. David Vaca</div>
-              </div>
-              <div class="materia-item">
-                <div class="materia-name">Matemáticas Discretas</div>
-                <div class="profesor-name">Dra. Carmen Aguilar</div>
-              </div>
-              <div class="materia-item">
-                <div class="materia-name">Física I</div>
-                <div class="profesor-name">Msc. Romina Andrade</div>
-              </div>
-              <div class="materia-item">
-                <div class="materia-name">Inglés Técnico</div>
-                <div class="profesor-name">Lic. Pilar Mora</div>
-              </div>
-              <div class="materia-item">
-                <div class="materia-name">Contabilidad General</div>
-                <div class="profesor-name">Msc. Viviana Torres</div>
-              </div>
-            </div>
-          </div>
-
-          <!-- 2do Semestre -->
-          <div class="semestre-card">
-            <div class="semestre-header">
-              <h2>2do Semestre</h2>
-              <div class="semestre-badge">5 Materias</div>
-            </div>
-            <div class="materias-list">
-              <div class="materia-item">
-                <div class="materia-name">Bases de Datos</div>
-                <div class="profesor-name">Dr. Andrés Silva</div>
-              </div>
-              <div class="materia-item">
-                <div class="materia-name">IA Básica</div>
-                <div class="profesor-name">Msc. Esteban Ríos</div>
-              </div>
-              <div class="materia-item">
-                <div class="materia-name">Estadística Aplicada</div>
-                <div class="profesor-name">Dra. Teresa Jiménez</div>
-              </div>
-              <div class="materia-item">
-                <div class="materia-name">Redes I</div>
-                <div class="profesor-name">Dr. Pablo Méndez</div>
-              </div>
-              <div class="materia-item">
-                <div class="materia-name">Electrónica Digital</div>
-                <div class="profesor-name">Msc. Jaime López</div>
-              </div>
-            </div>
-          </div>
-
-          <!-- 3er Semestre -->
-          <div class="semestre-card">
-            <div class="semestre-header">
-              <h2>3er Semestre</h2>
-              <div class="semestre-badge">5 Materias</div>
-            </div>
-            <div class="materias-list">
-              <div class="materia-item">
-                <div class="materia-name">Programación II</div>
-                <div class="profesor-name">Ing. David Vaca</div>
-              </div>
-              <div class="materia-item">
-                <div class="materia-name">Bases de Datos II</div>
-                <div class="profesor-name">Dr. Andrés Silva</div>
-              </div>
-              <div class="materia-item">
-                <div class="materia-name">Matemáticas II</div>
-                <div class="profesor-name">Dra. Carmen Aguilar</div>
-              </div>
-              <div class="materia-item">
-                <div class="materia-name">Física II</div>
-                <div class="profesor-name">Msc. Romina Andrade</div>
-              </div>
-              <div class="materia-item">
-                <div class="materia-name">Redes II</div>
-                <div class="profesor-name">Dr. Pablo Méndez</div>
-              </div>
-            </div>
-          </div>
-
-          <!-- 4to Semestre -->
-          <div class="semestre-card">
-            <div class="semestre-header">
-              <h2>4to Semestre</h2>
-              <div class="semestre-badge">2 Materias</div>
-            </div>
-            <div class="materias-list">
-              <div class="materia-item">
-                <div class="materia-name">Contabilidad Especializada</div>
-                <div class="profesor-name">Msc. Viviana Torres</div>
-              </div>
-              <div class="materia-item">
-                <div class="materia-name">Ingeniería</div>
-                <div class="profesor-name">Msc. Esteban Ríos</div>
-              </div>
-            </div>
-          </div>
+        <div class="malla-grid" id="mallaGrid">
+            <div class="loading-spinner">Cargando malla curricular...</div>
         </div>
 
-        <!-- Información adicional -->
-        <div class="info-section">
-          <div class="info-card">
-            <h3>📊 Resumen de la Malla</h3>
-            <div class="stats-grid">
-              <div class="stat-item">
-                <div class="stat-number">4</div>
-                <div class="stat-label">Semestres</div>
-              </div>
-              <div class="stat-item">
-                <div class="stat-number">17</div>
-                <div class="stat-label">Materias Total</div>
-              </div>
-              <div class="stat-item">
-                <div class="stat-number">9</div>
-                <div class="stat-label">Profesores</div>
-              </div>
+        <div class="info-section" id="infoSection" style="display:none;">
+            <div class="info-card">
+                <h3>Resumen de la Malla</h3>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-number" id="totalSemestres">0</div>
+                        <div class="stat-label">Semestres</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" id="totalMaterias">0</div>
+                        <div class="stat-label">Materias</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" id="totalCreditos">0</div>
+                        <div class="stat-label">Creditos Total</div>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </main>
+    </main>
 
-      <script src="js/app.js"></script>
-      <script src="js/adminlink.js"></script>
-      
-          
+    <script src="js/api.js?v=2"></script>
+    <script src="js/app.js?v=2"></script>
+    <script src="js/adminlink.js?v=2"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                const materias = await getTodasMaterias();
+                const grid = document.getElementById('mallaGrid');
+
+                if (!materias.length) {
+                    grid.innerHTML = '<p class="empty-state">No hay materias registradas.</p>';
+                    return;
+                }
+
+                // Group by semester
+                const semestres = {};
+                materias.forEach(m => {
+                    const sem = m.semestre || 1;
+                    if (!semestres[sem]) semestres[sem] = [];
+                    semestres[sem].push(m);
+                });
+
+                const semKeys = Object.keys(semestres).sort((a,b) => a - b);
+                let totalCreditos = 0;
+
+                grid.innerHTML = semKeys.map(sem => {
+                    const mats = semestres[sem];
+                    const semCreditos = mats.reduce((s, m) => s + (m.creditos || 0), 0);
+                    totalCreditos += semCreditos;
+
+                    return `
+                    <div class="semestre-card">
+                        <div class="semestre-header">
+                            <h2>Semestre ${sem}</h2>
+                            <div class="semestre-badge">${mats.length} Materias | ${semCreditos} Creditos</div>
+                        </div>
+                        <div class="materias-list">
+                            ${mats.map(m => `
+                                <div class="materia-item">
+                                    <div class="materia-item-top">
+                                        <div class="materia-name">${m.nombre}</div>
+                                        <span class="materia-code-badge">${m.codigo || ''}</span>
+                                    </div>
+                                    <div class="materia-item-bottom">
+                                        <span class="profesor-name">${m.profesor_nombre || 'Sin asignar'}</span>
+                                        <span class="creditos-badge">${m.creditos || 0} cred.</span>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>`;
+                }).join('');
+
+                // Update info section
+                document.getElementById('totalSemestres').textContent = semKeys.length;
+                document.getElementById('totalMaterias').textContent = materias.length;
+                document.getElementById('totalCreditos').textContent = totalCreditos;
+                document.getElementById('infoSection').style.display = 'block';
+
+            } catch (error) {
+                document.getElementById('mallaGrid').innerHTML = '<p class="error-state">Error al cargar la malla curricular.</p>';
+            }
+        });
+    </script>
 </body>
 </html>

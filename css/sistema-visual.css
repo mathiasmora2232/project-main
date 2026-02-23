@@ -1,0 +1,845 @@
+/* ==========================================
+   SISTEMA VISUAL PROFESIONAL - EduConnect
+   ==========================================
+   Diseño moderno, accesible y consistente
+   ========================================== */
+
+/* ============================================
+   1. VARIABLES DE DISEÑO (Design Tokens)
+   ============================================ */
+
+:root {
+  /* Colores Primarios - Paleta Profesional */
+  --color-primary: #0f172a;        /* Azul oscuro base */
+  --color-primary-light: #1e293b;  /* Azul oscuro claro */
+  --color-primary-lighter: #334155; /* Azul gris */
+  
+  /* Colores de Acento */
+  --color-accent: #3b82f6;         /* Azul brillante */
+  --color-accent-dark: #1d4ed8;    /* Azul oscuro */
+  --color-accent-light: #60a5fa;   /* Azul claro */
+  
+  /* Estados Visuales */
+  --color-success: #10b981;        /* Verde éxito */
+  --color-warning: #f59e0b;        /* Ámbar advertencia */
+  --color-danger: #ef4444;         /* Rojo peligro */
+  --color-info: #0ea5e9;           /* Cian información */
+  
+  /* Escala de Grises */
+  --color-white: #ffffff;
+  --color-gray-50: #f9fafb;
+  --color-gray-100: #f3f4f6;
+  --color-gray-200: #e5e7eb;
+  --color-gray-300: #d1d5db;
+  --color-gray-400: #9ca3af;
+  --color-gray-500: #6b7280;
+  --color-gray-600: #4b5563;
+  --color-gray-700: #374151;
+  --color-gray-800: #1f2937;
+  --color-gray-900: #111827;
+  
+  /* Texturas y Fondos */
+  --bg-base: #ffffff;
+  --bg-secondary: #f9fafb;
+  --bg-tertiary: #f3f4f6;
+  
+  /* Tipografía */
+  --font-family-primary: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  --font-family-mono: 'Fira Code', 'Courier New', monospace;
+  
+  --font-size-xs: 0.75rem;     /* 12px */
+  --font-size-sm: 0.875rem;    /* 14px */
+  --font-size-base: 1rem;      /* 16px */
+  --font-size-lg: 1.125rem;    /* 18px */
+  --font-size-xl: 1.25rem;     /* 20px */
+  --font-size-2xl: 1.5rem;     /* 24px */
+  --font-size-3xl: 1.875rem;   /* 30px */
+  --font-size-4xl: 2.25rem;    /* 36px */
+  
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  
+  /* Espaciado */
+  --spacing-xs: 0.25rem;      /* 4px */
+  --spacing-sm: 0.5rem;       /* 8px */
+  --spacing-md: 1rem;         /* 16px */
+  --spacing-lg: 1.5rem;       /* 24px */
+  --spacing-xl: 2rem;         /* 32px */
+  --spacing-2xl: 3rem;        /* 48px */
+  --spacing-3xl: 4rem;        /* 64px */
+  
+  /* Esquinas redondeadas */
+  --radius-sm: 0.375rem;      /* 6px */
+  --radius-md: 0.5rem;        /* 8px */
+  --radius-lg: 0.75rem;       /* 12px */
+  --radius-xl: 1rem;          /* 16px */
+  --radius-2xl: 1.5rem;       /* 24px */
+  
+  /* Sombras */
+  --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  
+  /* Bordes */
+  --border-width: 1px;
+  --border-color: var(--color-gray-200);
+  
+  /* Transiciones */
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 350ms cubic-bezier(0.4, 0, 0.2, 1);
+  
+  /* Z-Index */
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-fixed: 300;
+  --z-modal-backdrop: 400;
+  --z-modal: 500;
+  --z-toast: 600;
+  --z-tooltip: 700;
+}
+
+/* ============================================
+   2. RESET Y BASE STYLES
+   ============================================ */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-normal);
+  line-height: 1.6;
+  color: var(--color-gray-900);
+  background-color: var(--bg-secondary);
+}
+
+/* ============================================
+   3. TIPOGRAFÍA
+   ============================================ */
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: var(--font-weight-bold);
+  line-height: 1.2;
+  margin-bottom: var(--spacing-lg);
+  color: var(--color-primary);
+}
+
+h1 {
+  font-size: var(--font-size-4xl);
+  letter-spacing: -0.5px;
+}
+
+h2 {
+  font-size: var(--font-size-3xl);
+}
+
+h3 {
+  font-size: var(--font-size-2xl);
+}
+
+h4 {
+  font-size: var(--font-size-xl);
+}
+
+h5, h6 {
+  font-size: var(--font-size-lg);
+}
+
+p {
+  margin-bottom: var(--spacing-md);
+  color: var(--color-gray-700);
+}
+
+small {
+  font-size: var(--font-size-sm);
+  color: var(--color-gray-600);
+}
+
+code {
+  font-family: var(--font-family-mono);
+  background-color: var(--bg-tertiary);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--radius-md);
+  font-size: 0.9em;
+}
+
+/* ============================================
+   4. ENLACES
+   ============================================ */
+
+a {
+  color: var(--color-accent);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+a:hover {
+  color: var(--color-accent-dark);
+  text-decoration: underline;
+}
+
+a:active {
+  color: var(--color-accent-dark);
+}
+
+/* ============================================
+   5. BOTONES
+   ============================================ */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-sm) var(--spacing-lg);
+  font-family: inherit;
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  text-align: center;
+  border: none;
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+  user-select: none;
+}
+
+/* Variante Primaria */
+.btn-primary {
+  background-color: var(--color-accent);
+  color: var(--color-white);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-primary:hover {
+  background-color: var(--color-accent-dark);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-primary:disabled {
+  background-color: var(--color-gray-300);
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Variante Secundaria */
+.btn-secondary {
+  background-color: var(--bg-tertiary);
+  color: var(--color-primary);
+  border: var(--border-width) solid var(--border-color);
+}
+
+.btn-secondary:hover {
+  background-color: var(--color-gray-200);
+  border-color: var(--color-gray-300);
+}
+
+/* Variante Peligro */
+.btn-danger {
+  background-color: var(--color-danger);
+  color: var(--color-white);
+}
+
+.btn-danger:hover {
+  background-color: #dc2626;
+}
+
+/* Variante Éxito */
+.btn-success {
+  background-color: var(--color-success);
+  color: var(--color-white);
+}
+
+.btn-success:hover {
+  background-color: #059669;
+}
+
+/* Variante Información */
+.btn-info {
+  background-color: var(--color-info);
+  color: var(--color-white);
+}
+
+.btn-info:hover {
+  background-color: #0284c7;
+}
+
+/* Tamaños */
+.btn-sm {
+  padding: var(--spacing-xs) var(--spacing-md);
+  font-size: var(--font-size-sm);
+}
+
+.btn-lg {
+  padding: var(--spacing-md) var(--spacing-xl);
+  font-size: var(--font-size-lg);
+}
+
+/* Ancho completo */
+.btn-block {
+  width: 100%;
+}
+
+/* ============================================
+   6. FORMULARIOS
+   ============================================ */
+
+.form-group {
+  margin-bottom: var(--spacing-lg);
+}
+
+.form-label {
+  display: block;
+  margin-bottom: var(--spacing-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-gray-700);
+  font-size: var(--font-size-sm);
+}
+
+.form-label.required::after {
+  content: " *";
+  color: var(--color-danger);
+}
+
+.form-input,
+.form-select,
+.form-textarea {
+  width: 100%;
+  padding: var(--spacing-sm) var(--spacing-md);
+  font-family: inherit;
+  font-size: var(--font-size-base);
+  border: var(--border-width) solid var(--border-color);
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+  background-color: var(--color-white);
+  color: var(--color-gray-900);
+}
+
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.form-input:disabled,
+.form-select:disabled,
+.form-textarea:disabled {
+  background-color: var(--bg-tertiary);
+  color: var(--color-gray-600);
+  cursor: not-allowed;
+}
+
+.form-input.error,
+.form-select.error,
+.form-textarea.error {
+  border-color: var(--color-danger);
+  background-color: rgba(239, 68, 68, 0.05);
+}
+
+.form-input.success,
+.form-select.success,
+.form-textarea.success {
+  border-color: var(--color-success);
+  background-color: rgba(16, 185, 129, 0.05);
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.form-helper {
+  font-size: var(--font-size-sm);
+  color: var(--color-gray-600);
+  margin-top: var(--spacing-xs);
+}
+
+.form-error {
+  font-size: var(--font-size-sm);
+  color: var(--color-danger);
+  margin-top: var(--spacing-xs);
+  display: none;
+}
+
+.form-input.error ~ .form-error,
+.form-select.error ~ .form-error,
+.form-textarea.error ~ .form-error {
+  display: block;
+}
+
+/* ============================================
+   7. TARJETAS Y CONTENEDORES
+   ============================================ */
+
+.card {
+  background-color: var(--color-white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  padding: var(--spacing-lg);
+  border: var(--border-width) solid var(--color-gray-100);
+  transition: all var(--transition-base);
+}
+
+.card:hover {
+  box-shadow: var(--shadow-md);
+  border-color: var(--color-gray-200);
+}
+
+.card-header {
+  margin-bottom: var(--spacing-lg);
+  padding-bottom: var(--spacing-lg);
+  border-bottom: var(--border-width) solid var(--border-color);
+}
+
+.card-body {
+  margin-bottom: var(--spacing-lg);
+}
+
+.card-footer {
+  margin-top: var(--spacing-lg);
+  padding-top: var(--spacing-lg);
+  border-top: var(--border-width) solid var(--border-color);
+}
+
+.container {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-lg);
+}
+
+/* ============================================
+   8. GRID Y LAYOUT
+   ============================================ */
+
+.grid {
+  display: grid;
+  gap: var(--spacing-lg);
+}
+
+.grid-2 {
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.grid-3 {
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+.grid-4 {
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+.flex {
+  display: flex;
+  gap: var(--spacing-md);
+}
+
+.flex-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+/* ============================================
+   9. TABLAS
+   ============================================ */
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: var(--color-white);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+.table thead {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+}
+
+.table th {
+  padding: var(--spacing-md);
+  text-align: left;
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-sm);
+}
+
+.table td {
+  padding: var(--spacing-md);
+  border-bottom: var(--border-width) solid var(--border-color);
+}
+
+.table tbody tr:hover {
+  background-color: var(--bg-tertiary);
+}
+
+.table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* ============================================
+   10. MODALES Y OVERLAYS
+   ============================================ */
+
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: var(--z-modal-backdrop);
+  animation: fadeIn var(--transition-fast);
+}
+
+.modal {
+  background-color: var(--color-white);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-xl);
+  width: 90%;
+  max-width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
+  z-index: var(--z-modal);
+  animation: slideUp var(--transition-base);
+}
+
+.modal-header {
+  padding: var(--spacing-lg);
+  border-bottom: var(--border-width) solid var(--border-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-body {
+  padding: var(--spacing-lg);
+}
+
+.modal-footer {
+  padding: var(--spacing-lg);
+  border-top: var(--border-width) solid var(--border-color);
+  display: flex;
+  gap: var(--spacing-md);
+  justify-content: flex-end;
+}
+
+.modal-close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: var(--font-size-2xl);
+  color: var(--color-gray-600);
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+}
+
+.modal-close:hover {
+  background-color: var(--bg-tertiary);
+  color: var(--color-gray-900);
+}
+
+/* ============================================
+   11. ALERTAS Y NOTIFICACIONES
+   ============================================ */
+
+.alert {
+  padding: var(--spacing-md) var(--spacing-lg);
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+  border-left: 4px solid;
+}
+
+.alert-success {
+  background-color: rgba(16, 185, 129, 0.1);
+  color: #065f46;
+  border-left-color: var(--color-success);
+}
+
+.alert-danger {
+  background-color: rgba(239, 68, 68, 0.1);
+  color: #7f1d1d;
+  border-left-color: var(--color-danger);
+}
+
+.alert-warning {
+  background-color: rgba(245, 158, 11, 0.1);
+  color: #78350f;
+  border-left-color: var(--color-warning);
+}
+
+.alert-info {
+  background-color: rgba(14, 165, 233, 0.1);
+  color: #0c4a6e;
+  border-left-color: var(--color-info);
+}
+
+.alert-close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: var(--font-size-lg);
+  color: inherit;
+  padding: 0;
+}
+
+/* ============================================
+   12. INSIGNIAS Y ETIQUETAS
+   ============================================ */
+
+.badge {
+  display: inline-block;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--radius-lg);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+}
+
+.badge-primary {
+  background-color: rgba(59, 130, 246, 0.2);
+  color: var(--color-accent-dark);
+}
+
+.badge-success {
+  background-color: rgba(16, 185, 129, 0.2);
+  color: #065f46;
+}
+
+.badge-danger {
+  background-color: rgba(239, 68, 68, 0.2);
+  color: #7f1d1d;
+}
+
+.badge-warning {
+  background-color: rgba(245, 158, 11, 0.2);
+  color: #78350f;
+}
+
+/* ============================================
+   13. ANIMACIONES
+   ============================================ */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-10px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* ============================================
+   14. UTILIDADES
+   ============================================ */
+
+.text-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.text-muted {
+  color: var(--color-gray-600);
+}
+
+.text-danger {
+  color: var(--color-danger);
+}
+
+.text-success {
+  color: var(--color-success);
+}
+
+.text-warning {
+  color: var(--color-warning);
+}
+
+.text-info {
+  color: var(--color-info);
+}
+
+.mt-xs { margin-top: var(--spacing-xs); }
+.mt-sm { margin-top: var(--spacing-sm); }
+.mt-md { margin-top: var(--spacing-md); }
+.mt-lg { margin-top: var(--spacing-lg); }
+.mt-xl { margin-top: var(--spacing-xl); }
+
+.mb-xs { margin-bottom: var(--spacing-xs); }
+.mb-sm { margin-bottom: var(--spacing-sm); }
+.mb-md { margin-bottom: var(--spacing-md); }
+.mb-lg { margin-bottom: var(--spacing-lg); }
+.mb-xl { margin-bottom: var(--spacing-xl); }
+
+.p-xs { padding: var(--spacing-xs); }
+.p-sm { padding: var(--spacing-sm); }
+.p-md { padding: var(--spacing-md); }
+.p-lg { padding: var(--spacing-lg); }
+.p-xl { padding: var(--spacing-xl); }
+
+.hidden {
+  display: none !important;
+}
+
+.visible {
+  display: block !important;
+}
+
+.opacity-50 {
+  opacity: 0.5;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+/* ============================================
+   15. RESPONSIVE
+   ============================================ */
+
+@media (max-width: 768px) {
+  :root {
+    --font-size-4xl: 1.875rem;
+    --font-size-3xl: 1.5rem;
+    --font-size-2xl: 1.25rem;
+  }
+  
+  .grid-2,
+  .grid-3,
+  .grid-4 {
+    grid-template-columns: 1fr;
+  }
+  
+  .modal {
+    width: 95%;
+    max-width: 100%;
+  }
+  
+  .table {
+    font-size: var(--font-size-sm);
+  }
+  
+  .table th,
+  .table td {
+    padding: var(--spacing-sm);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ============================================
+   16. TEMA OSCURO (Futuro)
+   ============================================ */
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-white: #0f172a;
+    --color-gray-50: #1e293b;
+    --color-gray-100: #334155;
+    --color-gray-200: #475569;
+    --color-gray-900: #f1f5f9;
+    --bg-base: #0f172a;
+    --bg-secondary: #1e293b;
+    --bg-tertiary: #334155;
+  }
+  
+  body {
+    background-color: var(--bg-secondary);
+  }
+}

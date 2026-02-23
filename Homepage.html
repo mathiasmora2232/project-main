@@ -1,250 +1,214 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="EduConnect — plataforma educativa para gestionar tareas, horarios y calificaciones.">
-    <title>EduConnect</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="EduConnect - Plataforma educativa moderna">
+    <meta name="theme-color" content="#6366f1">
+    <title>EduConnect - Dashboard</title>
     <link rel="icon" href="img/logojpg-removebg-preview.ico">
-    <!-- Fonts: preconnect once and load required families -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&family=Castoro:ital@0;1&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/Global.css">
-    <link rel="stylesheet" href="css/homepage.css">
-
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/Global.css?v=2">
+    <link rel="stylesheet" href="css/homepage.css?v=2">
 </head>
 <body>
-    
     <header>
-     <nav aria-label="Navegación principal">
-  <div class="logo">EduConnect</div>
+        <nav aria-label="Navegacion principal">
+            <a href="Homepage.html" class="logo">EduConnect</a>
 
-  <ul class="nav-links">
-    <li><a href="Homepage.html">Página de Inicio</a></li>
-    <li><a href="Materias.html">Materias</a></li>
-    <li><a href="Malla.html">Malla</a></li>
-        <li><a href="Calendario.html">Calendario</a></li>
-        <li><a href="Cuenta.html">Mi cuenta</a></li>
-    <li id="admin-link" style="display:none;"><a href="admin/dashboard-admin.html">Panel Admin</a></li>
-  </ul>
-  <div class="notifications" id="notificationsBtn">
-    <span class="bell">🔔</span>
-  </div>
-  <div class="notifications-panel" id="notificationsPanel">
-    <div class="panel-header">
-      <span class="panel-title">Notificaciones</span>
-      <button class="close-btn" id="closeNotifications">✖</button>
-    </div>
-    <div class="panel-tabs">
-      <button class="tab-btn active" id="tabUnread">No leídas</button>
-      <button class="tab-btn" id="tabAll">Todas</button>
-    </div>
-    <div class="panel-content">
-      <div class="notifications-list" id="unreadList">
-        <div class="notification unread">
-          <div class="notif-date">01/07/2025<br><span class="notif-hour">08:30</span></div>
-          <div class="notif-info">
-            <div class="notif-title">Tarea nueva de Matemáticas</div>
-            <div class="notif-desc">Se ha asignado una nueva tarea sobre ecuaciones cuadráticas.</div>
-          </div>
-        </div>
-        <div class="notification unread">
-          <div class="notif-date">30/06/2025<br><span class="notif-hour">19:10</span></div>
-          <div class="notif-info">
-            <div class="notif-title">Mensaje de tu profesor</div>
-            <div class="notif-desc">El profesor Carlos ha enviado un mensaje sobre el examen.</div>
-          </div>
-        </div>
-      </div>
-      <div class="notifications-list" id="allList" style="display:none;">
-        <div class="notification unread">
-          <div class="notif-date">01/07/2025<br><span class="notif-hour">08:30</span></div>
-          <div class="notif-info">
-            <div class="notif-title">Tarea nueva de Matemáticas</div>
-            <div class="notif-desc">Se ha asignado una nueva tarea sobre ecuaciones cuadráticas.</div>
-          </div>
-        </div>
-        <div class="notification unread">
-          <div class="notif-date">30/06/2025<br><span class="notif-hour">19:10</span></div>
-          <div class="notif-info">
-            <div class="notif-title">Mensaje de tu profesor</div>
-            <div class="notif-desc">El profesor Carlos ha enviado un mensaje sobre el examen.</div>
-          </div>
-        </div>
-        <div class="notification">
-          <div class="notif-date">29/06/2025<br><span class="notif-hour">15:00</span></div>
-          <div class="notif-info">
-            <div class="notif-title">Calificación subida</div>
-            <div class="notif-desc">Tu calificación de Historia ya está disponible.</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-    <!-- Botón Burger para móviles (mejor accesibilidad: botón con aria) -->
-    <button class="burger" aria-label="Abrir menú" aria-expanded="false">
-        <span class="line1" aria-hidden="true"></span>
-        <span class="line2" aria-hidden="true"></span>
-        <span class="line3" aria-hidden="true"></span>
-    </button>
-</nav>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="Homepage.html" class="active">Inicio</a></li>
+                <li><a href="Materias.html">Materias</a></li>
+                <li><a href="Malla.html">Malla Curricular</a></li>
+                <li><a href="Calendario.html">Calendario</a></li>
+                <li><a href="Cuenta.html">Mi Cuenta</a></li>
+                <li id="adminLink" style="display:none;"><a href="admin/dashboard-admin.html">Panel Admin</a></li>
+            </ul>
 
+            <div class="nav-right">
+                <div class="user-menu">
+                    <button id="userMenuBtn" class="user-btn">
+                        <span id="userName">Usuario</span>
+                    </button>
+                    <div class="dropdown-menu" id="userDropdown">
+                        <a href="Cuenta.html">Mi Perfil</a>
+                        <button data-action="logout">Cerrar Sesion</button>
+                    </div>
+                </div>
+            </div>
+
+            <button class="burger-menu" id="burgerMenu" aria-label="Menu">&#9776;</button>
+        </nav>
     </header>
 
     <main class="dashboard">
-        <!-- Hero Section -->
+        <!-- HERO SECTION -->
         <section class="hero-section">
             <div class="hero-content">
                 <div class="hero-text">
-                    <h1 class="hero-title">¡Hola! Bienvenido a EduConnect 🎓</h1>
-                    <p class="hero-subtitle">Tu plataforma educativa inteligente donde el aprendizaje cobra vida</p>
+                    <h1 class="hero-title" id="heroTitle">Bienvenido a EduConnect</h1>
+                    <p class="hero-subtitle">Tu plataforma educativa. Gestiona tus materias, tareas y progreso academico.</p>
                 </div>
             </div>
         </section>
 
-        <!-- Dashboard Cards -->
-        <section class="dashboard-cards">
-            <div class="card card-progress enhanced">
-                <div class="card-header">
-                    <h2>📈 Progreso Académico</h2>
-                    <div class="trend-indicator positive">↗️ +5%</div>
-                </div>
-                <div class="progress-details">
-                    <p>Tu promedio actual es de <strong>87%</strong></p>
-                    <div class="progress-bar-container">
-                        <div class="progress-bar-bg">
-                            <div class="progress-bar-fill animated" data-width="87"></div>
-                        </div>
-                        <span class="progress-text">87%</span>
-                    </div>
-                    <div class="progress-breakdown">
-                        <div class="subject-progress">
-                            <span>Matemáticas</span>
-                            <div class="mini-progress">
-                                <div class="mini-fill" style="width: 85%"></div>
-                            </div>
-                            <span>85%</span>
-                        </div>
-                        <div class="subject-progress">
-                            <span>Ciencias</span>
-                            <div class="mini-progress">
-                                <div class="mini-fill" style="width: 91%"></div>
-                            </div>
-                            <span>91%</span>
-                        </div>
-                        <div class="subject-progress">
-                            <span>Historia</span>
-                            <div class="mini-progress">
-                                <div class="mini-fill" style="width: 82%"></div>
-                            </div>
-                            <span>82%</span>
-                        </div>
-                    </div>
-                </div>
+        <!-- STATS ROW -->
+        <section class="stats-row" id="statsRow">
+            <div class="stat-card-item">
+                <div class="stat-card-value" id="statMaterias">-</div>
+                <div class="stat-card-label">Materias Inscritas</div>
             </div>
-
-            <div class="card card-tasks enhanced" id="tareas">
-                <div class="card-header">
-                    <h2>📝 Tareas Pendientes</h2>
-                    <div class="badge urgent">3 urgentes</div>
-                </div>
-                <div class="tasks-list">
-                    <div class="task-item high">
-                        <div class="task-subject">Matemáticas</div>
-                        <div class="task-title">Ecuaciones cuadráticas</div>
-                        <div class="task-due">Vence: 19/07</div>
-                        <div class="task-priority high">Alta</div>
-                    </div>
-                    <div class="task-item medium">
-                        <div class="task-subject">Literatura</div>
-                        <div class="task-title">Ensayo sobre "Cien años de soledad"</div>
-                        <div class="task-due">Vence: 22/07</div>
-                        <div class="task-priority medium">Media</div>
-                    </div>
-                    <div class="task-item low">
-                        <div class="task-subject">Historia</div>
-                        <div class="task-title">Investigación Imperio Romano</div>
-                        <div class="task-due">Vence: 28/07</div>
-                        <div class="task-priority low">Baja</div>
-                    </div>
-                </div>
+            <div class="stat-card-item">
+                <div class="stat-card-value" id="statTareas">-</div>
+                <div class="stat-card-label">Tareas Pendientes</div>
             </div>
-
-            <div class="card card-messages enhanced">
-                <div class="card-header">
-                    <h2>💬 Mensajes Recientes</h2>
-                    <div class="notification-dot">2</div>
-                </div>
-                <div class="messages-list">
-                    <div class="message-item unread">
-                        <div class="message-avatar">👩‍🏫</div>
-                        <div class="message-content">
-                            <div class="message-sender">Prof. María López</div>
-                            <div class="message-text">Recordatorio: Laboratorio de células mañana</div>
-                            <div class="message-time">Hace 2 horas</div>
-                        </div>
-                        <div class="message-status unread"></div>
-                    </div>
-                    <div class="message-item unread">
-                        <div class="message-avatar">👨‍🏫</div>
-                        <div class="message-content">
-                            <div class="message-sender">Prof. Carlos Mendez</div>
-                            <div class="message-text">Excelente trabajo en el último ensayo</div>
-                            <div class="message-time">Hace 5 horas</div>
-                        </div>
-                        <div class="message-status unread"></div>
-                    </div>
-                    <div class="message-item">
-                        <div class="message-avatar">👩‍🏫</div>
-                        <div class="message-content">
-                            <div class="message-sender">Prof. Ana García</div>
-                            <div class="message-text">Materiales del próximo tema disponibles</div>
-                            <div class="message-time">Ayer</div>
-                        </div>
-                        <div class="message-status read"></div>
-                    </div>
-                </div>
+            <div class="stat-card-item">
+                <div class="stat-card-value" id="statLecciones">-</div>
+                <div class="stat-card-label">Lecciones Completadas</div>
             </div>
+            <div class="stat-card-item">
+                <div class="stat-card-value" id="statPromedio">-</div>
+                <div class="stat-card-label">Promedio General</div>
+            </div>
+        </section>
 
-            <div class="card card-schedule enhanced">
-                <div class="card-header">
-                    <h2>🕐 Horario de Hoy</h2>
-                    <div class="current-time" id="currentTime"></div>
-                </div>
-                <div class="schedule-timeline">
-                    <div class="timeline-item completed">
-                        <div class="timeline-time">8:00 AM</div>
-                        <div class="timeline-content">
-                            <div class="timeline-subject">Matemáticas</div>
-                            <div class="timeline-location">Aula 201</div>
-                        </div>
-                        <div class="timeline-status completed">✓</div>
-                    </div>
-                    <div class="timeline-item current">
-                        <div class="timeline-time">10:00 AM</div>
-                        <div class="timeline-content">
-                            <div class="timeline-subject">Historia</div>
-                            <div class="timeline-location">Aula 105</div>
-                        </div>
-                        <div class="timeline-status current">⏳</div>
-                    </div>
-                    <div class="timeline-item upcoming">
-                        <div class="timeline-time">2:00 PM</div>
-                        <div class="timeline-content">
-                            <div class="timeline-subject">Ciencias</div>
-                            <div class="timeline-location">Laboratorio</div>
-                        </div>
-                        <div class="timeline-status upcoming">⏰</div>
-                    </div>
-                </div>
+        <!-- MIS MATERIAS -->
+        <section class="section-container">
+            <h2 class="section-title">Mis Materias</h2>
+            <div class="materias-grid-home" id="materiasGrid">
+                <div class="loading-spinner">Cargando materias...</div>
+            </div>
+        </section>
+
+        <!-- TAREAS PROXIMAS -->
+        <section class="section-container">
+            <h2 class="section-title">Tareas Proximas</h2>
+            <div class="tareas-list" id="tareasList">
+                <div class="loading-spinner">Cargando tareas...</div>
+            </div>
+        </section>
+
+        <!-- ACCIONES RAPIDAS -->
+        <section class="section-container">
+            <h2 class="section-title">Acciones Rapidas</h2>
+            <div class="quick-actions">
+                <a href="Materias.html" class="quick-action-card">
+                    <span class="quick-action-icon">&#128218;</span>
+                    <span>Mis Materias</span>
+                </a>
+                <a href="Malla.html" class="quick-action-card">
+                    <span class="quick-action-icon">&#128203;</span>
+                    <span>Malla Curricular</span>
+                </a>
+                <a href="Calendario.html" class="quick-action-card">
+                    <span class="quick-action-icon">&#128197;</span>
+                    <span>Calendario</span>
+                </a>
+                <a href="Cuenta.html" class="quick-action-card">
+                    <span class="quick-action-icon">&#128100;</span>
+                    <span>Mi Cuenta</span>
+                </a>
             </div>
         </section>
     </main>
 
-    <!-- Cargar scripts de forma diferida; el JS controla inicialización con DOMContentLoaded -->
-    <script src="js/app.js" defer></script>
-    <script src="js/adminlink.js" defer></script>
+    <script src="js/api.js?v=2"></script>
+    <script src="js/app.js?v=2"></script>
+    <script src="js/adminlink.js?v=2"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Auth check desactivado para desarrollo
+
+            const user = getUser();
+            const heroTitle = document.getElementById('heroTitle');
+            if (user && heroTitle) {
+                const firstName = (user.nombre_completo || '').split(' ')[0];
+                heroTitle.textContent = `Hola, ${firstName}!`;
+            }
+
+            // Load stats
+            try {
+                const stats = await getEstadisticas();
+                document.getElementById('statMaterias').textContent = stats.materias_inscritas;
+                document.getElementById('statTareas').textContent = stats.tareas_pendientes;
+                document.getElementById('statLecciones').textContent = stats.lecciones_completadas;
+                document.getElementById('statPromedio').textContent = stats.promedio_general ?
+                    parseFloat(stats.promedio_general).toFixed(1) : 'N/A';
+            } catch {}
+
+            // Load materias
+            try {
+                const materias = await getMaterias();
+                const grid = document.getElementById('materiasGrid');
+                if (!materias.length) {
+                    grid.innerHTML = '<p class="empty-state">No tienes materias inscritas.</p>';
+                } else {
+                    grid.innerHTML = materias.map(m => {
+                        const progress = m.total_lecciones > 0 ?
+                            Math.round((m.lecciones_completadas || 0) / m.total_lecciones * 100) : 0;
+                        return `
+                        <a href="Materias.html?id=${m.id}" class="curso-card">
+                            <div class="curso-header">
+                                <div class="curso-code">${m.codigo || ''}</div>
+                                <h3 class="curso-title">${m.nombre}</h3>
+                            </div>
+                            <div class="curso-body">
+                                <div class="curso-meta">
+                                    <div class="curso-meta-item">
+                                        <span>${m.profesor_nombre || 'Sin profesor'}</span>
+                                    </div>
+                                    <div class="curso-meta-item">
+                                        <span>${m.total_lecciones || 0} lecciones | ${m.total_tareas || 0} tareas</span>
+                                    </div>
+                                </div>
+                                <div class="materia-progress">
+                                    <div class="progress-label">
+                                        <span>Progreso</span>
+                                        <span>${progress}%</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: ${progress}%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>`;
+                    }).join('');
+                }
+            } catch {
+                document.getElementById('materiasGrid').innerHTML = '<p class="error-state">Error al cargar materias.</p>';
+            }
+
+            // Load tareas
+            try {
+                const tareas = await getTareasPendientes();
+                const list = document.getElementById('tareasList');
+                if (!tareas.length) {
+                    list.innerHTML = '<p class="empty-state">No tienes tareas pendientes.</p>';
+                } else {
+                    list.innerHTML = tareas.map(t => {
+                        const days = getDaysUntil(t.fecha_entrega);
+                        const urgency = getUrgencyClass(t.fecha_entrega);
+                        const daysText = days <= 0 ? 'Vencida' : days === 1 ? '1 dia' : `${days} dias`;
+                        return `
+                        <div class="task-item ${urgency}">
+                            <div class="task-info">
+                                <div class="task-title">${t.titulo}</div>
+                                <div class="task-meta">${t.materia_nombre}</div>
+                            </div>
+                            <div class="task-due">
+                                <span class="task-days">${daysText}</span>
+                                <span class="task-date">${formatDate(t.fecha_entrega)}</span>
+                            </div>
+                        </div>`;
+                    }).join('');
+                }
+            } catch {
+                document.getElementById('tareasList').innerHTML = '<p class="error-state">Error al cargar tareas.</p>';
+            }
+        });
+    </script>
 </body>
 </html>
