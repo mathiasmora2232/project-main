@@ -1,101 +1,50 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>EduConnect</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recuperar Contrasena - EduConnect</title>
     <link rel="icon" href="img/logojpg-removebg-preview.ico">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@300&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Castoro:ital@0;1&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/Global.css">
-    <link rel="stylesheet" type="text/css" href="css/estilos7.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/Global.css?v=2">
+    <link rel="stylesheet" href="css/login.css?v=2">
 </head>
 <body>
-    <header>
-       <nav>
-  <div class="logo">EduConnect</div>
-
-  <div class="notifications" id="notificationsBtn">
-    <span class="bell">🔔</span>
-  </div>
-  <div class="notifications-panel" id="notificationsPanel">
-    <div class="panel-header">
-      <span class="panel-title">Notificaciones</span>
-      <button class="close-btn" id="closeNotifications">✖</button>
+    <div class="login-container">
+        <div class="login-card">
+            <div class="login-header">
+                <h1>EduConnect</h1>
+                <p>Recuperar Contrasena</p>
+            </div>
+            <p style="text-align:center; color:var(--neutral-600); margin-bottom:20px;">
+                Ingresa tu correo electronico y te enviaremos instrucciones para restablecer tu contrasena.
+            </p>
+            <form id="recoveryForm">
+                <div class="form-group">
+                    <label for="email">Correo electronico</label>
+                    <input type="email" id="email" required placeholder="tu@email.com">
+                </div>
+                <button type="submit" class="login-btn">Enviar</button>
+            </form>
+            <div id="message" style="display:none; text-align:center; margin-top:16px; padding:12px; border-radius:8px;"></div>
+            <div class="register-link">
+                <a href="Login.html">Volver a iniciar sesion</a>
+            </div>
+        </div>
     </div>
-    <div class="panel-tabs">
-      <button class="tab-btn active" id="tabUnread">No leídas</button>
-      <button class="tab-btn" id="tabAll">Todas</button>
-    </div>
-    <div class="panel-content">
-      <div class="notifications-list" id="unreadList">
-        <div class="notification unread">
-          <div class="notif-date">01/07/2025<br><span class="notif-hour">08:30</span></div>
-          <div class="notif-info">
-            <div class="notif-title">Tarea nueva de Matemáticas</div>
-            <div class="notif-desc">Se ha asignado una nueva tarea sobre ecuaciones cuadráticas.</div>
-          </div>
-        </div>
-        <div class="notification unread">
-          <div class="notif-date">30/06/2025<br><span class="notif-hour">19:10</span></div>
-          <div class="notif-info">
-            <div class="notif-title">Mensaje de tu profesor</div>
-            <div class="notif-desc">El profesor Carlos ha enviado un mensaje sobre el examen.</div>
-          </div>
-        </div>
-      </div>
-      <div class="notifications-list" id="allList" style="display:none;">
-        <div class="notification unread">
-          <div class="notif-date">01/07/2025<br><span class="notif-hour">08:30</span></div>
-          <div class="notif-info">
-            <div class="notif-title">Tarea nueva de Matemáticas</div>
-            <div class="notif-desc">Se ha asignado una nueva tarea sobre ecuaciones cuadráticas.</div>
-          </div>
-        </div>
-        <div class="notification unread">
-          <div class="notif-date">30/06/2025<br><span class="notif-hour">19:10</span></div>
-          <div class="notif-info">
-            <div class="notif-title">Mensaje de tu profesor</div>
-            <div class="notif-desc">El profesor Carlos ha enviado un mensaje sobre el examen.</div>
-          </div>
-        </div>
-        <div class="notification">
-          <div class="notif-date">29/06/2025<br><span class="notif-hour">15:00</span></div>
-          <div class="notif-info">
-            <div class="notif-title">Calificación subida</div>
-            <div class="notif-desc">Tu calificación de Historia ya está disponible.</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="burger">
-    <div class="line1"></div>
-    <div class="line2"></div>
-    <div class="line3"></div>
-  </div>
-</nav>
-    </header>
 
-<main>
-  <section class="recuperacion-container">
-    <h2>Recuperar Contraseña</h2>
-    <p>Ingresa tu correo electrónico y te enviaremos instrucciones para restablecer tu contraseña.</p>
-    <form class="recuperacion-form">
-      <label for="email">Correo electrónico:</label>
-      <input type="email" id="email" name="email" required>
-      <button type="submit">Enviar</button>
-    </form>
-    <a href="Login.html" class="volver">Volver a iniciar sesión</a>
-  </section>
-</main>
-
-        <script src="js/app.js"></script>
-
+    <script>
+    document.getElementById('recoveryForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const msg = document.getElementById('message');
+        msg.style.display = 'block';
+        msg.style.background = 'rgba(16,185,129,0.1)';
+        msg.style.color = '#10b981';
+        msg.textContent = 'Si el correo existe, recibiras instrucciones para restablecer tu contrasena.';
+    });
+    </script>
 </body>
 </html>

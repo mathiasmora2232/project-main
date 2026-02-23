@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendario Académico - EduConnect</title>
+    
+    <link rel="stylesheet" href="css/sistema-visual.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        body {
+            background-color: var(--bg-secondary);
+        }
+
+        .navbar {
+            background-color: var(--color-primary);
+            color: var(--color-white);
+            padding: var(--spacing-md) var(--spacing-lg);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--shadow-md);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .navbar-brand {
+            font-size: var(--font-size-2xl);
+            font-weight: var(--font-weight-bold);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+            color: var(--color-white);
+            text-decoration: none;
+        }
+
+        .navbar-nav {
+            display: flex;
+            gap: var(--spacing-xl);
+            align-items: center;
+        }
+
+        .nav-link {
+            color: var(--color-gray-100);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            transition: color var(--transition-fast);
+        }
+
+        .nav-link:hover {
+            color: var(--color-white);
+        }
+
+        .main-container {
+            padding: var(--spacing-2xl) var(--spacing-lg);
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .page-header {
+            margin-bottom: var(--spacing-3xl);
+        }
+
+        .page-title {
+            font-size: var(--font-size-4xl);
+            font-weight: var(--font-weight-bold);
+            color: var(--color-primary);
+            margin-bottom: var(--spacing-md);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+        }
+
+        /* CALENDARIO GRID */
+        .calendar-container {
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: var(--spacing-xl);
+            margin-bottom: var(--spacing-2xl);
+        }
+
+        .calendar-main {
+            background: var(--color-white);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            padding: var(--spacing-lg);
+        }
+
+        .calendar-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .calendar-title {
+            font-size: var(--font-size-2xl);
+            font-weight: var(--font-weight-bold);
+            color: var(--color-primary);
+        }
+
+        .calendar-btn {
+            background-color: var(--color-accent);
+            color: var(--color-white);
+            border: none;
+            padding: var(--spacing-sm) var(--spacing-md);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            font-weight: var(--font-weight-medium);
+        }
+
+        .calendar-btn:hover {
+            background-color: var(--color-accent-dark);
+            transform: translateY(-2px);
+        }
+
+        /* SEMANA DEL CALENDARIO */
+        .calendar-weekdays {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: var(--spacing-sm);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .weekday {
+            text-align: center;
+            font-weight: var(--font-weight-semibold);
+            color: var(--color-gray-600);
+            padding: var(--spacing-md);
+            text-transform: uppercase;
+            font-size: var(--font-size-xs);
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: var(--spacing-sm);
+        }
+
+        .calendar-day {
+            aspect-ratio: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding: var(--spacing-sm);
+            border-radius: var(--radius-md);
+            background-color: var(--bg-tertiary);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            min-height: 100px;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .calendar-day:hover {
+            border-color: var(--color-accent);
+            box-shadow: var(--shadow-md);
+        }
+
+        .calendar-day.other-month {
+            opacity: 0.3;
+        }
+
+        .calendar-day.today {
+            background-color: var(--color-accent);
+            color: var(--color-white);
+            font-weight: var(--font-weight-bold);
+            border-color: var(--color-accent-dark);
+        }
+
+        .calendar-day.selected {
+            background-color: var(--color-info);
+            color: var(--color-white);
+            border-color: var(--color-info);
+        }
+
+        .calendar-day-number {
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-semibold);
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .calendar-day-events {
+            font-size: var(--font-size-xs);
+            flex: 1;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .calendar-event-dot {
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            display: inline-block;
+            margin: 2px;
+            background-color: var(--color-danger);
+        }
+
+        /* SIDEBAR */
+        .calendar-sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-lg);
+        }
+
+        .sidebar-card {
+            background: var(--color-white);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-lg);
+            box-shadow: var(--shadow-md);
+        }
+
+        .sidebar-title {
+            font-size: var(--font-size-lg);
+            font-weight: var(--font-weight-bold);
+            color: var(--color-primary);
+            margin-bottom: var(--spacing-md);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+
+        .event-item {
+            padding: var(--spacing-md);
+            border-left: 4px solid var(--color-accent);
+            background-color: var(--bg-tertiary);
+            border-radius: var(--radius-md);
+            margin-bottom: var(--spacing-md);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+
+        .event-item:hover {
+            transform: translateX(4px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .event-title {
+            font-weight: var(--font-weight-semibold);
+            color: var(--color-primary);
+            font-size: var(--font-size-sm);
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .event-date {
+            font-size: var(--font-size-xs);
+            color: var(--color-gray-600);
+        }
+
+        .event-type {
+            display: inline-block;
+            margin-top: var(--spacing-xs);
+            padding: 2px 6px;
+            border-radius: var(--radius-sm);
+            font-size: var(--font-size-xs);
+            font-weight: var(--font-weight-semibold);
+            text-transform: uppercase;
+        }
+
+        .event-type.tarea {
+            background-color: rgba(239, 68, 68, 0.2);
+            color: #7f1d1d;
+        }
+
+        .event-type.examen {
+            background-color: rgba(245, 158, 11, 0.2);
+            color: #78350f;
+        }
+
+        .event-type.leccion {
+            background-color: rgba(16, 185, 129, 0.2);
+            color: #065f46;
+        }
+
+        .event-type.reunion {
+            background-color: rgba(59, 130, 246, 0.2);
+            color: #1d4ed8;
+        }
+
+        /* VIEW TOGGLE */
+        .view-toggle {
+            display: flex;
+            gap: var(--spacing-sm);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .view-btn {
+            padding: var(--spacing-sm) var(--spacing-md);
+            border: 1px solid var(--border-color);
+            background-color: var(--color-white);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+
+        .view-btn.active {
+            background-color: var(--color-accent);
+            color: var(--color-white);
+            border-color: var(--color-accent);
+        }
+
+        .view-btn:hover {
+            border-color: var(--color-accent);
+        }
+
+        /* VISTA LISTADO */
+        .list-view {
+            display: none;
+        }
+
+        .list-view.active {
+            display: block;
+        }
+
+        .events-list {
+            display: grid;
+            gap: var(--spacing-lg);
+        }
+
+        .event-card {
+            background: var(--color-white);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-lg);
+            box-shadow: var(--shadow-md);
+            border-left: 6px solid var(--color-accent);
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: var(--spacing-lg);
+            align-items: start;
+            transition: all var(--transition-base);
+        }
+
+        .event-card:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-4px);
+        }
+
+        .event-card-content h3 {
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .event-card-date {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+            color: var(--color-gray-600);
+            font-size: var(--font-size-sm);
+        }
+
+        .event-card-date i {
+            font-size: var(--font-size-xl);
+            color: var(--color-accent);
+        }
+
+        .event-card-course {
+            display: inline-block;
+            background-color: var(--bg-tertiary);
+            padding: var(--spacing-xs) var(--spacing-sm);
+            border-radius: var(--radius-md);
+            font-size: var(--font-size-xs);
+            color: var(--color-gray-600);
+        }
+
+        @media (max-width: 1024px) {
+            .calendar-container {
+                grid-template-columns: 1fr;
+            }
+
+            .calendar-day {
+                min-height: 80px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .calendar-day {
+                min-height: 60px;
+            }
+
+            .calendar-weekdays,
+            .calendar-grid {
+                gap: 2px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navegación -->
+    <nav class="navbar">
+        <a href="Homepage.html" class="navbar-brand">
+            <i class="fas fa-book"></i>
+            EduConnect
+        </a>
+        <div class="navbar-nav">
+            <a href="Homepage.html" class="nav-link">
+                <i class="fas fa-home"></i>
+                Inicio
+            </a>
+            <a href="Calendario.html" class="nav-link">
+                <i class="fas fa-calendar"></i>
+                Calendario
+            </a>
+            <a href="Cuenta.html" class="nav-link">
+                <i class="fas fa-user"></i>
+                Perfil
+            </a>
+        </div>
+    </nav>
+
+    <div class="main-container">
+        <!-- Encabezado -->
+        <div class="page-header">
+            <h1 class="page-title">
+                <i class="fas fa-calendar-alt"></i>
+                Calendario Académico
+            </h1>
+            <p style="color: var(--color-gray-600); font-size: var(--font-size-lg);">
+                Visualiza todas tus tareas, exámenes y eventos importantes
+            </p>
+        </div>
+
+        <!-- Toggle de Vistas -->
+        <div class="view-toggle">
+            <button class="view-btn active" onclick="switchView('calendar')">
+                <i class="fas fa-calendar-grid-3"></i>
+                Mes
+            </button>
+            <button class="view-btn" onclick="switchView('list')">
+                <i class="fas fa-list"></i>
+                Lista
+            </button>
+        </div>
+
+        <!-- VISTA CALENDARIO -->
+        <div id="calendar-view" class="calendar-view active">
+            <div class="calendar-container">
+                <!-- Calendario Principal -->
+                <div class="calendar-main">
+                    <div class="calendar-controls">
+                        <button class="calendar-btn" onclick="previousMonth()">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <h2 class="calendar-title" id="monthYearDisplay"></h2>
+                        <button class="calendar-btn" onclick="nextMonth()">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+
+                    <div class="calendar-weekdays">
+                        <div class="weekday">Lun</div>
+                        <div class="weekday">Mar</div>
+                        <div class="weekday">Mié</div>
+                        <div class="weekday">Jue</div>
+                        <div class="weekday">Vie</div>
+                        <div class="weekday">Sab</div>
+                        <div class="weekday">Dom</div>
+                    </div>
+
+                    <div class="calendar-grid" id="calendarGrid"></div>
+                </div>
+
+                <!-- Sidebar -->
+                <div class="calendar-sidebar">
+                    <!-- Próximos Eventos -->
+                    <div class="sidebar-card">
+                        <h3 class="sidebar-title">
+                            <i class="fas fa-clock"></i>
+                            Próximos
+                        </h3>
+                        <div id="upcomingEvents">
+                            <p style="color: var(--color-gray-600); text-align: center;">
+                                Cargando eventos...
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Leyenda -->
+                    <div class="sidebar-card">
+                        <h3 class="sidebar-title">
+                            <i class="fas fa-info-circle"></i>
+                            Leyenda
+                        </h3>
+                        <div style="display: grid; gap: var(--spacing-md);">
+                            <div>
+                                <span class="event-type tarea">Tarea</span>
+                            </div>
+                            <div>
+                                <span class="event-type examen">Examen</span>
+                            </div>
+                            <div>
+                                <span class="event-type leccion">Lección</span>
+                            </div>
+                            <div>
+                                <span class="event-type reunion">Reunión</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- VISTA LISTA -->
+        <div id="list-view" class="list-view">
+            <div class="sidebar-card">
+                <h2 style="margin-bottom: var(--spacing-lg);">
+                    <i class="fas fa-list"></i>
+                    Todos los Eventos
+                </h2>
+                <div class="events-list" id="eventsList"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script>
+        let currentDate = new Date();
+        const allEvents = [];
+
+        // Funciones del calendario
+        function renderCalendar() {
+            const year = currentDate.getFullYear();
+            const month = currentDate.getMonth();
+            
+            // Actualizar título
+            const monthNames = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
+                                'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+            document.getElementById('monthYearDisplay').textContent = `${monthNames[month]} ${year}`;
+
+            // Obtener primer día del mes y cantidad de días
+            const firstDay = new Date(year, month, 1).getDay();
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+            const daysInPrevMonth = new Date(year, month, 0).getDate();
+
+            const grid = document.getElementById('calendarGrid');
+            grid.innerHTML = '';
+
+            // Días del mes anterior
+            for (let i = firstDay - 1; i > 0; i--) {
+                const day = daysInPrevMonth - i + 1;
+                createDayElement(grid, day, true, new Date(year, month - 1, day));
+            }
+
+            // Días del mes actual
+            for (let day = 1; day <= daysInMonth; day++) {
+                const date = new Date(year, month, day);
+                createDayElement(grid, day, false, date);
+            }
+
+            // Días del siguiente mes
+            const totalCells = grid.children.length;
+            const remaining = 42 - totalCells;
+            for (let day = 1; day <= remaining; day++) {
+                createDayElement(grid, day, true, new Date(year, month + 1, day));
+            }
+
+            updateUpcomingEvents();
+        }
+
+        function createDayElement(grid, day, otherMonth, date) {
+            const dayEl = document.createElement('div');
+            dayEl.className = 'calendar-day';
+            if (otherMonth) dayEl.classList.add('other-month');
+            
+            const today = new Date();
+            if (date.toDateString() === today.toDateString()) {
+                dayEl.classList.add('today');
+            }
+
+            dayEl.innerHTML = `
+                <div class="calendar-day-number">${day}</div>
+                <div class="calendar-day-events" id="events-${date.toISOString().split('T')[0]}"></div>
+            `;
+
+            dayEl.addEventListener('click', () => selectDate(date));
+            grid.appendChild(dayEl);
+
+            // Agregar indicadores de eventos
+            const dateStr = date.toISOString().split('T')[0];
+            const dayEvents = allEvents.filter(e => e.date.startsWith(dateStr));
+            
+            const eventsContainer = dayEl.querySelector('.calendar-day-events');
+            dayEvents.slice(0, 3).forEach(event => {
+                const dot = document.createElement('span');
+                dot.className = 'calendar-event-dot';
+                dot.style.backgroundColor = getEventColor(event.type);
+                eventsContainer.appendChild(dot);
+            });
+        }
+
+        function getEventColor(type) {
+            const colors = {
+                tarea: '#ef4444',
+                examen: '#f59e0b',
+                leccion: '#10b981',
+                reunion: '#3b82f6'
+            };
+            return colors[type] || '#6b7280';
+        }
+
+        function previousMonth() {
+            currentDate.setMonth(currentDate.getMonth() - 1);
+            renderCalendar();
+        }
+
+        function nextMonth() {
+            currentDate.setMonth(currentDate.getMonth() + 1);
+            renderCalendar();
+        }
+
+        function selectDate(date) {
+            // Implementar selección de fecha
+        }
+
+        function updateUpcomingEvents() {
+            const upcoming = allEvents
+                .filter(e => new Date(e.date) >= new Date())
+                .sort((a, b) => new Date(a.date) - new Date(b.date))
+                .slice(0, 5);
+
+            const container = document.getElementById('upcomingEvents');
+            if (upcoming.length === 0) {
+                container.innerHTML = '<p style="color: var(--color-gray-600); text-align: center;">No hay eventos próximos</p>';
+                return;
+            }
+
+            container.innerHTML = upcoming.map(event => `
+                <div class="event-item">
+                    <div class="event-title">${event.title}</div>
+                    <div class="event-date">
+                        <i class="fas fa-clock"></i>
+                        ${new Date(event.date).toLocaleDateString()}
+                    </div>
+                    <span class="event-type ${event.type}">${event.type}</span>
+                </div>
+            `).join('');
+        }
+
+        function renderEventsList() {
+            const sorted = [...allEvents]
+                .sort((a, b) => new Date(a.date) - new Date(b.date));
+
+            const container = document.getElementById('eventsList');
+            if (sorted.length === 0) {
+                container.innerHTML = '<p style="color: var(--color-gray-600);">No hay eventos registrados</p>';
+                return;
+            }
+
+            container.innerHTML = sorted.map(event => `
+                <div class="event-card">
+                    <div class="event-card-content">
+                        <h3>${event.title}</h3>
+                        <p style="color: var(--color-gray-600); margin-bottom: var(--spacing-md);">${event.description}</p>
+                        <span class="event-card-course">${event.course}</span>
+                    </div>
+                    <div class="event-card-date">
+                        <div>
+                            <i class="fas fa-calendar"></i>
+                            <div>${new Date(event.date).toLocaleDateString()}</div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function switchView(view) {
+            document.querySelectorAll('.view-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.closest('.view-btn').classList.add('active');
+
+            if (view === 'calendar') {
+                document.getElementById('calendar-view').classList.add('active');
+                document.getElementById('list-view').classList.remove('active');
+            } else {
+                document.getElementById('calendar-view').classList.remove('active');
+                document.getElementById('list-view').classList.add('active');
+                renderEventsList();
+            }
+        }
+
+        // Cargar eventos de las tareas
+        async function loadEvents() {
+            try {
+                const response = await api.get('/tareas');
+                const tareas = response.data || [];
+
+                allEvents.push(...tareas.map(t => ({
+                    title: t.titulo,
+                    description: t.descripcion,
+                    date: t.fecha_entrega,
+                    type: 'tarea',
+                    course: 'Tarea'
+                })));
+
+                renderCalendar();
+            } catch (error) {
+                console.error('Error cargando eventos:', error);
+            }
+        }
+
+        // Inicializar
+        window.addEventListener('load', () => {
+            loadEvents();
+        });
+    </script>
+</body>
+</html>

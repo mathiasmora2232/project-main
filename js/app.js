@@ -1,105 +1,116 @@
-// Inicialización segura cuando el DOM esté listo
+/**
+ * EduConnect - Main Application JavaScript
+ * Handles navigation, notifications, and core UI interactions
+ */
 document.addEventListener('DOMContentLoaded', function() {
-  function navSlide() {
-    const burger = document.querySelector('.burger');
-    const nav = document.querySelector('.nav-links');
-    const navLinks = document.querySelectorAll('.nav-links li');
+	'use strict';
 
-    if (!burger || !nav) return;
+	// ==================== NAVIGATION ====================
+	function initNavigation() {
+		const burger = document.getElementById('burgerMenu');
+		const navLinks = document.querySelector('.nav-links');
 
-    burger.addEventListener('click', () => {
-      // Toggle Nav
-      nav.classList.toggle('nav-active');
+		if (burger && navLinks) {
+			burger.addEventListener('click', (e) => {
+				e.stopPropagation();
+				navLinks.classList.toggle('active');
+			});
+		}
 
-      // Animate Links
-      navLinks.forEach((link, index) => {
-        if (link.style.animation) {
-          link.style.animation = '';
-        } else {
-          link.style.animation = `navLinkFade 0.5s ease forwards ${index / 7 + 0.5}s`;
-        }
-      });
+		if (navLinks) {
+			navLinks.querySelectorAll('a').forEach(link => {
+				link.addEventListener('click', () => {
+					navLinks.classList.remove('active');
+				});
+			});
+		}
 
-      // Burger Animation and accessibility
-      burger.classList.toggle('toggle');
-      const expanded = burger.getAttribute('aria-expanded') === 'true';
-      burger.setAttribute('aria-expanded', (!expanded).toString());
-    });
-  }
+		document.addEventListener('click', (e) => {
+			if (navLinks && burger && !navLinks.contains(e.target) && !burger.contains(e.target)) {
+				navLinks.classList.remove('active');
+			}
+		});
 
-  navSlide();
+		// User dropdown
+		const userBtn = document.getElementById('userMenuBtn');
+		const userDropdown = document.getElementById('userDropdown');
+		if (userBtn && userDropdown) {
+			userBtn.addEventListener('click', (e) => {
+				e.stopPropagation();
+				userDropdown.classList.toggle('show');
+			});
+			document.addEventListener('click', (e) => {
+				if (!userDropdown.contains(e.target) && !userBtn.contains(e.target)) {
+					userDropdown.classList.remove('show');
+				}
+			});
+		}
 
-  // Notificaciones panel
-  const notificationsBtn = document.getElementById('notificationsBtn');
-  const notificationsPanel = document.getElementById('notificationsPanel');
-  const closeNotifications = document.getElementById('closeNotifications');
-  const tabUnread = document.getElementById('tabUnread');
-  const tabAll = document.getElementById('tabAll');
-  const unreadList = document.getElementById('unreadList');
-  const allList = document.getElementById('allList');
+		// Logout buttons
+		document.querySelectorAll('[data-action="logout"]').forEach(btn => {
+			btn.addEventListener('click', (e) => {
+				e.preventDefault();
+				if (typeof logout === 'function') logout();
+			});
+		});
 
-  if (notificationsBtn && notificationsPanel) {
-    notificationsBtn.addEventListener('click', () => {
-      const isVisible = getComputedStyle(notificationsPanel).display === 'flex';
-      notificationsPanel.style.display = isVisible ? 'none' : 'flex';
-    });
-  }
+		// Set user name in nav
+		if (typeof getUser === 'function') {
+			const user = getUser();
+			const nameEl = document.getElementById('userName');
+			if (nameEl && user) {
+				nameEl.textContent = user.nombre_completo || user.email;
+			}
+		}
+	}
 
-  if (closeNotifications && notificationsPanel) {
-    closeNotifications.addEventListener('click', () => {
-      notificationsPanel.style.display = 'none';
-    });
-  }
+	// ==================== NOTIFICATIONS ====================
+	function initNotifications() {
+		const notificationsBtn = document.getElementById('notificationsBtn');
+		const notificationsPanel = document.getElementById('notificationsPanel');
+		const closeNotifications = document.getElementById('closeNotifications');
 
-  if (tabUnread && tabAll && unreadList && allList) {
-    tabUnread.addEventListener('click', () => {
-      tabUnread.classList.add('active');
-      tabAll.classList.remove('active');
-      unreadList.style.display = '';
-      allList.style.display = 'none';
-    });
+		if (!notificationsBtn || !notificationsPanel) return;
 
-    tabAll.addEventListener('click', () => {
-      tabAll.classList.add('active');
-      tabUnread.classList.remove('active');
-      allList.style.display = '';
-      unreadList.style.display = 'none';
-    });
-  }
+		notificationsBtn.addEventListener('click', (e) => {
+			e.stopPropagation();
+			notificationsPanel.classList.toggle('show');
+		});
 
-  // Animación del progreso (mover desde inline HTML)
-  const progressBars = document.querySelectorAll('.progress-bar-fill.animated');
-  progressBars.forEach(bar => {
-    const width = bar.getAttribute('data-width') || '0';
-    setTimeout(() => {
-      bar.style.width = width + '%';
-    }, 500);
-  });
+		if (closeNotifications) {
+			closeNotifications.addEventListener('click', () => {
+				notificationsPanel.classList.remove('show');
+			});
+		}
 
-  // Marcar mensajes como leídos y actualizar contador
-  const messageItems = document.querySelectorAll('.message-item');
-  messageItems.forEach(item => {
-    item.addEventListener('click', function() {
-      this.classList.remove('unread');
-      const status = this.querySelector('.message-status');
-      if (status) {
-        status.classList.remove('unread');
-        status.classList.add('read');
-      }
+		document.addEventListener('click', (e) => {
+			if (!notificationsPanel.contains(e.target) && !notificationsBtn.contains(e.target)) {
+				notificationsPanel.classList.remove('show');
+			}
+		});
+	}
 
-      // Actualizar contador de notificaciones
-      const notificationDot = document.querySelector('.notification-dot');
-      if (notificationDot && notificationDot.textContent) {
-        const currentCount = parseInt(notificationDot.textContent) || 0;
-        if (currentCount > 0) {
-          const next = currentCount - 1;
-          notificationDot.textContent = next;
-          if (next === 0) {
-            notificationDot.style.display = 'none';
-          }
-        }
-      }
-    });
-  });
+	// ==================== ANIMATIONS ====================
+	function initAnimations() {
+		const observer = new IntersectionObserver((entries) => {
+			entries.forEach(entry => {
+				if (entry.isIntersecting) {
+					entry.target.style.opacity = '1';
+					entry.target.style.transform = 'translateY(0)';
+				}
+			});
+		}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
 
+		document.querySelectorAll('.card, .materia-card, .course-card, .stat-card-item, .curso-card').forEach(el => {
+			el.style.opacity = '0';
+			el.style.transform = 'translateY(20px)';
+			el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+			observer.observe(el);
+		});
+	}
+
+	// ==================== INITIALIZATION ====================
+	initNavigation();
+	initNotifications();
+	initAnimations();
 });

@@ -1,38 +1,159 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Gestionar Curso - EduConnect</title>
-  <link rel="stylesheet" href="/css/Global.css">
-  <style>
-    body { font-family: Arial, sans-serif; padding: 20px; }
-    .task { border: 1px solid #ddd; padding: 8px; margin-bottom: 6px; border-radius: 6px; }
-  </style>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestionar Materia - EduConnect</title>
+    <link rel="icon" href="../img/logojpg-removebg-preview.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/Global.css?v=2">
+    <link rel="stylesheet" href="../css/admindasbord.css?v=2">
 </head>
 <body>
-  <h1 id="courseTitle">Curso</h1>
-  <div>
-    <a href="dashboard-profesor.html">Volver al panel</a>
-  </div>
+    <header>
+        <nav>
+            <a href="../Homepage.html" class="logo">EduConnect</a>
+            <ul class="nav-links">
+                <li><a href="../Homepage.html">Inicio</a></li>
+                <li><a href="../Materias.html">Materias</a></li>
+                <li><a href="../Malla.html">Malla Curricular</a></li>
+                <li><a href="../Calendario.html">Calendario</a></li>
+                <li><a href="../Cuenta.html">Mi Cuenta</a></li>
+            </ul>
+            <div class="nav-right">
+                <button id="userMenuBtn" class="user-btn"><span id="userName">Profesor</span></button>
+                <div class="dropdown-menu" id="userDropdown">
+                    <a href="../Cuenta.html">Mi Perfil</a>
+                    <button data-action="logout">Cerrar Sesion</button>
+                </div>
+            </div>
+            <button class="burger-menu" id="burgerMenu" aria-label="Menu">&#9776;</button>
+        </nav>
+    </header>
 
-  <h2>Tareas</h2>
-  <div id="tasks"></div>
+    <main class="admin-main">
+        <div class="admin-container">
+            <div class="admin-header">
+                <h1 id="courseTitle">Materia</h1>
+                <p><a href="dashboard-profesor.html" style="color:var(--primary);">← Volver al panel</a></p>
+            </div>
 
-  <h3>Crear tarea</h3>
-  <form id="createTaskForm">
-    <label for="title">Título</label><br>
-    <input id="title" name="title" required placeholder="Ej: Tarea 1"><br>
-    <label for="description">Descripción</label><br>
-    <textarea id="description" name="description" rows="4"></textarea><br>
-    <label for="due">Fecha de entrega</label><br>
-    <input id="due" name="due" type="date"><br>
-    <label for="file">Adjuntar archivo (opcional)</label><br>
-    <input id="file" name="file" type="file"><br>
-    <button type="submit">Crear tarea</button>
-  </form>
+            <!-- Tareas -->
+            <div class="tab-content">
+                <div class="table-header">
+                    <h2>Tareas</h2>
+                    <button class="btn-create" id="btnCreateTask">+ Crear Tarea</button>
+                </div>
+                <div class="table-wrapper">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Titulo</th>
+                                <th>Descripcion</th>
+                                <th>Fecha Entrega</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tareas-tbody">
+                            <tr><td colspan="3" class="loading-cell">Cargando tareas...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
 
-  <script src="/js/localBackend.js" defer></script>
-  <script src="/js/profesor.js" defer></script>
+            <!-- Create Task Modal -->
+            <div class="modal-overlay" id="task-modal" style="display:none;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3>Crear Tarea</h3>
+                        <button class="modal-close" id="closeTaskModal">&times;</button>
+                    </div>
+                    <form id="createTaskForm">
+                        <div class="form-group">
+                            <label>Titulo</label>
+                            <input type="text" id="taskTitle" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Descripcion</label>
+                            <textarea id="taskDesc" rows="3"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Fecha de Entrega</label>
+                            <input type="date" id="taskDue" required>
+                        </div>
+                        <div class="form-actions">
+                            <button type="button" class="btn-cancel" id="cancelTask">Cancelar</button>
+                            <button type="submit" class="btn-save">Crear</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="../js/api.js?v=2"></script>
+    <script src="../js/app.js?v=2"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+        const user = getUser();
+
+        const params = new URLSearchParams(window.location.search);
+        const materiaId = params.get('id');
+        if (!materiaId) { window.location.href = 'dashboard-profesor.html'; return; }
+
+        // Load materia info
+        try {
+            const materia = await getMateriaById(materiaId);
+            if (materia) {
+                document.getElementById('courseTitle').textContent = materia.nombre;
+            }
+        } catch {}
+
+        // Load tasks
+        const tbody = document.getElementById('tareas-tbody');
+        try {
+            const tareas = await getTareasPorMateria(materiaId);
+            if (!tareas || tareas.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="3" class="empty-cell">No hay tareas creadas</td></tr>';
+            } else {
+                tbody.innerHTML = tareas.map(t => `
+                    <tr>
+                        <td>${t.titulo}</td>
+                        <td>${t.descripcion || '-'}</td>
+                        <td>${t.fecha_entrega ? formatDate(t.fecha_entrega) : '-'}</td>
+                    </tr>
+                `).join('');
+            }
+        } catch {
+            tbody.innerHTML = '<tr><td colspan="3" class="error-cell">Error al cargar tareas</td></tr>';
+        }
+
+        // Modal controls
+        const modal = document.getElementById('task-modal');
+        document.getElementById('btnCreateTask').addEventListener('click', () => modal.style.display = 'flex');
+        document.getElementById('closeTaskModal').addEventListener('click', () => modal.style.display = 'none');
+        document.getElementById('cancelTask').addEventListener('click', () => modal.style.display = 'none');
+        modal.addEventListener('click', (e) => { if (e.target === modal) modal.style.display = 'none'; });
+
+        // Create task
+        document.getElementById('createTaskForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            try {
+                await crearTarea(materiaId, {
+                    titulo: document.getElementById('taskTitle').value,
+                    descripcion: document.getElementById('taskDesc').value,
+                    fecha_entrega: document.getElementById('taskDue').value
+                });
+                showNotification('Tarea creada exitosamente', 'success');
+                modal.style.display = 'none';
+                window.location.reload();
+            } catch (err) {
+                showNotification('Error al crear tarea: ' + err.message, 'error');
+            }
+        });
+    });
+    </script>
 </body>
 </html>

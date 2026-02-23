@@ -1,243 +1,223 @@
 .malla-container {
-    margin-top: 80px;
-    padding: 40px 20px;
-    font-family: "Castoro", serif;
-    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-    min-height: 100vh;
+	margin-top: 70px;
+	padding: 40px 20px;
+	background: linear-gradient(135deg, #f0f4ff 0%, #e0e7ff 100%);
+	min-height: 100vh;
+	max-width: 1400px;
+	margin-left: auto;
+	margin-right: auto;
 }
 
+/* PAGE HEADER */
 .page-header {
-    text-align: center;
-    margin-bottom: 50px;
-    padding: 0 20px;
+	margin-bottom: 40px;
+	padding: 40px;
+	background: white;
+	border-radius: var(--radius-lg);
+	box-shadow: var(--shadow-md);
+	border: 1px solid var(--neutral-200);
 }
 
 .page-header h1 {
-    font-size: 3rem;
-    color: #4a90e2;
-    margin-bottom: 15px;
-    font-weight: bold;
-    text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+	font-size: 2.5rem;
+	font-weight: 800;
+	letter-spacing: -1px;
+	background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	background-clip: text;
+	margin-bottom: 10px;
 }
 
 .page-subtitle {
-    font-size: 1.2rem;
-    color: #666;
-    margin: 0;
-    line-height: 1.6;
+	color: var(--neutral-600);
+	font-size: 1.05rem;
 }
 
+/* MALLA GRID */
 .malla-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-    gap: 30px;
-    max-width: 1400px;
-    margin: 0 auto 50px;
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+	gap: 25px;
+	margin-bottom: 40px;
 }
 
+/* SEMESTRE CARD */
 .semestre-card {
-    background: white;
-    border-radius: 20px;
-    padding: 30px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-    border: 1px solid #e0e0e0;
-    position: relative;
-    overflow: hidden;
+	background: white;
+	border-radius: var(--radius-lg);
+	box-shadow: var(--shadow-md);
+	border: 1px solid var(--neutral-200);
+	overflow: hidden;
+	transition: var(--transition);
 }
 
-.semestre-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, #4a90e2, #667eea);
+.semestre-card:hover {
+	transform: translateY(-4px);
+	box-shadow: var(--shadow-xl);
 }
 
 .semestre-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 25px;
-    padding-bottom: 15px;
-    border-bottom: 2px solid #f0f0f0;
+	padding: 20px 24px;
+	background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+	color: white;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 }
 
 .semestre-header h2 {
-    color: #4a90e2;
-    font-size: 1.8rem;
-    margin: 0;
-    font-weight: bold;
+	font-size: 1.3rem;
+	font-weight: 700;
+	margin: 0;
 }
 
 .semestre-badge {
-    background: linear-gradient(45deg, #4a90e2, #667eea);
-    color: white;
-    padding: 8px 16px;
-    border-radius: 20px;
-    font-size: 0.9rem;
-    font-weight: bold;
-    box-shadow: 0 3px 10px rgba(74, 144, 226, 0.3);
+	background: rgba(255,255,255,0.2);
+	padding: 6px 14px;
+	border-radius: 20px;
+	font-size: 0.8rem;
+	font-weight: 600;
 }
 
+/* MATERIAS LIST */
 .materias-list {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+	padding: 12px;
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
 }
 
 .materia-item {
-    background: #f8f9fa;
-    padding: 20px;
-    border-radius: 12px;
-    border-left: 4px solid #4a90e2;
-    cursor: pointer;
+	padding: 14px 16px;
+	background: var(--neutral-50);
+	border-radius: var(--radius-sm);
+	border: 1px solid var(--neutral-200);
+	transition: var(--transition);
+}
+
+.materia-item:hover {
+	background: rgba(99, 102, 241, 0.05);
+	border-color: var(--primary-light);
+	transform: translateX(4px);
+}
+
+.materia-item-top {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 6px;
 }
 
 .materia-name {
-    font-size: 1.1rem;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 8px;
+	font-weight: 600;
+	color: var(--neutral-800);
+	font-size: 0.95rem;
+}
+
+.materia-code-badge {
+	font-size: 0.75rem;
+	font-weight: 700;
+	color: var(--primary);
+	background: rgba(99, 102, 241, 0.1);
+	padding: 2px 8px;
+	border-radius: 4px;
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+}
+
+.materia-item-bottom {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 }
 
 .profesor-name {
-    font-size: 0.95rem;
-    color: #666;
-    display: flex;
-    align-items: center;
+	font-size: 0.85rem;
+	color: var(--neutral-500);
 }
 
-.profesor-name::before {
-    content: "👨‍🏫";
-    margin-right: 8px;
-    font-size: 1.1rem;
+.creditos-badge {
+	font-size: 0.8rem;
+	color: var(--neutral-500);
+	font-weight: 600;
 }
 
+/* INFO SECTION */
 .info-section {
-    max-width: 1400px;
-    margin: 0 auto;
+	margin-top: 20px;
 }
 
 .info-card {
-    background: white;
-    border-radius: 20px;
-    padding: 40px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-    border: 1px solid #e0e0e0;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-}
-
-.info-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, #4a90e2, #667eea);
+	background: white;
+	border-radius: var(--radius-lg);
+	padding: 30px;
+	box-shadow: var(--shadow-md);
+	border: 1px solid var(--neutral-200);
 }
 
 .info-card h3 {
-    color: #4a90e2;
-    font-size: 1.8rem;
-    margin-bottom: 30px;
-    font-weight: bold;
+	font-size: 1.3rem;
+	font-weight: 700;
+	color: var(--neutral-800);
+	margin-bottom: 20px;
 }
 
 .stats-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 30px;
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+	gap: 20px;
 }
 
 .stat-item {
-    text-align: center;
-    background: rgba(74, 144, 226, 0.1);
-    padding: 25px;
-    border-radius: 15px;
-    border: 2px solid #4a90e2;
+	text-align: center;
+	padding: 20px;
+	background: var(--neutral-50);
+	border-radius: var(--radius-md);
+	border: 1px solid var(--neutral-200);
 }
 
 .stat-number {
-    font-size: 2.5rem;
-    font-weight: bold;
-    color: #4a90e2;
-    margin-bottom: 10px;
+	font-size: 2.5rem;
+	font-weight: 800;
+	color: var(--primary);
+	line-height: 1;
+	margin-bottom: 8px;
 }
 
 .stat-label {
-    color: #666;
-    font-size: 1rem;
-    font-weight: 500;
+	font-size: 0.9rem;
+	color: var(--neutral-500);
+	font-weight: 600;
 }
 
-@media (max-width: 1024px) {
-    .malla-grid {
-        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-        gap: 25px;
-    }
-    
-    .page-header h1 {
-        font-size: 2.5rem;
-    }
+/* UTILITIES */
+.loading-spinner, .empty-state, .error-state {
+	text-align: center;
+	padding: 40px;
+	color: var(--neutral-500);
+	font-size: 1rem;
 }
 
+.error-state { color: var(--danger); }
+
+/* NAV STYLES (shared) */
+.nav-right { display: flex; align-items: center; gap: 1rem; }
+.user-btn {
+	background: rgba(255,255,255,0.15); border: none; color: white;
+	padding: 8px 16px; border-radius: var(--radius-sm);
+	cursor: pointer; font-weight: 600; font-size: 0.9rem; transition: var(--transition);
+}
+.user-btn:hover { background: rgba(255,255,255,0.25); }
+.burger-menu { display: none; background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer; padding: 8px; }
+
+/* RESPONSIVE */
 @media (max-width: 768px) {
-    .malla-container {
-        padding: 30px 15px;
-    }
-    
-    .malla-grid {
-        grid-template-columns: 1fr;
-        gap: 20px;
-    }
-    
-    .page-header h1 {
-        font-size: 2rem;
-    }
-    
-    .page-subtitle {
-        font-size: 1rem;
-    }
-    
-    .semestre-card {
-        padding: 20px;
-    }
-    
-    .info-card {
-        padding: 30px 20px;
-    }
-    
-    .stats-grid {
-        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-        gap: 20px;
-    }
-    
-    .semestre-header {
-        flex-direction: column;
-        gap: 15px;
-        text-align: center;
-    }
-}
-
-@media (max-width: 480px) {
-    .page-header h1 {
-        font-size: 1.8rem;
-    }
-    
-    .semestre-header h2 {
-        font-size: 1.5rem;
-    }
-    
-    .materia-name {
-        font-size: 1rem;
-    }
-    
-    .stats-grid {
-        grid-template-columns: 1fr;
-    }
+	.malla-container { padding: 20px; }
+	.page-header { padding: 25px 20px; margin-bottom: 25px; }
+	.page-header h1 { font-size: 1.8rem; }
+	.malla-grid { grid-template-columns: 1fr; gap: 20px; }
+	.stats-grid { grid-template-columns: 1fr; }
+	.burger-menu { display: block; }
+	.nav-right { display: none; }
 }

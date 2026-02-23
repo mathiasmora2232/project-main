@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Materia - EduConnect</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/Global.css">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --neutral-900: #111827;
+            --neutral-600: #4b5563;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background: #f9fafb;
+        }
+
+        header {
+            background: white;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .logo {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links a {
+            color: var(--neutral-600);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-right {
+            position: relative;
+        }
+
+        .user-btn {
+            background: #f3f4f6;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            min-width: 180px;
+            margin-top: 10px;
+        }
+
+        .dropdown-menu.show {
+            display: block;
+        }
+
+        .dropdown-menu a, .dropdown-menu button {
+            display: block;
+            width: 100%;
+            padding: 12px 16px;
+            border: none;
+            background: none;
+            text-align: left;
+            cursor: pointer;
+            color: var(--neutral-600);
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .dropdown-menu a:hover, .dropdown-menu button:hover {
+            background: #f3f4f6;
+            color: var(--primary);
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .page-title {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        .page-subtitle {
+            color: var(--neutral-600);
+            margin-bottom: 30px;
+        }
+
+        .form-card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+        }
+
+        .form-grid {
+            display: grid;
+            gap: 20px;
+        }
+
+        .form-group {
+            display: grid;
+            gap: 8px;
+        }
+
+        .form-group.row {
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: var(--neutral-900);
+        }
+
+        .form-input, .form-textarea, .form-select {
+            padding: 12px;
+            border: 2px solid #e5e7eb;
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .form-input:focus, .form-textarea:focus, .form-select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .form-hint {
+            font-size: 0.85rem;
+            color: var(--neutral-600);
+            margin-top: 5px;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border-radius: 8px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            flex: 1;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
+        }
+
+        .btn-secondary {
+            background: #f3f4f6;
+            color: var(--neutral-900);
+            border: 2px solid #e5e7eb;
+            flex: 1;
+        }
+
+        .btn-secondary:hover {
+            background: #e5e7eb;
+        }
+
+        .btn-danger {
+            background: #fecaca;
+            color: #7f1d1d;
+        }
+
+        .btn-danger:hover {
+            background: #fca5a5;
+        }
+
+        .section-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-top: 30px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e5e7eb;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: var(--neutral-600);
+        }
+
+        @media (max-width: 768px) {
+            .form-group.row {
+                grid-template-columns: 1fr;
+            }
+
+            .form-actions {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="../Homepage.html" class="logo">📚 EduConnect</a>
+            <ul class="nav-links">
+                <li><a href="../Homepage.html">Inicio</a></li>
+                <li><a href="/profesor/dashboard-profesor.html">Mi Panel</a></li>
+                <li><a href="../Cuenta.html">Mi Cuenta</a></li>
+            </ul>
+            <div class="nav-right">
+                <button id="userMenuBtn" class="user-btn"><span id="userName">Profesor</span></button>
+                <div class="dropdown-menu" id="userDropdown">
+                    <a href="../Cuenta.html">Mi Perfil</a>
+                    <button id="logoutBtn" style="color: #dc2626;">Cerrar Sesión</button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+        <div style="margin-bottom: 30px;">
+            <a href="/profesor/dashboard-profesor.html" style="color: var(--primary); text-decoration: none; font-weight: 600;">← Volver al Panel</a>
+        </div>
+
+        <h1 class="page-title">Editar Materia</h1>
+        <p class="page-subtitle">Actualiza la información de tu materia</p>
+
+        <div class="form-card" id="loadingState">
+            <div class="loading">Cargando...</div>
+        </div>
+
+        <form id="materiaForm" class="form-card" style="display: none;">
+            <div class="form-grid">
+                <div class="form-group row">
+                    <div class="form-group">
+                        <label class="form-label">Nombre de la Materia *</label>
+                        <input type="text" id="nombre" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Código *</label>
+                        <input type="text" id="codigo" class="form-input" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Descripción</label>
+                    <textarea id="descripcion" class="form-textarea" placeholder="Describe el contenido y objetivos..."></textarea>
+                    <p class="form-hint">Máximo 500 caracteres</p>
+                </div>
+
+                <div class="form-group row">
+                    <div class="form-group">
+                        <label class="form-label">Créditos</label>
+                        <input type="number" id="creditos" class="form-input" value="3" min="1" max="6">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Semestre</label>
+                        <input type="number" id="semestre" class="form-input" value="1" min="1" max="10">
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="form-group">
+                        <label class="form-label">Color Identificador</label>
+                        <input type="color" id="color" class="form-input" value="#6366f1">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Estado</label>
+                        <select id="activa" class="form-select">
+                            <option value="1">Activa</option>
+                            <option value="0">Inactiva</option>
+                        </select>
+                    </div>
+                </div>
+
+                <h3 class="section-title">📊 Información de la Materia</h3>
+
+                <div class="form-group row">
+                    <div style="padding: 15px; background: #f0f4ff; border-radius: 8px;">
+                        <div style="font-size: 0.85rem; color: var(--neutral-600);">Total de Lecciones</div>
+                        <div style="font-size: 1.5rem; font-weight: 700; color: var(--primary);" id="totalLecciones">0</div>
+                    </div>
+                    <div style="padding: 15px; background: #f0f4ff; border-radius: 8px;">
+                        <div style="font-size: 0.85rem; color: var(--neutral-600);">Total de Tareas</div>
+                        <div style="font-size: 1.5rem; font-weight: 700; color: var(--primary);" id="totalTareas">0</div>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div style="padding: 15px; background: #f0f4ff; border-radius: 8px;">
+                        <div style="font-size: 0.85rem; color: var(--neutral-600);">Estudiantes Inscritos</div>
+                        <div style="font-size: 1.5rem; font-weight: 700; color: var(--primary);" id="totalInscritos">0</div>
+                    </div>
+                    <div style="padding: 15px; background: #f0f4ff; border-radius: 8px;">
+                        <div style="font-size: 0.85rem; color: var(--neutral-600);">Promedio de Calificaciones</div>
+                        <div style="font-size: 1.5rem; font-weight: 700; color: var(--primary);" id="promedioCalif">0.0</div>
+                    </div>
+                </div>
+
+                <h3 class="section-title">⚙️ Configuración Avanzada</h3>
+
+                <div class="form-group">
+                    <label class="form-label">Requisitos Previos</label>
+                    <input type="text" id="requisitos" class="form-input" placeholder="Ej: Programación Básica">
+                    <p class="form-hint">Separados por coma si son múltiples</p>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Profesora/or Responsable</label>
+                    <input type="text" id="profesor" class="form-input" disabled style="background: #f3f4f6;">
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <a href="/profesor/dashboard-profesor.html" class="btn btn-secondary">Cancelar</a>
+                <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                <button type="button" class="btn btn-danger" onclick="confirmarEliminar()">Eliminar Materia</button>
+            </div>
+        </form>
+    </div>
+
+    <script src="../js/api.js"></script>
+    <script>
+        let materiaId = null;
+        let materia = null;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            materiaId = params.get('id');
+
+            if (!materiaId) {
+                window.location.href = '/profesor/dashboard-profesor.html';
+                return;
+            }
+
+            setupEventListeners();
+            cargarMateria();
+        });
+
+        function setupEventListeners() {
+            document.getElementById('userMenuBtn').addEventListener('click', () => {
+                document.getElementById('userDropdown').classList.toggle('show');
+            });
+
+            document.getElementById('logoutBtn').addEventListener('click', () => {
+                localStorage.removeItem('user');
+                localStorage.removeItem('token');
+                window.location.href = '/Login.html';
+            });
+
+            document.getElementById('materiaForm').addEventListener('submit', guardarMateria);
+        }
+
+        async function cargarMateria() {
+            try {
+                const response = await apiRequest(`/materias/${materiaId}`);
+                materia = response;
+
+                const usuario = getUser();
+                document.getElementById('userName').textContent = usuario.nombre_completo || 'Profesor';
+
+                // Llenar formulario
+                document.getElementById('nombre').value = materia.nombre;
+                document.getElementById('codigo').value = materia.codigo;
+                document.getElementById('descripcion').value = materia.descripcion || '';
+                document.getElementById('creditos').value = materia.creditos;
+                document.getElementById('semestre').value = materia.semestre;
+                document.getElementById('color').value = materia.color || '#6366f1';
+                document.getElementById('activa').value = materia.activa ? '1' : '0';
+                document.getElementById('profesor').value = materia.nombre_profesor || 'No disponible';
+
+                // Información adicional
+                document.getElementById('totalLecciones').textContent = materia.total_lecciones || 0;
+                document.getElementById('totalTareas').textContent = materia.total_tareas || 0;
+                document.getElementById('totalInscritos').textContent = materia.total_inscritos || 0;
+                document.getElementById('promedioCalif').textContent = (materia.promedio_calificaciones || 0).toFixed(1);
+
+                // Mostrar formulario
+                document.getElementById('loadingState').style.display = 'none';
+                document.getElementById('materiaForm').style.display = 'block';
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error al cargar la materia');
+                window.location.href = '/profesor/dashboard-profesor.html';
+            }
+        }
+
+        async function guardarMateria(e) {
+            e.preventDefault();
+
+            try {
+                const data = {
+                    nombre: document.getElementById('nombre').value,
+                    codigo: document.getElementById('codigo').value,
+                    descripcion: document.getElementById('descripcion').value,
+                    creditos: parseInt(document.getElementById('creditos').value),
+                    semestre: parseInt(document.getElementById('semestre').value),
+                    color: document.getElementById('color').value,
+                    activa: parseInt(document.getElementById('activa').value)
+                };
+
+                await apiRequest(`/materias/${materiaId}`, 'PUT', data);
+                alert('Materia actualizada correctamente');
+                window.location.href = '/profesor/dashboard-profesor.html';
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error al guardar los cambios');
+            }
+        }
+
+        function confirmarEliminar() {
+            if (confirm('¿Estás seguro de que quieres eliminar esta materia? Esta acción no se puede deshacer.')) {
+                eliminarMateria();
+            }
+        }
+
+        async function eliminarMateria() {
+            try {
+                await apiRequest(`/materias/${materiaId}`, 'DELETE');
+                alert('Materia eliminada correctamente');
+                window.location.href = '/profesor/dashboard-profesor.html';
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error al eliminar la materia');
+            }
+        }
+    </script>
+</body>
+</html>

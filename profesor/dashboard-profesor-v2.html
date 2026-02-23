@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel del Profesor - EduConnect</title>
+    
+    <!-- Estilos Base -->
+    <link rel="stylesheet" href="../css/sistema-visual.css">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        .navbar {
+            background-color: var(--color-primary);
+            color: var(--color-white);
+            padding: var(--spacing-md) var(--spacing-lg);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--shadow-md);
+            position: sticky;
+            top: 0;
+            z-index: var(--z-sticky);
+        }
+
+        .navbar-brand {
+            font-size: var(--font-size-2xl);
+            font-weight: var(--font-weight-bold);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+            color: var(--color-white);
+            text-decoration: none;
+        }
+
+        .navbar-nav {
+            display: flex;
+            gap: var(--spacing-xl);
+            align-items: center;
+        }
+
+        .nav-link {
+            color: var(--color-gray-100);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            padding: var(--spacing-sm) var(--spacing-md);
+            border-radius: var(--radius-md);
+            transition: all var(--transition-fast);
+        }
+
+        .nav-link:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--color-white);
+        }
+
+        .user-menu {
+            position: relative;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--color-accent), var(--color-info));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-white);
+            cursor: pointer;
+            transition: transform var(--transition-fast);
+            font-weight: var(--font-weight-bold);
+        }
+
+        .user-avatar:hover {
+            transform: scale(1.1);
+        }
+
+        .main-container {
+            padding: var(--spacing-2xl) var(--spacing-lg);
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .page-header {
+            margin-bottom: var(--spacing-3xl);
+        }
+
+        .page-title {
+            font-size: var(--font-size-4xl);
+            font-weight: var(--font-weight-bold);
+            color: var(--color-primary);
+            margin-bottom: var(--spacing-md);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+        }
+
+        .page-subtitle {
+            color: var(--color-gray-600);
+            font-size: var(--font-size-lg);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-3xl);
+        }
+
+        .stat-card {
+            background: var(--color-white);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-lg);
+            box-shadow: var(--shadow-md);
+            border-left: 4px solid var(--color-accent);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all var(--transition-base);
+        }
+
+        .stat-card:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-4px);
+        }
+
+        .stat-icon {
+            font-size: 2.5rem;
+            color: var(--color-accent);
+            opacity: 0.8;
+        }
+
+        .stat-content h3 {
+            font-size: var(--font-size-sm);
+            color: var(--color-gray-600);
+            font-weight: var(--font-weight-medium);
+            margin-bottom: var(--spacing-xs);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .stat-value {
+            font-size: var(--font-size-3xl);
+            font-weight: var(--font-weight-bold);
+            color: var(--color-primary);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .section-title {
+            font-size: var(--font-size-2xl);
+            font-weight: var(--font-weight-bold);
+            color: var(--color-primary);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+        }
+
+        .section-title i {
+            color: var(--color-accent);
+        }
+
+        .materias-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: var(--spacing-lg);
+        }
+
+        .materia-card {
+            background: var(--color-white);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: all var(--transition-base);
+            border: 2px solid transparent;
+        }
+
+        .materia-card:hover {
+            box-shadow: var(--shadow-lg);
+            border-color: var(--color-accent);
+            transform: translateY(-6px);
+        }
+
+        .materia-header {
+            height: 120px;
+            background: linear-gradient(135deg, var(--color-accent), var(--color-info));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-white);
+            font-size: var(--font-size-2xl);
+            font-weight: var(--font-weight-bold);
+        }
+
+        .materia-body {
+            padding: var(--spacing-lg);
+        }
+
+        .materia-nombre {
+            font-size: var(--font-size-lg);
+            font-weight: var(--font-weight-bold);
+            margin-bottom: var(--spacing-sm);
+            color: var(--color-primary);
+        }
+
+        .materia-codigo {
+            font-size: var(--font-size-sm);
+            color: var(--color-gray-600);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .materia-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-lg);
+            padding: var(--spacing-md);
+            background-color: var(--bg-tertiary);
+            border-radius: var(--radius-md);
+        }
+
+        .materia-stat {
+            text-align: center;
+        }
+
+        .materia-stat-number {
+            display: block;
+            font-size: var(--font-size-2xl);
+            font-weight: var(--font-weight-bold);
+            color: var(--color-accent);
+        }
+
+        .materia-stat-label {
+            display: block;
+            font-size: var(--font-size-xs);
+            color: var(--color-gray-600);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: var(--spacing-xs);
+        }
+
+        .materia-actions {
+            display: flex;
+            gap: var(--spacing-sm);
+        }
+
+        .action-btn {
+            flex: 1;
+            padding: var(--spacing-sm) var(--spacing-md);
+            border: none;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            font-weight: var(--font-weight-medium);
+            font-size: var(--font-size-sm);
+            transition: all var(--transition-fast);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--spacing-xs);
+        }
+
+        .action-btn-primary {
+            background-color: var(--color-accent);
+            color: var(--color-white);
+        }
+
+        .action-btn-primary:hover {
+            background-color: var(--color-accent-dark);
+        }
+
+        .action-btn-secondary {
+            background-color: var(--bg-tertiary);
+            color: var(--color-primary);
+            border: 1px solid var(--border-color);
+        }
+
+        .action-btn-secondary:hover {
+            background-color: var(--color-gray-200);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: var(--spacing-3xl) var(--spacing-lg);
+            color: var(--color-gray-600);
+        }
+
+        .empty-state-icon {
+            font-size: 4rem;
+            margin-bottom: var(--spacing-lg);
+            opacity: 0.5;
+        }
+
+        .empty-state-text {
+            font-size: var(--font-size-lg);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: var(--z-modal);
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--color-white);
+            border-radius: var(--radius-xl);
+            padding: var(--spacing-xl);
+            max-width: 500px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-lg);
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: var(--spacing-lg);
+        }
+
+        .modal-title {
+            font-size: var(--font-size-2xl);
+            font-weight: var(--font-weight-bold);
+            color: var(--color-primary);
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: var(--font-size-2xl);
+            cursor: pointer;
+            color: var(--color-gray-600);
+        }
+
+        .modal-close:hover {
+            color: var(--color-primary);
+        }
+
+        .modal-footer {
+            display: flex;
+            gap: var(--spacing-md);
+            justify-content: flex-end;
+            margin-top: var(--spacing-xl);
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                gap: var(--spacing-md);
+            }
+
+            .navbar-nav {
+                width: 100%;
+                gap: var(--spacing-md);
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .materias-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-content {
+                width: 95%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navegación -->
+    <nav class="navbar">
+        <a href="dashboard-profesor-v2.html" class="navbar-brand">
+            <i class="fas fa-book"></i>
+            EduConnect
+        </a>
+        <div class="navbar-nav">
+            <a href="dashboard-profesor-v2.html" class="nav-link">
+                <i class="fas fa-home"></i>
+                Dashboard
+            </a>
+            <a href="../Calendario.html" class="nav-link">
+                <i class="fas fa-calendar"></i>
+                Calendario
+            </a>
+            <a href="../Cuenta.html" class="nav-link">
+                <i class="fas fa-user"></i>
+                Perfil
+            </a>
+            <div class="user-menu">
+                <div class="user-avatar" onclick="alert('Menú de usuario')">
+                    <i class="fas fa-user"></i>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contenido Principal -->
+    <div class="main-container">
+        <!-- Encabezado -->
+        <div class="page-header">
+            <h1 class="page-title">
+                <i class="fas fa-chart-line"></i>
+                Mi Panel de Control
+            </h1>
+            <p class="page-subtitle">Gestiona tus cursos y observa el desempeño de tus estudiantes</p>
+        </div>
+
+        <!-- Estadísticas Generales -->
+        <div class="stats-grid" id="statsContainer">
+            <div class="stat-card">
+                <div class="stat-content">
+                    <h3>Cursos Activos</h3>
+                    <div class="stat-value" id="stat-cursos">3</div>
+                </div>
+                <div class="stat-icon">
+                    <i class="fas fa-book-open"></i>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-content">
+                    <h3>Estudiantes Totales</h3>
+                    <div class="stat-value" id="stat-estudiantes">127</div>
+                </div>
+                <div class="stat-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-content">
+                    <h3>Tareas Por Calificar</h3>
+                    <div class="stat-value" id="stat-tareas">15</div>
+                </div>
+                <div class="stat-icon">
+                    <i class="fas fa-tasks"></i>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-content">
+                    <h3>Promedio General</h3>
+                    <div class="stat-value" id="stat-promedio">8.5</div>
+                </div>
+                <div class="stat-icon">
+                    <i class="fas fa-chart-bar"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mis Cursos -->
+        <div class="section-header">
+            <h2 class="section-title">
+                <i class="fas fa-books"></i>
+                Mis Cursos
+            </h2>
+            <button class="btn btn-primary" onclick="openCreateCourseModal()">
+                <i class="fas fa-plus"></i>
+                Crear Nuevo Curso
+            </button>
+        </div>
+
+        <div class="materias-grid" id="materiasContainer">
+            <!-- Las materias se cargarán aquí dinámicamente -->
+            <div class="empty-state">
+                <div class="empty-state-icon">
+                    <i class="fas fa-inbox"></i>
+                </div>
+                <p class="empty-state-text">No hay cursos aún</p>
+                <button class="btn btn-primary" onclick="openCreateCourseModal()">
+                    <i class="fas fa-plus"></i>
+                    Crear tu primer curso
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Crear Curso -->
+    <div class="modal-overlay" id="createCourseModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">
+                    <i class="fas fa-plus-circle"></i>
+                    Crear Nuevo Curso
+                </h2>
+                <button class="modal-close" onclick="closeCreateCourseModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <form id="createCourseForm">
+                <div class="form-group">
+                    <label class="form-label required">Nombre del Curso</label>
+                    <input type="text" class="form-input" id="courseName" required placeholder="Ej: Cálculo Diferencial">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label required">Código</label>
+                    <input type="text" class="form-input" id="courseCode" required placeholder="Ej: CALC-101">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Descripción</label>
+                    <textarea class="form-textarea" id="courseDescription" placeholder="Describe el contenido del curso"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label required">Créditos</label>
+                    <input type="number" class="form-input" id="courseCredits" required min="1" max="6" placeholder="3">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label required">Semestre</label>
+                    <input type="number" class="form-input" id="courseSemester" required min="1" max="10" placeholder="4">
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="closeCreateCourseModal()">
+                        Cancelar
+                    </button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-check"></i>
+                        Crear Curso
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="../js/api.js"></script>
+    <script>
+        function openCreateCourseModal() {
+            document.getElementById('createCourseModal').classList.add('active');
+        }
+
+        function closeCreateCourseModal() {
+            document.getElementById('createCourseModal').classList.remove('active');
+            document.getElementById('createCourseForm').reset();
+        }
+
+        document.getElementById('createCourseForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const courseData = {
+                nombre: document.getElementById('courseName').value,
+                codigo: document.getElementById('courseCode').value,
+                descripcion: document.getElementById('courseDescription').value,
+                creditos: parseInt(document.getElementById('courseCredits').value),
+                semestre: parseInt(document.getElementById('courseSemester').value)
+            };
+
+            try {
+                const response = await api.post('/materias', courseData);
+                alert('Curso creado exitosamente');
+                closeCreateCourseModal();
+                loadMaterias();
+            } catch (error) {
+                alert('Error al crear el curso: ' + error.message);
+            }
+        });
+
+        async function loadMaterias() {
+            try {
+                const response = await api.get('/materias/mismateria');
+                const materias = response.data || [];
+
+                const container = document.getElementById('materiasContainer');
+                
+                if (materias.length === 0) {
+                    container.innerHTML = `
+                        <div class="empty-state">
+                            <div class="empty-state-icon">
+                                <i class="fas fa-inbox"></i>
+                            </div>
+                            <p class="empty-state-text">No hay cursos aún</p>
+                            <button class="btn btn-primary" onclick="openCreateCourseModal()">
+                                <i class="fas fa-plus"></i>
+                                Crear tu primer curso
+                            </button>
+                        </div>
+                    `;
+                    return;
+                }
+
+                container.innerHTML = materias.map(materia => `
+                    <div class="materia-card">
+                        <div class="materia-header">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <div class="materia-body">
+                            <div class="materia-nombre">${materia.nombre}</div>
+                            <div class="materia-codigo">${materia.codigo}</div>
+                            
+                            <div class="materia-stats">
+                                <div class="materia-stat">
+                                    <span class="materia-stat-number">${materia.total_lecciones || 0}</span>
+                                    <span class="materia-stat-label">Lecciones</span>
+                                </div>
+                                <div class="materia-stat">
+                                    <span class="materia-stat-number">${materia.total_tareas || 0}</span>
+                                    <span class="materia-stat-label">Tareas</span>
+                                </div>
+                                <div class="materia-stat">
+                                    <span class="materia-stat-number">${materia.total_inscritos || 0}</span>
+                                    <span class="materia-stat-label">Estudiantes</span>
+                                </div>
+                                <div class="materia-stat">
+                                    <span class="materia-stat-number">${(materia.promedio_calificaciones || 0).toFixed(1)}</span>
+                                    <span class="materia-stat-label">Promedio</span>
+                                </div>
+                            </div>
+
+                            <div class="materia-actions">
+                                <button class="action-btn action-btn-primary" onclick="editCourse(${materia.id})">
+                                    <i class="fas fa-edit"></i>
+                                    Editar
+                                </button>
+                                <button class="action-btn action-btn-secondary" onclick="manageCourse(${materia.id})">
+                                    <i class="fas fa-cog"></i>
+                                    Gestionar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            } catch (error) {
+                console.error('Error cargando materias:', error);
+            }
+        }
+
+        function editCourse(courseId) {
+            window.location.href = `editar-materia.html?id=${courseId}`;
+        }
+
+        function manageCourse(courseId) {
+            window.location.href = `manage-materia.html?id=${courseId}`;
+        }
+
+        // Cargar datos al iniciar
+        window.addEventListener('load', () => {
+            loadMaterias();
+        });
+
+        // Cerrar modal al presionar ESC
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeCreateCourseModal();
+            }
+        });
+    </script>
+</body>
+</html>

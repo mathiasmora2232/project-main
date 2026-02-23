@@ -1,127 +1,266 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8" />
+    <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>EduConnect</title>
-    <link rel="icon" href="img/logojpg-removebg-preview.ico">
-    <link rel="icon" href="imagenes/bluemarket.ico">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@300&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
-    
-    <link rel="stylesheet" href="../css/Global.css">
-    <link rel="stylesheet" href="../css/admindasbord.css">
-    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Admin - EduConnect</title>
+    <link rel="icon" href="../img/logojpg-removebg-preview.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/Global.css?v=2">
+    <link rel="stylesheet" href="../css/admindasbord.css?v=2">
 </head>
 <body>
     <header>
-   <nav>
-  <div class="logo">EduConnect</div>
-
-  <ul class="nav-links">
-    <li><a href="../Homepage.html">Pagina de Inicio</a></li>
-    <li><a href="../Materias.html">Materias</a></li>
-    <li><a href="../Malla.html">Malla</a></li>
-    <li><a href="../Calendario.html">Calendario</a></li>
-    <li><a href="../cuenta.html">Mi cuenta</a></li>
-  </ul>
-
-  <!-- Botón de notificaciones separado -->
-  <div class="notifications" id="notificationsBtn">
-    <span class="bell">🔔</span>
-  </div>
-  <div class="notifications-panel" id="notificationsPanel">
-    <div class="panel-header">
-      <span class="panel-title">Notificaciones</span>
-      <button class="close-btn" id="closeNotifications">✖</button>
-    </div>
-    <div class="panel-tabs">
-      <button class="tab-btn active" id="tabUnread">No leídas</button>
-      <button class="tab-btn" id="tabAll">Todas</button>
-    </div>
-    <div class="panel-content">
-      <div class="notifications-list" id="unreadList">
-        <div class="notification unread">
-          <div class="notif-date">01/07/2025<br><span class="notif-hour">08:30</span></div>
-          <div class="notif-info">
-            <div class="notif-title">Tarea nueva de Matemáticas</div>
-            <div class="notif-desc">Se ha asignado una nueva tarea sobre ecuaciones cuadráticas.</div>
-          </div>
-        </div>
-        <div class="notification unread">
-          <div class="notif-date">30/06/2025<br><span class="notif-hour">19:10</span></div>
-          <div class="notif-info">
-            <div class="notif-title">Mensaje de tu profesor</div>
-            <div class="notif-desc">El profesor Carlos ha enviado un mensaje sobre el examen.</div>
-          </div>
-        </div>
-      </div>
-      <div class="notifications-list" id="allList" style="display:none;">
-        <div class="notification unread">
-          <div class="notif-date">01/07/2025<br><span class="notif-hour">08:30</span></div>
-          <div class="notif-info">
-            <div class="notif-title">Tarea nueva de Matemáticas</div>
-            <div class="notif-desc">Se ha asignado una nueva tarea sobre ecuaciones cuadráticas.</div>
-          </div>
-        </div>
-        <div class="notification unread">
-          <div class="notif-date">30/06/2025<br><span class="notif-hour">19:10</span></div>
-          <div class="notif-info">
-            <div class="notif-title">Mensaje de tu profesor</div>
-            <div class="notif-desc">El profesor Carlos ha enviado un mensaje sobre el examen.</div>
-          </div>
-        </div>
-        <div class="notification">
-          <div class="notif-date">29/06/2025<br><span class="notif-hour">15:00</span></div>
-          <div class="notif-info">
-            <div class="notif-title">Calificación subida</div>
-            <div class="notif-desc">Tu calificación de Historia ya está disponible.</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- Botón Burger para móviles -->
-  <div class="burger">
-    <div class="line1"></div>
-    <div class="line2"></div>
-    <div class="line3"></div>
-  </div>
-</nav>
-
+        <nav>
+            <a href="../Homepage.html" class="logo">EduConnect</a>
+            <ul class="nav-links">
+                <li><a href="../Homepage.html">Inicio</a></li>
+                <li><a href="../Materias.html">Materias</a></li>
+                <li><a href="../Malla.html">Malla</a></li>
+                <li><a href="../Calendario.html">Calendario</a></li>
+                <li><a href="../Cuenta.html">Mi Cuenta</a></li>
+            </ul>
+            <div class="nav-right">
+                <button id="userMenuBtn" class="user-btn"><span id="userName">Admin</span></button>
+                <div class="dropdown-menu" id="userDropdown">
+                    <a href="../Cuenta.html">Mi Perfil</a>
+                    <button data-action="logout">Cerrar Sesion</button>
+                </div>
+            </div>
+            <button class="burger-menu" id="burgerMenu" aria-label="Menu">&#9776;</button>
+        </nav>
     </header>
 
-    <main class="dashboard">
-        <section class="welcome">
-            <h1>Bienvenido a tu plataforma educativa</h1>
-            <p>Consulta tus materias, tareas, notas y mensajes de tus profesores desde aquí.</p>
-        </section>
+    <main class="admin-main">
+        <div class="admin-container">
+            <div class="admin-header">
+                <h1>Panel de Administracion</h1>
+                <p>Gestiona usuarios, materias e inscripciones</p>
+            </div>
 
-        <section class="admin-panel">
-          <h2>Panel de Administración General</h2>
-          <div class="admin-links-container">
-            <a class="admin-link" href="gestion-cursos.html">
-              <span>📚</span>
-              <div>Gestión de Cursos</div>
-            </a>
-            <a class="admin-link" href="gestion-estudiantes.html">
-              <span>👨‍🎓</span>
-              <div>Gestión de Estudiantes</div>
-            </a>
+            <!-- TABS -->
+            <div class="admin-tabs">
+                <button class="admin-tab active" data-tab="dashboard">Dashboard</button>
+                <button class="admin-tab" data-tab="usuarios">Usuarios</button>
+                <button class="admin-tab" data-tab="materias">Materias</button>
+                <button class="admin-tab" data-tab="inscripciones">Inscripciones</button>
+            </div>
 
-            <a class="admin-link" href="gestion-profesores.html">
-              <span>👩‍🏫</span>
-              <div>Gestión de Profesores</div>
-            </a>
-            <a class="admin-link" href="gestion-usuarios.html">
-              <span>👥</span>
-              <div>Gestión de Usuarios</div>
-            </a>
-          </div>
-        </section>
+            <!-- TAB: Dashboard -->
+            <div class="tab-content" id="dashboard-content">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-value" id="stat-usuarios">-</div>
+                        <div class="stat-label">Total Usuarios</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="stat-estudiantes">-</div>
+                        <div class="stat-label">Estudiantes</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="stat-profesores">-</div>
+                        <div class="stat-label">Profesores</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="stat-materias">-</div>
+                        <div class="stat-label">Materias</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="stat-tareas">-</div>
+                        <div class="stat-label">Tareas</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="stat-lecciones">-</div>
+                        <div class="stat-label">Lecciones</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB: Usuarios -->
+            <div class="tab-content" id="usuarios-content" style="display:none;">
+                <div class="table-header">
+                    <h2>Gestion de Usuarios</h2>
+                    <button class="btn-create" onclick="showUsuarioModal()">+ Crear Usuario</button>
+                </div>
+                <div class="table-wrapper">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nombre</th>
+                                <th>Email</th>
+                                <th>Rol</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="usuarios-tbody"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- TAB: Materias -->
+            <div class="tab-content" id="materias-content" style="display:none;">
+                <div class="table-header">
+                    <h2>Gestion de Materias</h2>
+                    <button class="btn-create" onclick="showMateriaModal()">+ Crear Materia</button>
+                </div>
+                <div class="table-wrapper">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nombre</th>
+                                <th>Codigo</th>
+                                <th>Profesor</th>
+                                <th>Creditos</th>
+                                <th>Inscritos</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="materias-tbody"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- TAB: Inscripciones -->
+            <div class="tab-content" id="inscripciones-content" style="display:none;">
+                <div class="table-header">
+                    <h2>Gestion de Inscripciones</h2>
+                    <button class="btn-create" onclick="showInscripcionModal()">+ Crear Inscripcion</button>
+                </div>
+                <div class="table-wrapper">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Estudiante</th>
+                                <th>Materia</th>
+                                <th>Estado</th>
+                                <th>Fecha</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="inscripciones-tbody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </main>
-    <script src="../js/app.js"></script>
+
+    <!-- MODAL: Usuario -->
+    <div class="modal-overlay" id="usuario-modal" style="display:none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="usuario-modal-title">Crear Usuario</h3>
+                <button class="modal-close" onclick="closeUsuarioModal()">&times;</button>
+            </div>
+            <form id="usuario-form" onsubmit="submitUsuario(event)">
+                <div class="form-group">
+                    <label>Nombre Completo</label>
+                    <input type="text" id="usuario-nombre" required>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="usuario-email" required>
+                </div>
+                <div class="form-group" id="usuario-password-group">
+                    <label>Contrasena</label>
+                    <input type="password" id="usuario-password" minlength="6">
+                </div>
+                <div class="form-group">
+                    <label>Rol</label>
+                    <select id="usuario-rol" required>
+                        <option value="estudiante">Estudiante</option>
+                        <option value="profesor">Profesor</option>
+                        <option value="admin">Admin</option>
+                    </select>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn-cancel" onclick="closeUsuarioModal()">Cancelar</button>
+                    <button type="submit" class="btn-save">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL: Materia -->
+    <div class="modal-overlay" id="materia-modal" style="display:none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="materia-modal-title">Crear Materia</h3>
+                <button class="modal-close" onclick="closeMateriaModal()">&times;</button>
+            </div>
+            <form id="materia-form" onsubmit="submitMateria(event)">
+                <div class="form-group">
+                    <label>Nombre</label>
+                    <input type="text" id="materia-nombre" required>
+                </div>
+                <div class="form-group">
+                    <label>Codigo</label>
+                    <input type="text" id="materia-codigo" required>
+                </div>
+                <div class="form-group">
+                    <label>Descripcion</label>
+                    <textarea id="materia-descripcion" rows="3"></textarea>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Creditos</label>
+                        <input type="number" id="materia-creditos" value="3" min="1" max="10">
+                    </div>
+                    <div class="form-group">
+                        <label>Semestre</label>
+                        <input type="number" id="materia-semestre" value="1" min="1" max="12">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Profesor</label>
+                    <select id="materia-profesor">
+                        <option value="">Sin asignar</option>
+                    </select>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn-cancel" onclick="closeMateriaModal()">Cancelar</button>
+                    <button type="submit" class="btn-save">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL: Inscripcion -->
+    <div class="modal-overlay" id="inscripcion-modal" style="display:none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Crear Inscripcion</h3>
+                <button class="modal-close" onclick="closeInscripcionModal()">&times;</button>
+            </div>
+            <form id="inscripcion-form" onsubmit="submitInscripcion(event)">
+                <div class="form-group">
+                    <label>Estudiante</label>
+                    <select id="inscripcion-estudiante" required>
+                        <option value="">Seleccionar estudiante</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Materia</label>
+                    <select id="inscripcion-materia" required>
+                        <option value="">Seleccionar materia</option>
+                    </select>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn-cancel" onclick="closeInscripcionModal()">Cancelar</button>
+                    <button type="submit" class="btn-save">Inscribir</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="../js/api.js?v=2"></script>
+    <script src="../js/app.js?v=2"></script>
+    <script src="../js/dashboard-admin.js?v=2"></script>
 </body>
 </html>

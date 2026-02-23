@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(dir:*)",
+      "Bash(docker:*)",
+      "Bash(docker-compose:*)",
+      "Bash(netstat:*)",
+      "Bash(findstr:*)",
+      "Bash(timeout:*)",
+      "Bash(ping:*)",
+      "Bash(curl:*)",
+      "Bash(ADMIN_TOKEN=\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhZG1pbkBlZHVjb25uZWN0LmNvbSIsInJvbCI6ImFkbWluIiwiaWF0IjoxNzcwNzg4OTUyLCJleHAiOjE3NzEzOTM3NTJ9.bYJeqQen2C3GVsgZXtvV-6dZjLaIU0DIYjhEP-Eq8Hk\":*)",
+      "Bash(STUDENT_TOKEN=\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZW1haWwiOiJjYXJsb3NAZWplbXBsby5jb20iLCJyb2wiOiJlc3R1ZGlhbnRlIiwiaWF0IjoxNzcwNzg4OTU5LCJleHAiOjE3NzEzOTM3NTl9.Fc-PGY6DHP-A_j9x4NYQ623ws29qvMpukRqikoTT-vI\":*)",
+      "Bash(python -c:*)"
+    ]
+  }
+}
